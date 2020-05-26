@@ -25,7 +25,7 @@ SECRET_KEY = 'fgb+h4tvi7*s2i_l^#dhkbhl(vo@!uop0pt5-csl-5usb_-r1b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['LoudliEnv.eba-uzi7ahkv.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
