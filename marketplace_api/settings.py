@@ -25,7 +25,7 @@ SECRET_KEY = 'fgb+h4tvi7*s2i_l^#dhkbhl(vo@!uop0pt5-csl-5usb_-r1b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['loudli-env.eba-6gvkptcg.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['loudliEnv.eba-3saudezh.us-west-2.elasticbeanstalk.com']
 
 
 # Application definition
@@ -182,7 +182,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'uploaded_media')
 MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+# https://docs.djangoproject.com/en/3.0/howto/static-files/    dsdsds
 
 STATIC_URL = '/static/'
 
