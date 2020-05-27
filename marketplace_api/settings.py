@@ -58,6 +58,7 @@ MIDDLEWARE = [
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+"""
 CORS_ORIGIN_WHITELIST = (
     # TODO - set this properly for production
     'https://127.0.0.1:8080',
@@ -68,8 +69,8 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:8081',
     'https://192.168.0.32:8080',
     'http://loudli.s3-website.eu-west-3.amazonaws.com'
-
 )
+"""
 
 
 ROOT_URLCONF = 'marketplace_api.urls'
