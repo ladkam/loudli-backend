@@ -25,8 +25,7 @@ SECRET_KEY = 'fgb+h4tvi7*s2i_l^#dhkbhl(vo@!uop0pt5-csl-5usb_-r1b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['loud.eba-emn33mhm.us-west-2.elasticbeanstalk.com']
 
 # Application definition
 
@@ -58,7 +57,6 @@ MIDDLEWARE = [
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-"""
 CORS_ORIGIN_WHITELIST = (
     # TODO - set this properly for production
     'https://127.0.0.1:8080',
@@ -70,7 +68,6 @@ CORS_ORIGIN_WHITELIST = (
     'https://192.168.0.32:8080',
     'http://loudli.s3-website.eu-west-3.amazonaws.com'
 )
-"""
 
 
 ROOT_URLCONF = 'marketplace_api.urls'
