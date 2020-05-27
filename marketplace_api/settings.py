@@ -69,7 +69,8 @@ CORS_ORIGIN_WHITELIST = (
     'https://127.0.0.1:8001',
     'http://localhost:8081',
     'https://192.168.0.32:8080',
-    'http://loudli.s3-website.eu-west-3.amazonaws.com'
+    'http://loudli.s3-website.eu-west-3.amazonaws.com',
+    'http://docfko5nld64n.cloudfront.net'
 )
 
 
