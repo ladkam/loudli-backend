@@ -50,7 +50,7 @@ class Scraper(object):
         self.was_passed_instance = False
         prefs = {"download.default_directory": self.saveDirectory}
         options.add_experimental_option("prefs", prefs)
-        self.driver = webdriver.Chrome(executable_path='chromedriver',options=options)
+        #self.driver = webdriver.Chrome(executable_path='chromedriver',options=options)
         self.scroll_pause = scroll_pause
         self.loggedin =False
         self.scroll_increment = scroll_increment
