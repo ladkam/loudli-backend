@@ -11,6 +11,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 import os
 import hashlib
 import time
+from pathlib import Path
+
+
 
 
 class Scraper(object):
@@ -43,8 +46,8 @@ class Scraper(object):
 
         ts = hex(int(time.time()))+podcast
         self.saveDirectory = os.path.join(os.getcwd(),'imported',ts)
+        Path(self.saveDirectory).mkdir(parents=True, exist_ok=True)
         os.mkdir(self.saveDirectory)
-        print(self.saveDirectory)
         options = webdriver.ChromeOptions()
         prefs = {"download.default_directory": self.saveDirectory}
         options.add_experimental_option("prefs", prefs)
