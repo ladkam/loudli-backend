@@ -41,10 +41,8 @@ class Scraper(object):
             self.driver.implicitly_wait(15)
             return
 
-
-        hash = hashlib.sha1()
-        hash.update(str(time.time())+podcast)
-        self.saveDirectory = os.path.join(os.getcwd(),hash.hexdigest())
+        ts = hex(int(time.time()))+podcast
+        self.saveDirectory = os.path.join(os.getcwd(),'imported',ts)
         os.mkdir(self.saveDirectory)
         print(self.saveDirectory)
         options = webdriver.ChromeOptions()
