@@ -25,7 +25,7 @@ class Scraper(object):
         - timeout {float}: time to wait for page to load first batch of async content
     """
 
-    def __init__(self,podcast,username,password,scraperInstance=None, driver = webdriver.Chrome(executable_path='C:/path/to/chromedriver.exe'), scroll_pause=0.05, scroll_increment=200, timeout=3000):
+    def __init__(self,podcast,username,password,scraperInstance=None, driver = selenium.webdriver.Chrome(), scroll_pause=0.05, scroll_increment=200, timeout=3000):
         if type(self) is Scraper:
             raise Exception(
                 'Scraper is an abstract class and cannot be instantiated directly')
