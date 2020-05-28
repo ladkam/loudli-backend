@@ -25,13 +25,13 @@ class Scraper(object):
         - timeout {float}: time to wait for page to load first batch of async content
     """
 
-    def __init__(self,podcast,username,password,scraperInstance=None, driver = selenium.webdriver.Chrome(), scroll_pause=0.05, scroll_increment=200, timeout=3000):
+    def __init__(self,podcast,username,password,scraperInstance=None, driver = selenium.webdriver.Chrome, scroll_pause=0.05, scroll_increment=200, timeout=3000):
         if type(self) is Scraper:
             raise Exception(
                 'Scraper is an abstract class and cannot be instantiated directly')
         if scraperInstance:
             self.was_passed_instance = True
-            self.driver = selenium.webdriver.Chrome()
+            self.driver = scraperInstance.driver
             self.scroll_increment = scraperInstance.scroll_increment
             self.timeout = scraperInstance.timeout
             self.scroll_pause = scraperInstance.scroll_pause
@@ -40,9 +40,10 @@ class Scraper(object):
             return
 
         relativeDir = 'temp'+podcast
-        self.saveDirectory = os.path.join(os.getcwd(),relativeDir)
+        self.saveDirectory = os.join(os.getcwd(),relativeDir)
         os.mkdir(self.saveDirectory)
         print(self.saveDirectory)
+        os.mkdir(self.saveDirectory)
         print('file created')
         options = webdriver.ChromeOptions()
         prefs = {"download.default_directory": self.saveDirectory}
@@ -50,7 +51,7 @@ class Scraper(object):
         self.was_passed_instance = False
         prefs = {"download.default_directory": self.saveDirectory}
         options.add_experimental_option("prefs", prefs)
-        #self.driver = webdriver.Chrome(executable_path='chromedriver',options=options)
+        self.driver = webdriver.Chrome(options=options)
         self.scroll_pause = scroll_pause
         self.loggedin =False
         self.scroll_increment = scroll_increment
