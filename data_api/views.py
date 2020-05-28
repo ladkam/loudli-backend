@@ -6,7 +6,7 @@ from .serializers import UserSerializer,\
     UserProfileInfoSerializer,AdSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer
 from rest_framework import generics
-from .models import Podcast,UserProfileInfo,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode
+from .models import Podcast,UserProfileInfo,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
@@ -168,7 +168,7 @@ class PodcastatList(APIView):
         return Response(serializer.data)
 
 class EpisodeList(APIView):
-    def get(self, request, format=None):
+    def post(self, request, format=None):
         podcastFilter = Podcast.objects.get(pk=request.data.__getitem__('podcast'))
         EpisodesList = Episode.objects.filter(podcast=podcastFilter)
         serializer = EpisodeSerializer(EpisodesList, many=True)
