@@ -63,6 +63,7 @@ class Scraper(object):
         self.timeout = timeout
         self.driver.set_window_size(1920, 1080)
 
+
     def login(self,url,field_location):
         self.driver.get(url)
         self.driver.implicitly_wait(15)

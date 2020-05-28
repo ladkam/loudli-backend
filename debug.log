@@ -4208,3 +4208,195 @@ Traceback (most recent call last):
 selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of ChromeDriver only supports Chrome version 79
 
 "POST /api/episodestats/ HTTP/1.1" 500 17513
+Internal Server Error: /api/episodes/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py", line 172, in get
+    EpisodesList = Episode.objects.get(pk=request.data.__getitem__('podcast'))
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/query.py", line 417, in get
+    self.model._meta.object_name
+data_api.models.Episode.DoesNotExist: Episode matching query does not exist.
+"GET /api/episodes/ HTTP/1.1" 500 16504
+Internal Server Error: /api/episodes/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py", line 172, in get
+    EpisodesList = Episode.objects.get(podcast=request.data.__getitem__('podcast'))
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/query.py", line 417, in get
+    self.model._meta.object_name
+data_api.models.Episode.DoesNotExist: Episode matching query does not exist.
+"GET /api/episodes/ HTTP/1.1" 500 16509
+Internal Server Error: /api/episodes/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py", line 172, in get
+    EpisodesList = Episode.objects.get(podcast=request.data.__getitem__('podcast'))
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/query.py", line 417, in get
+    self.model._meta.object_name
+data_api.models.Episode.DoesNotExist: Episode matching query does not exist.
+"GET /api/episodes/ HTTP/1.1" 500 16509
+Internal Server Error: /api/episodes/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py", line 172, in get
+    EpisodesList = Episode.objects.get(podcast=request.data.__getitem__('podcast'))
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/query.py", line 422, in get
+    num if not limit or num < limit else 'more than %s' % (limit - 1),
+data_api.models.Episode.MultipleObjectsReturned: get() returned more than one Episode -- it returned 10!
+"GET /api/episodes/ HTTP/1.1" 500 16603
+Internal Server Error: /api/episodes/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py", line 172, in get
+    EpisodesList = Episode.objects.get(podcast=request.data.__getitem__('podcast'))
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/query.py", line 422, in get
+    num if not limit or num < limit else 'more than %s' % (limit - 1),
+data_api.models.Episode.MultipleObjectsReturned: get() returned more than one Episode -- it returned 10!
+"GET /api/episodes/ HTTP/1.1" 500 16542
+Internal Server Error: /api/episodes/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py", line 172, in get
+    EpisodesList = Episode.objects.get(podcast=request.data.__getitem__('podcast'))
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/query.py", line 422, in get
+    num if not limit or num < limit else 'more than %s' % (limit - 1),
+data_api.models.Episode.MultipleObjectsReturned: get() returned more than one Episode -- it returned 10!
+"GET /api/episodes/ HTTP/1.1" 500 16547
+Internal Server Error: /api/episodes/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py", line 173, in get
+    EpisodesList = Episode.object.filter(podcast=podcastFilter)
+AttributeError: type object 'Episode' has no attribute 'object'
+"GET /api/episodes/ HTTP/1.1" 500 16103

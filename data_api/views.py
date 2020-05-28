@@ -167,10 +167,13 @@ class PodcastatList(APIView):
             serializer = EpisodeStatSerializer(EpisodeStatData, many=True)
         return Response(serializer.data)
 
-class EpisodeList(generics.ListCreateAPIView):
-    queryset = Episode.objects.all()
-    serializer_class = EpisodeSerializer
-    filterset_fields = ['podcast']
+class EpisodeList(APIView):
+    def get(self, request, format=None):
+        podcastFilter = Podcast.objects.get(pk=request.data.__getitem__('podcast'))
+        EpisodesList = Episode.objects.filter(podcast=podcastFilter)
+        serializer = EpisodeSerializer(EpisodesList, many=True)
+        return Response(serializer.data)
+
 
 class UpdatePodcastEpisodes(APIView):
     def post(self,request):
