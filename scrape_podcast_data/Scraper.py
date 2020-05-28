@@ -9,6 +9,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 import os
+import hashlib
+import time
 
 
 class Scraper(object):
@@ -39,11 +41,12 @@ class Scraper(object):
             self.driver.implicitly_wait(15)
             return
 
-        relativeDir = 'temp'+podcast
-        self.saveDirectory = os.path.join(os.getcwd(),relativeDir)
+
+        hash = hashlib.sha1()
+        hash.update(str(time.time())+podcast)
+        self.saveDirectory = os.path.join(os.getcwd(),hash)
         os.mkdir(self.saveDirectory)
         print(self.saveDirectory)
-        print('file created')
         options = webdriver.ChromeOptions()
         prefs = {"download.default_directory": self.saveDirectory}
         options.add_experimental_option("prefs", prefs)
