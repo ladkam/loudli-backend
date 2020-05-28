@@ -48,6 +48,7 @@ class Scraper(object):
         self.saveDirectory = os.path.join(os.getcwd(),'imported',ts)
         Path(self.saveDirectory).mkdir(parents=True, exist_ok=True)
         options = webdriver.ChromeOptions()
+        options.headless = True
         prefs = {"download.default_directory": self.saveDirectory}
         options.add_experimental_option("prefs", prefs)
         self.was_passed_instance = False
