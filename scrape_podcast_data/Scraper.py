@@ -31,7 +31,7 @@ class Scraper(object):
                 'Scraper is an abstract class and cannot be instantiated directly')
         if scraperInstance:
             self.was_passed_instance = True
-            self.driver = webdriver.Chrome(executable_path='chromedriver')
+            self.driver = selenium.webdriver.Chrome()
             self.scroll_increment = scraperInstance.scroll_increment
             self.timeout = scraperInstance.timeout
             self.scroll_pause = scraperInstance.scroll_pause
