@@ -39,9 +39,10 @@ class Scraper(object):
             self.driver.implicitly_wait(15)
             return
 
-        self.saveDirectory = '/temp/'+podcast
-        print(self.saveDirectory)
+        relativeDir = 'temp'+podcast
+        self.saveDirectory = os.path.join(os.getcwd(),relativeDir)
         os.mkdir(self.saveDirectory)
+        print(self.saveDirectory)
         print('file created')
         options = webdriver.ChromeOptions()
         prefs = {"download.default_directory": self.saveDirectory}
