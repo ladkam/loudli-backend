@@ -44,7 +44,7 @@ class Scraper(object):
 
         hash = hashlib.sha1()
         hash.update(str(time.time())+podcast)
-        self.saveDirectory = os.path.join(os.getcwd(),hash)
+        self.saveDirectory = os.path.join(os.getcwd(),hash.hexdigest())
         os.mkdir(self.saveDirectory)
         print(self.saveDirectory)
         options = webdriver.ChromeOptions()
