@@ -40,7 +40,7 @@ class Scraper(object):
             return
 
         relativeDir = 'temp'+podcast
-        self.saveDirectory = os.join(os.getcwd(),relativeDir)
+        self.saveDirectory = os.path.join(os.getcwd(),relativeDir)
         os.mkdir(self.saveDirectory)
         print(self.saveDirectory)
         os.mkdir(self.saveDirectory)
