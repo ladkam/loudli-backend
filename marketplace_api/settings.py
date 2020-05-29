@@ -114,7 +114,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
-            'level': 'ERROR',
+            'level': 'ERROR',git l
             'class': 'logging.FileHandler',
             'filename': 'debug.log',
         },
