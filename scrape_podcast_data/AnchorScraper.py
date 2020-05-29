@@ -12,6 +12,9 @@ import os
 import pandas as pd
 import shutil
 import logging
+import logging
+
+logger = logging.getLogger('analyzer')
 
 
 
@@ -22,7 +25,6 @@ class AnchorScraper(Scraper):
     """
 
     def scrape(self):
-        logger = logging.getLogger("analyzer")
         url="https://anchor.fm/login"
         self.submit_ = {
             'type': 'xpath',
@@ -31,13 +33,15 @@ class AnchorScraper(Scraper):
             'submit': "//button[@type='submit']"
         }
         field_location = self.submit_
-        logger.warning("Trying logging in stats")
+        logger.info("Trying logging in to get stats")
         self.login(url,field_location)
         if not self.loggedin:
+            logger.error("Login failed")
             return []
         episode_list = self.get_episodes()
+        logger.info("Getting the stats")
         self.get_stats(episode_list)
-        print('{} episode(s) found'.format(len(episode_list)))
+        logger.info('{} episode(s) found'.format(len(episode_list)))
         return self.read_data()
 
     def read_data(self):

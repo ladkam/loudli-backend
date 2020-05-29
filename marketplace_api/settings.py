@@ -148,12 +148,16 @@ LOGGING = {
             'handlers': ['file'],
             'level': 'INFO',
             'propagate': True,
+            "formatter": "verbose",
+
         },
     'analyzer': {
             'handlers': ['file'],
             'level': 'INFO',
             'propagate': True,
-        },
+        "formatter": "verbose",
+
+    },
 
     },
 }

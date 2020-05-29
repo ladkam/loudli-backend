@@ -142,13 +142,14 @@ class PodcastatList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        logger.warning("Recieved request to add data to podcast"+request.data.__getitem__('podcast'))
+        logger.warning("Recieved request to add data to podcast "+request.data.__getitem__('podcast'))
         PodcastToAdd = Podcast.objects.get(pk=request.data.__getitem__('podcast'))
         stats=[]
-        print(PodcastToAdd)
+
         with AnchorScraper(podcast=request.data.__getitem__('podcast'),username=request.data.__getitem__('username'),password=request.data.__getitem__('password')) as Anchor:
             df = Anchor.scrape()
             if len(df)==0:
+                logger.info('data receieved' + str(len(df))+'lines fetched')
                 return Response({'login error'}, status=status.HTTP_400_BAD_REQUEST)
             nbEpisodes = len(df['episode'].unique())
             plays=df['Plays'].sum()
