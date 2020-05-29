@@ -13,6 +13,9 @@ import hashlib
 import time
 from pathlib import Path
 
+import logging
+logger = logging.getLogger('analyzer')
+
 
 
 
@@ -66,22 +69,27 @@ class Scraper(object):
 
     def login(self,url,field_location):
         self.driver.get(url)
-        self.driver.implicitly_wait(15)
+        self.driver.implicitly_wait(20)
+        logger.error('login started')
         if field_location['type'] == 'xpath':
+            logger.info('login started type 1')
             userField = WebDriverWait(self.driver, 10).until(ec.visibility_of_element_located((By.XPATH, field_location['username'])))
             passwordField = WebDriverWait(self.driver, 10).until(
                 ec.visibility_of_element_located((By.XPATH, field_location['password'])))
             submitButton = WebDriverWait(self.driver, 10).until(
                 ec.visibility_of_element_located((By.XPATH, field_location['submit'])))
         if field_location['type'] == 'name':
+            logger.info('login started type 2')
             userField = self.driver.find_element_by_name(field_location['username'])
             passwordField = self.driver.find_element_by_name(field_location['password'])
             submitButton = self.driver.find_element_by_name(field_location['submit'])
+        logger.info('Typing stated')
         userField.send_keys(self.username)
         passwordField.send_keys(self.password)
         submitButton.click()
         sleep(5)
         if self.driver.current_url==url:
+            logger.info('still in url' + url)
             self.loggedin = False
         else:
             self.loggedin = True
