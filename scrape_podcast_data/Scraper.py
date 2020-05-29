@@ -91,6 +91,7 @@ class Scraper(object):
         passwordField.send_keys(self.password)
         submitButton.click()
         self.driver.implicitly_wait(20)
+        self.sleep(20)
         if self.driver.current_url==url:
             logger.info('still in url' + url)
             self.loggedin = False
