@@ -24,7 +24,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('api/', admin.site.urls),
-    path('api/podcasts/', views.PodcastsList.as_view()),
+    path('/', views.PodcastsList.as_view()),
     path('api/podcasts/<int:pk>/', views.PodcastsDetail.as_view()),
     path('api/usersInfo/', views.UserProfileInfoList.as_view()),
     path('api/usersInfo/<int:pk>/', views.UserProfileInfoDetail.as_view()),

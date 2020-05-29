@@ -118,7 +118,7 @@ LOGGING = {
     },
     "handlers": {
         "analyzer": {
-            "level": "DEBUG",
+            "level": "ERROR",
             "class": "logging.FileHandler",
             "filename": "/opt/python/log/analyzer.log",
             "formatter": "verbose",
