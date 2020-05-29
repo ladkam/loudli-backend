@@ -133,9 +133,12 @@ LOGGING = {
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    "formatters": {
+        "verbose": {"format": "%(asctime)s %(levelname)s %(module)s: %(message)s"}
+    },
     'handlers': {
         'file': {
-            'level': 'ERROR',
+            'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': 'debug.log',
         },
@@ -143,11 +146,18 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'DEBUG',
+            'level': 'INFO',
             'propagate': True,
         },
+    'analyzer': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+
     },
 }
+
 
 
 # Password validation
