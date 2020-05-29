@@ -11,6 +11,7 @@ from .utils import AnyEC
 import os
 import pandas as pd
 import shutil
+import logging
 
 
 
@@ -21,6 +22,7 @@ class AnchorScraper(Scraper):
     """
 
     def scrape(self):
+        logger = logging.getLogger("analyzer")
         url="https://anchor.fm/login"
         self.submit_ = {
             'type': 'xpath',
@@ -29,6 +31,7 @@ class AnchorScraper(Scraper):
             'submit': "//button[@type='submit']"
         }
         field_location = self.submit_
+        logger.warning("Trying logging in stats")
         self.login(url,field_location)
         if not self.loggedin:
             return []

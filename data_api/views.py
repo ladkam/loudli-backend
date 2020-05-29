@@ -11,7 +11,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
 from rest_framework import status
+
 import logging
+
+logger = logging.getLogger('analyzer')
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -124,21 +128,21 @@ class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Compaign.objects.all()
     serializer_class = CompaignSerializer
 
-class PodcastatList(APIView):
-    logger = logging.getLogger("analyzer")
-    logger.warning("Received request in stats")
+### new comment
 
-    def get(self, request, format=None,logger=logger):
+class PodcastatList(APIView):
+
+    def get(self, request, format=None):
         podcast = self.request.GET.get('podcast', '')
         if(podcast):
             stats = EpisodeStat.objects.filter(episode__podcast=podcast)
         else:
             stats = EpisodeStat.objects.all()
-        logger.warning("Received request for podcast stats")
         serializer = EpisodeStatSerializer(stats, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
+        logger.warning("Recieved request to add data to podcast"+request.data.__getitem__('podcast'))
         PodcastToAdd = Podcast.objects.get(pk=request.data.__getitem__('podcast'))
         stats=[]
         print(PodcastToAdd)
@@ -208,7 +212,11 @@ class PodcastStatsGeneral(generics.ListCreateAPIView):
 class PodcastPlays(APIView):
     def get(self,request):
         podcast = self.request.GET.get('podcast', '')
+        logger.info('requested info about ' +  podcast)
         if(podcast):
             Podcaststats = EpisodeStat.objects.filter(episode__podcast=podcast).values('date').annotate(played=Sum('plays')).order_by('date')
-            print(Podcaststats)
-        return Response(Podcaststats)
+            return Response(Podcaststats)
+        else:
+            return Response({'no plays for podcast'+podcast}, status=status.HTTP_400_BAD_REQUEST)
+
+

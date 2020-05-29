@@ -1,0 +1,8 @@
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
+Watching for file changes with StatReloader
+requested info about 83
+"GET /api/PodcastPlays/?podcast=83 HTTP/1.1" 200 2641
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
+Watching for file changes with StatReloader

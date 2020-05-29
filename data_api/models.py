@@ -5,6 +5,8 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from datetime import datetime
 import uuid
+import logging
+
 
 def scramble_uploaded_filename(instance, filename):
     extension = filename.split(".")[-1]
@@ -40,7 +42,7 @@ class Compaign(models.Model):
 
     def __str__(self):
         return self.name
-
+## New comment
 class Podcast(models.Model):
     name = models.CharField(max_length=256 )
     listenNotesId = models.CharField(max_length=256,blank=True,null=True)
