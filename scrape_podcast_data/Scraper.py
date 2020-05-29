@@ -85,6 +85,8 @@ class Scraper(object):
             passwordField = self.driver.find_element_by_name(field_location['password'])
             submitButton = self.driver.find_element_by_name(field_location['submit'])
         logger.info('Typing stated')
+        logger.info('user '+ self.username)
+        logger.info('psw ' + self.password)
         userField.send_keys(self.username)
         passwordField.send_keys(self.password)
         submitButton.click()
