@@ -70,6 +70,7 @@ class Scraper(object):
     def login(self,url,field_location):
         self.driver.get(url)
         self.driver.implicitly_wait(20)
+        sleep(20)
         logger.error('login started')
         if field_location['type'] == 'xpath':
             logger.info('login started type 1')
