@@ -23,6 +23,7 @@ from django.contrib import admin
 from django.conf import settings
 
 urlpatterns = [
+
     path('api/', admin.site.urls),
     path('api/podcasts/', views.PodcastsList.as_view()),
     path('api/podcasts/<int:pk>/', views.PodcastsDetail.as_view()),

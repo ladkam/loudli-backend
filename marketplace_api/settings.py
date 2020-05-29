@@ -109,7 +109,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-"""
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -123,12 +122,11 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'DEBUG',
+            'level': 'WARNING',
             'propagate': True,
         },
     },
 }
-"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
