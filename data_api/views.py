@@ -11,6 +11,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
 from rest_framework import status
+import logging
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -124,12 +125,16 @@ class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompaignSerializer
 
 class PodcastatList(APIView):
-    def get(self, request, format=None):
+    logger = logging.getLogger("analyzer")
+    logger.warning("Received request in stats")
+
+    def get(self, request, format=None,logger=logger):
         podcast = self.request.GET.get('podcast', '')
         if(podcast):
             stats = EpisodeStat.objects.filter(episode__podcast=podcast)
         else:
             stats = EpisodeStat.objects.all()
+        logger.warning("Received request for podcast stats")
         serializer = EpisodeStatSerializer(stats, many=True)
         return Response(serializer.data)
 
