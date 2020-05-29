@@ -99,7 +99,7 @@ class Scraper(object):
             self.loggedin = True
 
     def get_html(self, url,field_location):
-        self.load_profile_page(url)
+        self.load_profile_page(url)get
         return self.driver.page_source
 
     def scroll_to_bottom(self):

@@ -64,9 +64,7 @@ class AnchorScraper(Scraper):
         time.sleep(10)
         page = BeautifulSoup(self.driver.page_source, 'html.parser')
         episodes_list = all_or_default(page, 'a.css-qgnlbk', default=[])
-
         episodes_list = ['https://anchor.fm' + l["href"] for l in episodes_list]
-        print(episodes_list)
         return episodes_list
 
     def get_stats(self,episode_list):
@@ -80,4 +78,4 @@ class AnchorScraper(Scraper):
             file = WebDriverWait(self.driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME, 'css-c9fdjl')))
             time.sleep(0.1)
             file.click()
-            time.sleep(0.1)
+            time.sleep(30)
