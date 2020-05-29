@@ -109,12 +109,33 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {"format": "%(asctime)s %(levelname)s %(module)s: %(message)s"}
+    },
+    "handlers": {
+        "analyzer": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "/opt/python/log/analyzer.log",
+            "formatter": "verbose",
+        }
+    },
+    "loggers": {
+        "analyzer": {"handlers": ["analyzer"], "level": "DEBUG", "propagate": True}
+    },
+}
+
+"""
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
-            'level': 'WARNING',
+            'level': 'ERROR',
             'class': 'logging.FileHandler',
             'filename': 'debug.log',
         },
@@ -122,11 +143,12 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'WARNING',
+            'level': 'DEBUG',
             'propagate': True,
         },
     },
 }
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
