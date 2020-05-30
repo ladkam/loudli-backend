@@ -70,12 +70,12 @@ class AnchorScraper(Scraper):
     def get_stats(self,episode_list):
         for episode in episode_list:
             self.driver.get(episode)
-            sign_in_button = WebDriverWait(self.driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME, 'styles__dropdown___3aoQ6')))
+            sign_in_button = WebDriverWait(self.driver, 100).until(ec.visibility_of_element_located((By.CLASS_NAME, 'styles__dropdown___3aoQ6')))
             sign_in_button.click()
-            select = WebDriverWait(self.driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME, 'css-1f8f3uu')))
+            select = WebDriverWait(self.driver, 100).until(ec.visibility_of_element_located((By.CLASS_NAME, 'css-1f8f3uu')))
             select.click()
             self.scroll_to_bottom()
-            file = WebDriverWait(self.driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME, 'css-c9fdjl')))
+            file = WebDriverWait(self.driver, 100).until(ec.visibility_of_element_located((By.CLASS_NAME, 'css-c9fdjl')))
             time.sleep(0.1)
             file.click()
             time.sleep(30)

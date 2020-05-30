@@ -33,7 +33,7 @@ class Scraper(object):
         - timeout {float}: time to wait for page to load first batch of async content
     """
 
-    def __init__(self,podcast,username,password,scraperInstance=None, driver = selenium.webdriver.Chrome, scroll_pause=0.05, scroll_increment=200, timeout=3000):
+    def __init__(self,podcast,username,password,scraperInstance=None, driver = selenium.webdriver.Chrome, scroll_pause=0.05, scroll_increment=200, timeout=5000):
         if type(self) is Scraper:
             raise Exception(
                 'Scraper is an abstract class and cannot be instantiated directly')
@@ -51,7 +51,7 @@ class Scraper(object):
         self.saveDirectory = os.path.join(os.getcwd(),'imported',ts)
         Path(self.saveDirectory).mkdir(parents=True, exist_ok=True)
         options = webdriver.ChromeOptions()
-        options.headless = True
+        ##options.headless = True
         prefs = {"download.default_directory": self.saveDirectory}
         options.add_experimental_option("prefs", prefs)
         self.was_passed_instance = False
