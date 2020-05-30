@@ -149,9 +149,9 @@ class PodcastatList(APIView):
         with AnchorScraper(podcast=request.data.__getitem__('podcast'),username=request.data.__getitem__('username'),password=request.data.__getitem__('password')) as Anchor:
             df = Anchor.scrape()
             if len(df)==0:
-                logger.info('data receieved' + str(len(df))+'lines fetched')
                 return Response({'login error'}, status=status.HTTP_400_BAD_REQUEST)
             nbEpisodes = len(df['episode'].unique())
+            logger.info('data receieved' + str(len(df)) + 'lines fetched')
             plays=df['Plays'].sum()
             _, created = PodcastStatGeneral.objects.get_or_create(
                 plays=plays,
@@ -164,7 +164,7 @@ class PodcastatList(APIView):
                     podcast= PodcastToAdd
                 )
                 EpisodeToAdd = EpisodeImported.objects.get(pk=episodeCreated.id)
-                print('importing episode'+episode)
+                logger.info('importing episodes')
                 episodeData = df[df['episode']==episode]
                 for index, row in episodeData.iterrows():
                     stat, created = EpisodeStat.objects.get_or_create(
@@ -175,7 +175,9 @@ class PodcastatList(APIView):
                 stats.append(stat.id)
             EpisodeStatData = EpisodeStat.objects.filter(pk__in=stats)
             serializer = EpisodeStatSerializer(EpisodeStatData, many=True)
-        return Response(serializer.data)
+            logger.info('sending ok')
+            return Response({'Data Loaded'}, status=status.HTTP_200_OK)
+
 
 class EpisodeList(APIView):
     def post(self, request, format=None):
