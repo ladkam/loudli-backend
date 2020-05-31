@@ -45,6 +45,7 @@ class Compaign(models.Model):
 ## New comment
 class Podcast(models.Model):
     name = models.CharField(max_length=256 )
+    episodesLoadingStatus = models.CharField(max_length=20,blank=True,null=True)
     listenNotesId = models.CharField(max_length=256,blank=True,null=True)
     genre = models.CharField(max_length=256,null=True)
     editor = models.CharField(max_length=256,null=True)
