@@ -144,7 +144,7 @@ class PodcastatList(APIView):
     def post(self, request, format=None):
         logger.warning("Recieved request to add data to podcast "+request.data.__getitem__('podcast'))
         PodcastToAdd = Podcast.objects.get(pk=request.data.__getitem__('podcast'))
-        setattr(PodcastToAdd, 'episodesPodcastToAdd', 'Started')
+        setattr(PodcastToAdd, 'episodesLoadingStatus', 'Started')
         stats=[]
 
         with AnchorScraper(podcast=request.data.__getitem__('podcast'),username=request.data.__getitem__('username'),password=request.data.__getitem__('password')) as Anchor:
