@@ -145,12 +145,15 @@ class PodcastatList(APIView):
         logger.warning("Recieved request to add data to podcast "+request.data.__getitem__('podcast'))
         PodcastToAdd = Podcast.objects.get(pk=request.data.__getitem__('podcast'))
         setattr(PodcastToAdd, 'episodesLoadingStatus', 'Started')
-        logger.info('changed status of podcast Episode loading of podcast ' + PodcastToAdd)
+        PodcastToAdd.save()
+        logger.info('changed status of podcast Episode loading of podcast ')
         stats=[]
+
         with AnchorScraper(podcast=request.data.__getitem__('podcast'),username=request.data.__getitem__('username'),password=request.data.__getitem__('password')) as Anchor:
             df = Anchor.scrape()
             if len(df)==0:
                 setattr(PodcastToAdd, 'episodesLoadingStatus', 'Login Failed')
+                PodcastToAdd.save()
                 return Response({'login error'}, status=status.HTTP_400_BAD_REQUEST)
             nbEpisodes = len(df['episode'].unique())
             logger.info('data receieved' + str(len(df)) + 'lines fetched')
@@ -179,6 +182,7 @@ class PodcastatList(APIView):
             serializer = EpisodeStatSerializer(EpisodeStatData, many=True)
             logger.info('sending ok')
             setattr(PodcastToAdd, 'episodesLoadingStatus', 'Ok')
+            PodcastToAdd.save()
             logger.info('changed status of podcast Episode loading')
             return Response({'Data Loaded'}, status=status.HTTP_200_OK)
 
