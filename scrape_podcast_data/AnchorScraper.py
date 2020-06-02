@@ -56,7 +56,7 @@ class AnchorScraper(Scraper):
                 continue
         df['Time (UTC)']=pd.to_datetime(df['Time (UTC)'])
         shutil.rmtree(self.saveDirectory)
-        print('Reading data')
+        logger.info('{} lines found'.format(df.shape[0]))
         return df
 
     def get_episodes(self):
