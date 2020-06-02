@@ -70,7 +70,6 @@ class Scraper(object):
     def login(self,url,field_location):
         self.driver.get(url)
         self.driver.implicitly_wait(20)
-        sleep(20)
         logger.error('login started')
         if field_location['type'] == 'xpath':
             logger.info('login started type 1')
@@ -91,7 +90,6 @@ class Scraper(object):
         passwordField.send_keys(self.password)
         submitButton.click()
         self.driver.implicitly_wait(20)
-        time.sleep(20)
         if self.driver.current_url==url:
             logger.info('still in url' + url)
             self.loggedin = False

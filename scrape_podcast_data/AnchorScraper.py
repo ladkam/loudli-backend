@@ -83,9 +83,12 @@ class AnchorScraper(Scraper):
             file.click()
             logger.info('Download Started')
             files = 0
+            """
             while(files  != lenEL):
                 time.sleep(0.5)
                 files = len(glob.glob(os.path.join(self.saveDirectory,'*.csv')))
                 logger.info('not found')
-            logger.info('download ended')
+            logger.info('download endedls')
             lenEL=lenEL+1
+            """
+            time.sleep(10)
