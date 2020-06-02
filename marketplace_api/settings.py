@@ -132,7 +132,7 @@ LOGGING = {
         "analyzer": {"handlers": ["analyzer"], "level": "DEBUG", "propagate": True}
     },
 }
-"""
+
 
 LOGGING = {
     'version': 1,
@@ -165,7 +165,26 @@ LOGGING = {
 
     },
 }
+"""
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 
 # Password validation
