@@ -78,4 +78,5 @@ class AnchorScraper(Scraper):
             file = WebDriverWait(self.driver, 100).until(ec.visibility_of_element_located((By.CLASS_NAME, 'css-c9fdjl')))
             time.sleep(0.1)
             file.click()
-            time.sleep(30)
+            logger.info('Download Started')
+            time.sleep(50)
