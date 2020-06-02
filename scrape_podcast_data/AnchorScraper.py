@@ -50,6 +50,7 @@ class AnchorScraper(Scraper):
         for filename in os.listdir(directory):
             if filename:
                 temp = pd.read_csv(os.path.join(directory,filename),sep=',')
+                logger.info('{} lines found'.format(temp.shape[0]))
                 temp['episode'] = filename.split('_')[0]
                 df=pd.concat([df,temp],axis=0)
             else:
