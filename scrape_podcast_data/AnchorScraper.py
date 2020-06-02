@@ -13,6 +13,7 @@ import pandas as pd
 import shutil
 import logging
 import logging
+import glob
 
 logger = logging.getLogger('analyzer')
 
@@ -62,13 +63,14 @@ class AnchorScraper(Scraper):
 
     def get_episodes(self):
         self.driver.get('https://anchor.fm/dashboard/episodes')
-        time.sleep(10)
+        time.sleep(5)
         page = BeautifulSoup(self.driver.page_source, 'html.parser')
         episodes_list = all_or_default(page, 'a.css-qgnlbk', default=[])
         episodes_list = ['https://anchor.fm' + l["href"] for l in episodes_list]
         return episodes_list
 
     def get_stats(self,episode_list):
+        lenEL = 1
         for episode in episode_list:
             self.driver.get(episode)
             sign_in_button = WebDriverWait(self.driver, 100).until(ec.visibility_of_element_located((By.CLASS_NAME, 'styles__dropdown___3aoQ6')))
@@ -80,4 +82,8 @@ class AnchorScraper(Scraper):
             time.sleep(0.1)
             file.click()
             logger.info('Download Started')
-            time.sleep(50)
+            files = 0
+            while(files  != lenEL):
+                time.sleep(0.5)
+                files = len(glob.glob(os.path.join(self.saveDirectory,'*.csv')))
+            lenEL=lenEL+1

@@ -360,3 +360,136 @@ Watching for file changes with StatReloader
 "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
 "GET /static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 200 86184
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/Scraper.py changed, reloading.
+Watching for file changes with StatReloader
+Recieved request to add data to podcast 145
+changed status of podcast Episode loading of podcast 
+Trying logging in to get stats
+login started
+login started type 1
+Typing stated
+user amineladiki@gmail.com
+psw Dohatabali09
+Getting the stats
+Download Started
+Download Started
+2 episode(s) found
+83 lines found
+84 lines found
+167 lines found
+data receieved167lines fetched
+importing episodes
+importing episodes
+sending ok
+changed status of podcast Episode loading
+"POST /episodestats/ HTTP/1.1" 200 15
+Not Found: /episodestats/145/
+"POST /episodestats/145/ HTTP/1.1" 404 7144
+/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/Scraper.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/AnchorScraper.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/AnchorScraper.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/AnchorScraper.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/AnchorScraper.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/AnchorScraper.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/AnchorScraper.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /episodestats/146/
+"POST /episodestats/146/ HTTP/1.1" 404 7144
+Not Found: /episodestats/146/
+"POST /episodestats/146/ HTTP/1.1" 404 7144
+Not Found: /episodestats/146/
+"POST /episodestats/146/ HTTP/1.1" 404 7144
+Not Found: /episodestats/144/
+"POST /episodestats/144/ HTTP/1.1" 404 7144
+Not Found: /episodestats/145/
+"POST /episodestats/145/ HTTP/1.1" 404 7144
+Not Found: /episodestats/145/
+"POST /episodestats/145/ HTTP/1.1" 404 7144
+Not Found: /episodestats/145/
+"POST /episodestats/145/ HTTP/1.1" 404 7144
+Recieved request to add data to podcast 145
+changed status of podcast Episode loading of podcast 
+Trying logging in to get stats
+login started
+login started type 1
+Typing stated
+user amineladiki@gmail.com
+psw Dohatabali09
+Getting the stats
+Download Started
+Internal Server Error: /episodestats/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py", line 153, in post
+    df = Anchor.scrape()
+  File "/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/AnchorScraper.py", line 44, in scrape
+    self.get_stats(episode_list)
+  File "/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/AnchorScraper.py", line 85, in get_stats
+    while(files  != lenEL):
+UnboundLocalError: local variable 'files' referenced before assignment
+"POST /episodestats/ HTTP/1.1" 500 16781
+/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/AnchorScraper.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/AnchorScraper.py changed, reloading.
+Watching for file changes with StatReloader
+Recieved request to add data to podcast 145
+changed status of podcast Episode loading of podcast 
+Trying logging in to get stats
+login started
+login started type 1
+Typing stated
+user amineladiki@gmail.com
+psw Dohatabali09
+Getting the stats
+Download Started
+/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/AnchorScraper.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/AnchorScraper.py changed, reloading.
+Watching for file changes with StatReloader
+Recieved request to add data to podcast 145
+changed status of podcast Episode loading of podcast 
+Trying logging in to get stats
+login started
+login started type 1
+Typing stated
+user amineladiki@gmail.com
+psw Dohatabali09
+Getting the stats
+Download Started
+Download Started
+2 episode(s) found
+83 lines found
+84 lines found
+167 lines found
+data receieved167lines fetched
+importing episodes
+importing episodes
+sending ok
+changed status of podcast Episode loading
+"POST /episodestats/ HTTP/1.1" 200 15
+/Users/amine/work/django_api_marketPlace/marketplace_api/scrape_podcast_data/Scraper.py changed, reloading.
+Watching for file changes with StatReloader
