@@ -48,10 +48,11 @@ class AnchorScraper(Scraper):
     def read_data(self):
         directory = self.saveDirectory
         df = pd.DataFrame(columns=['Time (UTC)','Plays','episode'])
-        for filename in os.listdir(directory):
+        logger.info('reading')
+        for filename in glob.glob(os.path.join(self.saveDirectory,'*.csv')):
             logger.info(filename+'reading')
             if filename:
-                temp = pd.read_csv(os.path.join(directory,filename),sep=',')
+                temp = pd.read_csv(filename,sep=',')
                 logger.info('{} lines found'.format(temp.shape[0]))
                 temp['episode'] = filename.split('_')[0]
                 df=pd.concat([df,temp],axis=0)
