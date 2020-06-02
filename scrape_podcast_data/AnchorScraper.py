@@ -49,6 +49,7 @@ class AnchorScraper(Scraper):
         directory = self.saveDirectory
         df = pd.DataFrame(columns=['Time (UTC)','Plays','episode'])
         for filename in os.listdir(directory):
+            logger.info(filename+'reading')
             if filename:
                 temp = pd.read_csv(os.path.join(directory,filename),sep=',')
                 logger.info('{} lines found'.format(temp.shape[0]))
@@ -57,7 +58,7 @@ class AnchorScraper(Scraper):
             else:
                 continue
         df['Time (UTC)']=pd.to_datetime(df['Time (UTC)'])
-        shutil.rmtree(self.saveDirectory)
+        #shutil.rmtree(self.saveDirectory)
         logger.info('{} lines found'.format(df.shape[0]))
         return df
 
@@ -91,4 +92,4 @@ class AnchorScraper(Scraper):
             logger.info('download endedls')
             lenEL=lenEL+1
             """
-            time.sleep(10)
+            time.sleep(30)
