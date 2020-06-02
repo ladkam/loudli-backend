@@ -333,3 +333,20 @@ django.db.utils.OperationalError: could not translate host name "loudly.ckqy6jm3
 "GET /api/episodestats/?podcast=110 HTTP/1.1" 200 2
 "GET /api/episodestats/?podcast=112 HTTP/1.1" 200 2
 "GET /api/episodestats/?podcast=112 HTTP/1.1" 200 2
+Watching for file changes with StatReloader
+Not Found: /
+"GET / HTTP/1.1" 404 4044
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4095
+/Users/amine/work/django_api_marketPlace/marketplace_api/marketplace_api/urls.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/marketplace_api/urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 302 0
+"GET /login/?next=/ HTTP/1.1" 200 1889
+"GET /static/admin/css/login.css HTTP/1.1" 200 1233
+"GET /static/admin/css/responsive.css HTTP/1.1" 200 18052
+"GET /static/admin/css/base.css HTTP/1.1" 200 16378
+"GET /static/admin/css/fonts.css HTTP/1.1" 200 423
+"GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 200 85692
+"GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 200 85876
