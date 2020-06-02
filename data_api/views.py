@@ -216,8 +216,6 @@ class PodcastStatsGeneral(generics.ListCreateAPIView):
         nb_podcasts = len(podcasts)
         episodes=EpisodeStat.objects.filter(episode__podcast__author=user.id)
         nb_plays = sum([e.plays for e in episodes])
-
-
         return Response({'nb_episodes':nb_episodes,'nb_podcasts':nb_podcasts,'nb_plays':nb_plays})
 
 class PodcastPlays(APIView):
