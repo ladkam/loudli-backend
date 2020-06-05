@@ -4320,3 +4320,7 @@ File /Users/amine/work/django_api_marketPlace/marketplace_api/marketplace_api/se
 /Users/amine/work/django_api_marketPlace/marketplace_api/marketplace_api/settings.py notified as changed. Signal results: [(<function translation_file_changed at 0x7fb5209bc6a8>, None)].
 /Users/amine/work/django_api_marketPlace/marketplace_api/marketplace_api/settings.py changed, reloading.
 Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
+Watching for file changes with StatReloader

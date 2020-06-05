@@ -142,6 +142,7 @@ class PodcastatList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
+        podcastId = request.data.__getitem__('podcast')
         logger.warning("Recieved request to add data to podcast "+request.data.__getitem__('podcast'))
         PodcastToAdd = Podcast.objects.get(pk=request.data.__getitem__('podcast'))
         setattr(PodcastToAdd, 'episodesLoadingStatus', 'Started')
@@ -171,6 +172,9 @@ class PodcastatList(APIView):
                 EpisodeToAdd = EpisodeImported.objects.get(pk=episodeCreated.id)
                 logger.info('importing episodes')
                 episodeData = df[df['episode']== episode]
+                EpisodeStatsOld = EpisodeStat.objects.filter(podcast=podcastId)
+                if len(EpisodeStatsOld)>0:
+                    EpisodeStatsOld.delete()
                 for index, row in episodeData.iterrows():
                     stat, created = EpisodeStat.objects.get_or_create(
                         date = row['Time (UTC)'],
