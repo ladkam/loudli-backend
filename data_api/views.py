@@ -164,6 +164,9 @@ class PodcastatList(APIView):
                 nbEpisodes=nbEpisodes,
                 podcast=PodcastToAdd
             )
+            episodeOld = Episode.objects.filter(podcast=podcastId)
+            if len(episodeOld) > 0:
+                episodeOld.delete()
             for episode in df['episode'].unique():
                 episodeCreated, created = EpisodeImported.objects.get_or_create(
                     name= episode,
@@ -172,7 +175,7 @@ class PodcastatList(APIView):
                 EpisodeToAdd = EpisodeImported.objects.get(pk=episodeCreated.id)
                 logger.info('importing episodes')
                 episodeData = df[df['episode']== episode]
-                EpisodeStatsOld = EpisodeStat.objects.filter(podcast=podcastId)
+                EpisodeStatsOld = EpisodeStat.objects.filter(episode__podcast=podcastId)
                 if len(EpisodeStatsOld)>0:
                     EpisodeStatsOld.delete()
                 for index, row in episodeData.iterrows():

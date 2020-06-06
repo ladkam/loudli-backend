@@ -4325,3 +4325,156 @@ Watching for file changes with StatReloader
 /Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+"GET / HTTP/1.1" 302 0
+"GET /login/?next=/ HTTP/1.1" 200 1889
+"GET /static/admin/css/login.css HTTP/1.1" 200 1233
+"GET /static/admin/css/responsive.css HTTP/1.1" 200 18052
+"GET /static/admin/css/base.css HTTP/1.1" 200 16378
+"GET /static/admin/css/fonts.css HTTP/1.1" 200 423
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 7125
+"GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 200 85876
+"GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 200 85692
+"POST /login/?next=/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 9960
+"GET /static/admin/css/dashboard.css HTTP/1.1" 200 412
+"GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+"GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+"GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+"GET /static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 200 86184
+"GET /authtoken/token/ HTTP/1.1" 200 5941
+"GET /static/admin/css/changelists.css HTTP/1.1" 200 6190
+"GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 6918
+"GET /static/admin/js/jquery.init.js HTTP/1.1" 200 363
+"GET /static/admin/js/actions.js HTTP/1.1" 200 6766
+"GET /static/admin/js/core.js HTTP/1.1" 200 5723
+"GET /static/admin/js/urlify.js HTTP/1.1" 200 8941
+"GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1530
+"GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 280364
+"GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 128820
+"GET /jsi18n/ HTTP/1.1" 200 3223
+"GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+"GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+"GET / HTTP/1.1" 200 9960
+"GET /data_api/episode/ HTTP/1.1" 200 7631
+"GET /jsi18n/ HTTP/1.1" 200 3223
+"GET / HTTP/1.1" 200 9960
+"GET /data_api/podcast/ HTTP/1.1" 200 4771
+"GET /jsi18n/ HTTP/1.1" 200 3223
+"GET /data_api/podcast/184/change/ HTTP/1.1" 200 11950
+"GET /static/admin/js/change_form.js HTTP/1.1" 200 712
+"GET /static/admin/js/calendar.js HTTP/1.1" 200 7777
+"GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 495
+"GET /static/admin/css/forms.css HTTP/1.1" 200 8518
+"GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 20232
+"GET /static/admin/css/widgets.css HTTP/1.1" 200 10322
+"GET /jsi18n/ HTTP/1.1" 200 3223
+"GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+"GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+"GET /data_api/podcast/184/delete/ HTTP/1.1" 200 21786
+"GET /static/admin/js/cancel.js HTTP/1.1" 200 409
+"POST /data_api/podcast/184/delete/ HTTP/1.1" 302 0
+"GET /data_api/podcast/ HTTP/1.1" 200 4693
+"GET /jsi18n/ HTTP/1.1" 200 3223
+"GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+"GET /data_api/podcast/182/change/ HTTP/1.1" 200 12376
+"GET /jsi18n/ HTTP/1.1" 200 3223
+"GET /data_api/podcast/ HTTP/1.1" 200 4693
+"GET /data_api/podcast/176/change/ HTTP/1.1" 200 12109
+"GET /jsi18n/ HTTP/1.1" 200 3223
+"GET /data_api/podcast/ HTTP/1.1" 200 4693
+"GET /data_api/podcast/182/change/ HTTP/1.1" 200 12376
+"GET /jsi18n/ HTTP/1.1" 200 3223
+"GET /data_api/podcast/182/delete/ HTTP/1.1" 200 21613
+"GET /data_api/podcast/182/change/ HTTP/1.1" 200 12376
+"GET /data_api/podcast/ HTTP/1.1" 200 4693
+"GET /data_api/podcast/184/delete/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 10221
+"GET /static/admin/img/icon-alert.svg HTTP/1.1" 200 504
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
+Watching for file changes with StatReloader
+Recieved request to add data to podcast 185
+changed status of podcast Episode loading of podcast 
+Trying logging in to get stats
+login started
+login started type 1
+Typing stated
+user amineladiki@gmail.com
+psw Dohatabali09
+Getting the stats
+Download Started
+Download Started
+2 episode(s) found
+reading
+/Users/amine/work/django_api_marketPlace/marketplace_api/imported/0x5eda6d03185/Episode2_EpisodePlays_Invalid date-to-Invalid date.csvreading
+86 lines found
+/Users/amine/work/django_api_marketPlace/marketplace_api/imported/0x5eda6d03185/APodcastingTh_EpisodePlays_Invalid date-to-Invalid date.csvreading
+87 lines found
+173 lines found
+data receieved173lines fetched
+Internal Server Error: /episodestats/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py", line 170, in post
+    EpisodeStatsOld = EpisodeStat.objects.filter(podcast=podcastId)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1250, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1087, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1483, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'podcast' into field. Choices are: date, episode, episode_id, id, plays, updateDate
+"POST /episodestats/ HTTP/1.1" 500 18146
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
+Watching for file changes with StatReloader
+Recieved request to add data to podcast 185
+changed status of podcast Episode loading of podcast 
+Trying logging in to get stats
+login started
+login started type 1
+Typing stated
+user amineladiki@gmail.com
+psw Dohatabali09
+Getting the stats
+Download Started
+Download Started
+2 episode(s) found
+reading
+/Users/amine/work/django_api_marketPlace/marketplace_api/imported/0x5eda6de2185/Episode2_EpisodePlays_Invalid date-to-Invalid date.csvreading
+86 lines found
+/Users/amine/work/django_api_marketPlace/marketplace_api/imported/0x5eda6de2185/APodcastingTh_EpisodePlays_Invalid date-to-Invalid date.csvreading
+87 lines found
+173 lines found
+data receieved173lines fetched
+importing episodes
+sending ok
+changed status of podcast Episode loading
+"POST /episodestats/ HTTP/1.1" 200 15
+Watching for file changes with StatReloader
