@@ -4478,3 +4478,32 @@ sending ok
 changed status of podcast Episode loading
 "POST /episodestats/ HTTP/1.1" 200 15
 Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/models.py changed, reloading.
+Watching for file changes with StatReloader
+Bad Request: /Compaign/
+"POST /Compaign/ HTTP/1.1" 400 76
+Bad Request: /Compaign/
+"POST /Compaign/ HTTP/1.1" 400 41
+Bad Request: /Compaign/
+"POST /Compaign/ HTTP/1.1" 400 41
+Bad Request: /Compaign/
+"POST /Compaign/ HTTP/1.1" 400 41
+Bad Request: /Compaign/
+"POST /Compaign/ HTTP/1.1" 400 41
+Bad Request: /Compaign/
+"POST /Compaign/ HTTP/1.1" 400 41
+Bad Request: /Compaign/
+"POST /Compaign/ HTTP/1.1" 400 41
+Bad Request: /Compaign/
+"POST /Compaign/ HTTP/1.1" 400 41
+Bad Request: /Compaign/
+"POST /Compaign/ HTTP/1.1" 400 41
+Bad Request: /Compaign/
+"POST /Compaign/ HTTP/1.1" 400 41
+/Users/amine/work/django_api_marketPlace/marketplace_api/marketplace_api/settings.py changed, reloading.

@@ -8,9 +8,6 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 import logging
 
-
-
-
 def scramble_uploaded_filename(instance, filename):
     extension = filename.split(".")[-1]
     return "{}.{}".format(uuid.uuid4(), extension)
@@ -41,11 +38,12 @@ class Compaign(models.Model):
     name = models.CharField(max_length=256)
     startDate = models.DateField(auto_now=True)
     announcer = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.TextField(blank=True,null=True)
     compaignPicture = models.ImageField(blank=True,upload_to=scramble_uploaded_filename)
-
     def __str__(self):
         return self.name
-## New comment
+
+
 class Podcast(models.Model):
     name = models.CharField(max_length=256 )
     episodesLoadingStatus = models.CharField(max_length=20,blank=True,null=True,default=('Not initialized'))

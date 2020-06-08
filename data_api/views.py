@@ -116,13 +116,11 @@ class CompaignList(generics.ListCreateAPIView):
     queryset = Compaign.objects.all()
     serializer_class = CompaignSerializer
 
+"""
     def get_queryset(self):
-        """
-        This view should return a list of all the purchases
-        for the currently authenticated user.
-        """
         user = self.request.user
         return Compaign.objects.filter(announcer=user.id)
+"""
 
 class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Compaign.objects.all()

@@ -48,7 +48,7 @@ class EpisodeStatSerializer(serializers.ModelSerializer):
         fields =  '__all__'
 
 class CompaignSerializer(serializers.ModelSerializer):
-        announcer=UserSerializer()
+      ##  announcer=UserSerializer()
         class Meta:
             model = Compaign
             fields = '__all__'
