@@ -48,7 +48,7 @@ class Podcast(models.Model):
     name = models.CharField(max_length=256 )
     episodesLoadingStatus = models.CharField(max_length=20,blank=True,null=True,default=('Not initialized'))
     listenNotesId = models.CharField(max_length=256,blank=True,null=True)
-    genre = models.CharField(max_length=256,null=True)
+    genre = models.CharField(max_length=256,default='Other')
     editor = models.CharField(max_length=256,null=True)
     thumbnail = models.URLField(blank=True,null=True)
     podcastPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
