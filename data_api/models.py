@@ -45,7 +45,8 @@ class Compaign(models.Model):
 
 
 class Podcast(models.Model):
-    name = models.CharField(max_length=256 )
+    name = models.CharField(max_length=256)
+    tags = models.CharField(max_length=256,blank=True,null=True)
     episodesLoadingStatus = models.CharField(max_length=20,blank=True,null=True,default=('Not initialized'))
     listenNotesId = models.CharField(max_length=256,blank=True,null=True)
     genre = models.CharField(max_length=256,default='Other')
