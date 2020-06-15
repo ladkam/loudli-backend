@@ -37,6 +37,7 @@ class UserProfileInfo(models.Model):
 class Compaign(models.Model):
     name = models.CharField(max_length=256)
     startDate = models.DateField(auto_now=True)
+    type = models.TextField(blank=True,null=True)
     announcer = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField(blank=True,null=True)
     compaignPicture = models.ImageField(blank=True,upload_to=scramble_uploaded_filename)
