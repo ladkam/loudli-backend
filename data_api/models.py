@@ -34,15 +34,7 @@ class UserProfileInfo(models.Model):
 # Create your models here.
 """
 
-class Compaign(models.Model):
-    name = models.CharField(max_length=256)
-    startDate = models.DateField(auto_now=True)
-    type = models.TextField(blank=True,null=True)
-    announcer = models.ForeignKey(User, on_delete=models.CASCADE)
-    description = models.TextField(blank=True,null=True)
-    compaignPicture = models.ImageField(blank=True,upload_to=scramble_uploaded_filename)
-    def __str__(self):
-        return self.name
+
 
 
 class Podcast(models.Model):
@@ -67,6 +59,17 @@ class Podcast(models.Model):
             return u'<img src="%s" width="50" height="50" />' % self.podcastPicture.url
         else:
             return '(Sin imagen)'
+
+class Compaign(models.Model):
+    name = models.CharField(max_length=256)
+    startDate = models.DateField(auto_now=True)
+    type = models.TextField(blank=True,null=True)
+    announcer = models.ForeignKey(User, on_delete=models.CASCADE)
+    podcast = models.ForeignKey(Podcast,on_delete=models.CASCADE)
+    description = models.TextField(blank=True,null=True)
+    compaignPicture = models.ImageField(blank=True,upload_to=scramble_uploaded_filename)
+    def __str__(self):
+        return self.name
 
 class Episode(models.Model):
     podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
@@ -115,8 +118,8 @@ class Message(models.Model):
     sendDate = models.DateField(auto_now=True)
     text =  models.TextField()
     readFlag = models.BooleanField(default=False)
-    Announcer = models.ForeignKey(User, on_delete=models.CASCADE)
-    Podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
+    announcer = models.ForeignKey(User, on_delete=models.CASCADE)
+    podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
 
 
 
