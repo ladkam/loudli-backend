@@ -111,3 +111,12 @@ class Ad(models.Model):
     def __str__(self):
         return self.name
 
+class Message(models.Model):
+    sendDate = models.DateField(auto_now=True)
+    text =  models.TextField()
+    readFlag = models.BooleanField(default=False)
+    Announcer = models.ForeignKey(User, on_delete=models.CASCADE)
+    Podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
+
+
+

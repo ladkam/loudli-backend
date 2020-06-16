@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Podcast,UserProfileInfo,Ad,Compaign,EpisodeStat,PodcastStatGeneral,Episode
+from .models import Podcast,UserProfileInfo,Ad,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -70,3 +70,13 @@ class PodcastPlaysSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     date = serializers.DateField()
     plays = serializers.IntegerField(read_only=True)
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['url', 'username', 'email', 'groups']
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = '__all__'

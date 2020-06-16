@@ -4,9 +4,9 @@ from django.db.models import Sum
 from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,AdSerializer,CompaignSerializer,EpisodeStatSerializer,\
-    PodcastStatsGeneralSerializer,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer
+    PodcastStatsGeneralSerializer,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer
 from rest_framework import generics
-from .models import Podcast,UserProfileInfo,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat
+from .models import Podcast,UserProfileInfo,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
@@ -234,5 +234,22 @@ class PodcastPlays(APIView):
             return Response(Podcaststats)
         else:
             return Response({'no plays for podcast'+podcast}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class MessagesList(generics.ListCreateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        querytype=self.request.GET.get('type','')
+        if querytype=='podcaster':
+            return Ad.objects.filter(podcast__author=user.id)
+        if querytype == 'announcer':
+            return Ad.objects.filter(compaign__announcer=user.id)
+
 
 
