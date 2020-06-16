@@ -113,14 +113,13 @@ class AdDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AdSerializer
 
 class CompaignList(generics.ListCreateAPIView):
+
     queryset = Compaign.objects.all()
     serializer_class = CompaignSerializer
 
-"""
     def get_queryset(self):
         user = self.request.user
         return Compaign.objects.filter(announcer=user.id)
-"""
 
 class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Compaign.objects.all()
