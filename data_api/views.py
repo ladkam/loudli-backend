@@ -119,7 +119,14 @@ class CompaignList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Compaign.objects.filter(announcer=user.id)
+        if len(Compaign.objects.filter(podcast__author=user.id))!=0:
+            return Compaign.objects.filter(podcast__author=user.id)
+        if len(Compaign.objects.filter(announcer=user.id)) != 0:
+            return Compaign.objects.filter(announcer=user.id)
+
+
+
+
 
 class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Compaign.objects.all()
