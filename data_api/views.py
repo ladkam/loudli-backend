@@ -245,17 +245,13 @@ class PodcastPlays(APIView):
 class MessagesList(generics.ListCreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
     def get_queryset(self):
-        """
-        This view should return a list of all the purchases
-        for the currently authenticated user.
-        """
         user = self.request.user
-        querytype=self.request.GET.get('type','')
-        if querytype=='podcaster':
-            return Ad.objects.filter(podcast__author=user.id)
-        if querytype == 'announcer':
-            return Ad.objects.filter(compaign__announcer=user.id)
+        if len(Message.objects.filter(podcast__author=user.id)) != 0:
+            return Message.objects.filter(podcast__author=user.id)
+        if len(Message.objects.filter(announcer=user.id)) != 0:
+            return Message.objects.filter(announcer=user.id)
 
 
 
