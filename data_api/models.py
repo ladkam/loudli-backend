@@ -118,9 +118,6 @@ class Message(models.Model):
     sendDate = models.DateField(auto_now=True)
     text =  models.TextField()
     readFlag = models.BooleanField(default=False)
-    announcer = models.ForeignKey(User, on_delete=models.CASCADE)
-    podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
-    #compaign = models.ForeignKey(Compaign, on_delete=models.CASCADE)
-
-
+    compaign = models.ForeignKey(Compaign, on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE)
 

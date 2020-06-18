@@ -4,7 +4,7 @@ from django.db.models import Sum
 from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,AdSerializer,CompaignSerializer,EpisodeStatSerializer,\
-    PodcastStatsGeneralSerializer,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer
+    PodcastStatsGeneralSerializer,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,CompaignMessagesSerializer
 from rest_framework import generics
 from .models import Podcast,UserProfileInfo,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message
 from rest_framework.views import APIView
@@ -248,10 +248,13 @@ class MessagesList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        if len(Message.objects.filter(podcast__author=user.id)) != 0:
-            return Message.objects.filter(podcast__author=user.id)
-        if len(Message.objects.filter(announcer=user.id)) != 0:
-            return Message.objects.filter(announcer=user.id)
+        if len(Message.objects.filter(sender=user.id)) != 0:
+            return Message.objects.filter(sender=user.id)
+        if len(Message.objects.filter(compaign__announcer=user.id)) != 0:
+            return Message.objects.filter(compaign__announcer=user.id)
 
 
+class CompaignMessagesList(generics.ListCreateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = CompaignMessagesSerializer
 

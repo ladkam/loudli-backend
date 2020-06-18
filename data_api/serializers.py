@@ -80,3 +80,10 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = '__all__'
+
+
+class CompaignMessagesSerializer(serializers.ModelSerializer):
+    compaign=CompaignSerializer()
+    class Meta:
+        model = Message
+        fields = '__all__'
