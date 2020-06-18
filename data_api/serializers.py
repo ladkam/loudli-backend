@@ -17,7 +17,6 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ['url', 'name']
 
-
 class PodcastsSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
     class Meta:
@@ -40,26 +39,21 @@ class EpisodeImportedSerializer(serializers.ModelSerializer):
         model = Episode
         fields = '__all__'
 
-
 class EpisodeStatSerializer(serializers.ModelSerializer):
     episode = EpisodeSerializer(read_only=True)
     class Meta:
         model = EpisodeStat
         fields =  '__all__'
 
-class CompaignSerializer(serializers.ModelSerializer):
-      ##  announcer=UserSerializer()
-        class Meta:
-            model = Compaign
-            fields = '__all__'
 
+"""
 class AdSerializer(serializers.ModelSerializer):
     podcast = PodcastsSerializer()
     compaign=CompaignSerializer()
-
     class Meta:
         model = Ad
         fields = '__all__'
+"""
 
 class PodcastStatsGeneralSerializer(serializers.ModelSerializer):
     class Meta:
@@ -82,8 +76,17 @@ class MessageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CompaignMessagesSerializer(serializers.ModelSerializer):
+
+class CompaignSerializer(serializers.ModelSerializer):
+    ##  announcer=UserSerializer()
+    message_set = MessageSerializer(many=True)
+    class Meta:
+        model = Compaign
+        fields = ('id','name', 'message_set')
+
+class AdSerializer(serializers.ModelSerializer):
+    podcast = PodcastsSerializer()
     compaign=CompaignSerializer()
     class Meta:
-        model = Message
+        model = Ad
         fields = '__all__'

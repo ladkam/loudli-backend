@@ -40,7 +40,7 @@ urlpatterns = [
     path('PodcastPlays/',views.PodcastPlays.as_view()),
     path('UpdatePodcastEpisodes/', views.UpdatePodcastEpisodes.as_view()),
     path('Messages/',views.MessagesList.as_view()),
-    path('CompaignMessages/',views.CompaignMessagesList.as_view()),
+    path('Messages-details/',views.MessageDetail.as_view()),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 

@@ -4,7 +4,7 @@ from django.db.models import Sum
 from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,AdSerializer,CompaignSerializer,EpisodeStatSerializer,\
-    PodcastStatsGeneralSerializer,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,CompaignMessagesSerializer
+    PodcastStatsGeneralSerializer,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer
 from rest_framework import generics
 from .models import Podcast,UserProfileInfo,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message
 from rest_framework.views import APIView
@@ -101,6 +101,7 @@ class AdList(generics.ListCreateAPIView):
         """
         user = self.request.user
         querytype=self.request.GET.get('type','')
+
         if querytype=='podcaster':
             return Ad.objects.filter(podcast__author=user.id)
         if querytype == 'announcer':
@@ -119,12 +120,14 @@ class CompaignList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        if len(Compaign.objects.filter(podcast__author=user.id))!=0:
+        userType = UserProfileInfo.objects.get(user = user.id).type
+
+        print(userType)
+        if userType == 'Podcaster':
+            print('here')
             return Compaign.objects.filter(podcast__author=user.id)
-        if len(Compaign.objects.filter(announcer=user.id)) != 0:
+        else:
             return Compaign.objects.filter(announcer=user.id)
-
-
 
 
 
@@ -253,8 +256,8 @@ class MessagesList(generics.ListCreateAPIView):
         if len(Message.objects.filter(compaign__announcer=user.id)) != 0:
             return Message.objects.filter(compaign__announcer=user.id)
 
-
-class CompaignMessagesList(generics.ListCreateAPIView):
+class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Message.objects.all()
-    serializer_class = CompaignMessagesSerializer
+    serializer_class = MessageSerializer
+
 
