@@ -4,7 +4,7 @@ from django.db.models import Sum
 from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,AdSerializer,CompaignSerializer,EpisodeStatSerializer,\
-    PodcastStatsGeneralSerializer,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageOnlySerializer
+    PodcastStatsGeneralSerializer,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageOnlySerializer,UserProfileInfoGetSerializer
 from rest_framework import generics
 from .models import Podcast,UserProfileInfo,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message
 from rest_framework.views import APIView
@@ -18,26 +18,26 @@ logger = logging.getLogger('analyzer')
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
 
 class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = PodcastsSerializer
+class UserProfileInfoList(generics.ListCreateAPIView):
+    queryset = UserProfileInfo.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return UserProfileInfoSerializer
+        if self.request.method == 'GET':
+            return UserProfileInfoGetSerializer
+    def get_queryset(self):
+        user = self.request.user
+        return UserProfileInfo.objects.filter(user=user.id)
+
 
 
 class PodcastsList(generics.ListCreateAPIView):
@@ -53,40 +53,19 @@ class PodcastsListFilter(generics.ListCreateAPIView):
     serializer_class = PodcastsSerializer
 
     def get_queryset(self):
-        """
-        This view should return a list of all the purchases
-        for the currently authenticated user.
-        """
+
         user = self.request.user
         return Podcast.objects.filter(author=user.id)
-
 
 
 class PodcastsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Podcast.objects.all()
     serializer_class = PodcastsSerializer
 
-
-class UserProfileInfoList(generics.ListCreateAPIView):
-    queryset = UserProfileInfo.objects.all()
-    serializer_class = UserProfileInfoSerializer
-    def get_queryset(self):
-        """
-        This view should return a list of all the purchases
-        for the currently authenticated user.
-        """
-        user = self.request.user
-        return UserProfileInfo.objects.filter(user=user.id)
-
-
 class UserProfileInfoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserProfileInfo.objects.all()
     serializer_class = UserProfileInfoSerializer
     def get_queryset(self):
-        """
-        This view should return a list of all the purchases
-        for the currently authenticated user.
-        """
         user = self.request.user
         return UserProfileInfo.objects.filter(user=user.id)
 
@@ -95,10 +74,6 @@ class AdList(generics.ListCreateAPIView):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
     def get_queryset(self):
-        """
-        This view should return a list of all the purchases
-        for the currently authenticated user.
-        """
         user = self.request.user
         querytype=self.request.GET.get('type','')
 
@@ -121,8 +96,6 @@ class CompaignList(generics.ListCreateAPIView):
     def get_queryset(self):
         user = self.request.user
         userType = UserProfileInfo.objects.get(user = user.id).type
-
-        print(userType)
         if userType == 'Podcaster':
             print('here')
             return Compaign.objects.filter(podcast__author=user.id)
@@ -244,7 +217,6 @@ class PodcastPlays(APIView):
         else:
             return Response({'no plays for podcast'+podcast}, status=status.HTTP_400_BAD_REQUEST)
 
-
 class MessagesList(generics.ListCreateAPIView):
 
     queryset = Message.objects.all()
@@ -264,5 +236,3 @@ class MessagesList(generics.ListCreateAPIView):
 class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
-
-

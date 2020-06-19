@@ -8,6 +8,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['username','first_name','last_name','email']
 
 class UserProfileInfoSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    class Meta:
+        model = UserProfileInfo
+        fields = '__all__'
+
+class UserProfileInfoGetSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
     class Meta:
         model = UserProfileInfo
         fields = '__all__'
