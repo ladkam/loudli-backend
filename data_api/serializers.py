@@ -72,6 +72,11 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = '__all__'
 
+class MessageOnlySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = '__all__'
+
 class CompaignSerializer(serializers.ModelSerializer):
     ##  announcer=UserSerializer()
     message_set = MessageSerializer(many=True)

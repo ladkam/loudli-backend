@@ -4,7 +4,7 @@ from django.db.models import Sum
 from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,AdSerializer,CompaignSerializer,EpisodeStatSerializer,\
-    PodcastStatsGeneralSerializer,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer
+    PodcastStatsGeneralSerializer,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageOnlySerializer
 from rest_framework import generics
 from .models import Podcast,UserProfileInfo,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message
 from rest_framework.views import APIView
@@ -246,15 +246,20 @@ class PodcastPlays(APIView):
 
 
 class MessagesList(generics.ListCreateAPIView):
+
     queryset = Message.objects.all()
-    serializer_class = MessageSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return MessageOnlySerializer
+        if self.request.method == 'GET':
+            return MessageSerializer
 
     def get_queryset(self):
         user = self.request.user
         if len(Message.objects.filter(sender=user.id)) != 0:
             return Message.objects.filter(sender=user.id)
-        if len(Message.objects.filter(compaign__announcer=user.id)) != 0:
-            return Message.objects.filter(compaign__announcer=user.id)
+
 
 class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Message.objects.all()
