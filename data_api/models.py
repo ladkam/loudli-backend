@@ -115,7 +115,7 @@ class Ad(models.Model):
         return self.name
 
 class Message(models.Model):
-    sendDate = models.DateField(auto_now=True)
+    sendDate = models.DateTimeField(auto_now=True)
     text =  models.TextField()
     readFlag = models.BooleanField(default=False)
     compaign = models.ForeignKey(Compaign, on_delete=models.CASCADE)
