@@ -5,7 +5,7 @@ from .models import Podcast,UserProfileInfo,Ad,Compaign,EpisodeStat,PodcastStatG
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups']
+        fields = ['username','first_name','last_name','email']
 
 class UserProfileInfoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -65,17 +65,12 @@ class PodcastPlaysSerializer(serializers.Serializer):
     date = serializers.DateField()
     plays = serializers.IntegerField(read_only=True)
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['url', 'username', 'email', 'groups']
 
 class MessageSerializer(serializers.ModelSerializer):
+    sender = UserSerializer()
     class Meta:
         model = Message
         fields = '__all__'
-
-
 
 class CompaignSerializer(serializers.ModelSerializer):
     ##  announcer=UserSerializer()
