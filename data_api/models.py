@@ -120,4 +120,6 @@ class Message(models.Model):
     readFlag = models.BooleanField(default=False)
     compaign = models.ForeignKey(Compaign, on_delete=models.CASCADE)
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
+    attachedFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_filename)
+
 
