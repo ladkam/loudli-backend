@@ -38,8 +38,6 @@ class UserProfileInfoList(generics.ListCreateAPIView):
         user = self.request.user
         return UserProfileInfo.objects.filter(user=user.id)
 
-
-
 class PodcastsList(generics.ListCreateAPIView):
     queryset = Podcast.objects.all()
     def get_serializer_class(self):

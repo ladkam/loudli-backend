@@ -16,7 +16,6 @@ class UserProfileInfo(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     company = models.CharField(max_length=256)
     type = models.CharField(max_length=256)
-    """
     profilePicture = models.ImageField(blank=True,upload_to=scramble_uploaded_filename)
 
     def image_img(self):
@@ -31,9 +30,6 @@ class UserProfileInfo(models.Model):
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             UserProfileInfo.objects.create(user=instance)
-# Create your models here.
-"""
-
 
 
 
