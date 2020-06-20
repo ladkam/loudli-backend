@@ -6,6 +6,9 @@ from django.db.models.signals import post_save
 from datetime import datetime
 import uuid
 from django.contrib.auth.models import AbstractUser
+
+
+from django.contrib.auth.models import AbstractUser
 import logging
 
 def scramble_uploaded_filename(instance, filename):
@@ -14,8 +17,11 @@ def scramble_uploaded_filename(instance, filename):
 
 class UserProfileInfo(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    company = models.CharField(max_length=256)
-    type = models.CharField(max_length=256)
+    first_name =models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+
+    company = models.CharField(max_length=30)
+    type = models.CharField(max_length=30)
     profilePicture = models.ImageField(blank=True,upload_to=scramble_uploaded_filename)
 
     def image_img(self):

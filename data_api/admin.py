@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Podcast,UserProfileInfo,Ad,Compaign,EpisodeStat,PodcastStatGeneral,Episode,EpisodeImported,Message
+from django.contrib.auth.admin import UserAdmin
+from .models import User
 
 # Register your models here.
 
@@ -14,4 +16,5 @@ admin.site.register(PodcastStatGeneral)
 admin.site.register(Episode)
 admin.site.register(EpisodeImported)
 admin.site.register(Message)
+
 
