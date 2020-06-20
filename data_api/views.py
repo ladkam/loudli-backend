@@ -4,9 +4,9 @@ from django.db.models import Sum
 from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,AdSerializer,CompaignSerializer,EpisodeStatSerializer,\
-    PodcastStatsGeneralSerializer,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageOnlySerializer,UserProfileInfoGetSerializer
+    PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageOnlySerializer,UserProfileInfoGetSerializer
 from rest_framework import generics
-from .models import Podcast,UserProfileInfo,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message
+from .models import Podcast,UserProfileInfo,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
@@ -91,13 +91,17 @@ class AdDetail(generics.RetrieveUpdateDestroyAPIView):
 class CompaignList(generics.ListCreateAPIView):
 
     queryset = Compaign.objects.all()
-    serializer_class = CompaignSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return CompaignSerializerPost
+        if self.request.method == 'GET':
+            return CompaignSerializer
 
     def get_queryset(self):
         user = self.request.user
         userType = UserProfileInfo.objects.get(user = user.id).type
-        if userType == 'Podcaster':
-            print('here')
+        if userType == 'podcaster':
             return Compaign.objects.filter(podcast__author=user.id)
         else:
             return Compaign.objects.filter(announcer=user.id)

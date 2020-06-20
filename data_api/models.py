@@ -19,7 +19,6 @@ class UserProfileInfo(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     first_name =models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-
     company = models.CharField(max_length=30)
     type = models.CharField(max_length=30)
     profilePicture = models.ImageField(blank=True,upload_to=scramble_uploaded_filename)
