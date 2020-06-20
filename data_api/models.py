@@ -116,10 +116,10 @@ class Ad(models.Model):
 
 class Message(models.Model):
     sendDate = models.DateTimeField(auto_now=True)
-    text =  models.TextField()
+    text =  models.TextField(blank=True,null=True)
     readFlag = models.BooleanField(default=False)
     compaign = models.ForeignKey(Compaign, on_delete=models.CASCADE)
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
     attachedFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_filename)
-
+    attachedFileName = models.TextField(blank=True, null=True)
 
