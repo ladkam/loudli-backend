@@ -1,6 +1,8 @@
 from django.urls import include, path
 from data_api import views
 
+from rest_framework.authtoken import views as authview
+
 """marketplace_api URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -24,6 +26,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('', admin.site.urls),
+    url(r'^api-token-auth/', views.CustomAuthToken.as_view()),
     path('podcasts/<int:pk>/', views.PodcastsDetail.as_view()),
     path('usersInfo/', views.UserProfileInfoList.as_view()),
     path('usersInfo/<int:pk>/', views.UserProfileInfoDetail.as_view()),

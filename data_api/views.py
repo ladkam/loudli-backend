@@ -6,11 +6,14 @@ from .serializers import UserSerializer,\
     UserProfileInfoSerializer,AdSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageOnlySerializer,UserProfileInfoGetSerializer
 from rest_framework import generics
-from .models import Podcast,UserProfileInfo,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,
+from .models import Podcast,UserProfileInfo,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
 from rest_framework import status
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 
 import logging
 
@@ -105,6 +108,22 @@ class CompaignList(generics.ListCreateAPIView):
             return Compaign.objects.filter(podcast__author=user.id)
         else:
             return Compaign.objects.filter(announcer=user.id)
+
+class CustomAuthToken(ObtainAuthToken):
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user_id': user.pk,
+            'email': user.email,
+            'first_name':user.first_name,
+            'last_name': user.last_name
+        })
 
 
 

@@ -106,10 +106,10 @@ WSGI_APPLICATION = 'marketplace_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'loudly',
+        'NAME': 'loudlidatabase',
+        'USER': 'postgres',
         'PASSWORD': 'Dohatabali09',
-        'HOST': 'loudly.ckqy6jm3fbvi.eu-west-3.rds.amazonaws.com',
+        'HOST': 'loudlidatabase.ckqy6jm3fbvi.eu-west-3.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
