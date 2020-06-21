@@ -97,6 +97,8 @@ class CompaignList(generics.ListCreateAPIView):
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
+            print('post')
+            print(self.request.data)
             return CompaignSerializerPost
         if self.request.method == 'GET':
             return CompaignSerializer
@@ -105,8 +107,10 @@ class CompaignList(generics.ListCreateAPIView):
         user = self.request.user
         userType = UserProfileInfo.objects.get(user = user.id).type
         if userType == 'podcaster':
+            print('pod')
             return Compaign.objects.filter(podcast__author=user.id)
         else:
+            print('ANN')
             return Compaign.objects.filter(announcer=user.id)
 
 class CustomAuthToken(ObtainAuthToken):

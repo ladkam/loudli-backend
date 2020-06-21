@@ -97,7 +97,7 @@ class CompaignSerializer(serializers.ModelSerializer):
 class CompaignSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Compaign
-        fields = ('id','name')
+        fields = '__all__'
 
 class AdSerializer(serializers.ModelSerializer):
     podcast = PodcastsSerializer()
