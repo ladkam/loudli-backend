@@ -16,7 +16,7 @@ def scramble_uploaded_filename(instance, filename):
     return "{}.{}".format(uuid.uuid4(), extension)
 
 class UserProfileInfo(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,related_name='profile',on_delete=models.CASCADE)
     first_name =models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     company = models.CharField(max_length=30)

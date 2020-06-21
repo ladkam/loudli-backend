@@ -2,10 +2,6 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from .models import Podcast,UserProfileInfo,Ad,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['username','first_name','last_name','email']
 
 class UserProfileInfoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,10 +9,18 @@ class UserProfileInfoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserProfileInfoGetSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    #user = UserSerializer(read_only=True)
+    first_name = serializers.CharField(source='user.first_name', read_only=True)
+    last_name = serializers.CharField(source='user.last_name', read_only=True)
     class Meta:
         model = UserProfileInfo
         fields = '__all__'
+
+class UserSerializer(serializers.ModelSerializer):
+    UserProfileInfo = UserProfileInfoSerializer(partial=True, required=True,source='profile')
+    class Meta:
+        model = User
+        fields = ['username','first_name','last_name','email','id','UserProfileInfo']
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -93,7 +97,7 @@ class CompaignSerializer(serializers.ModelSerializer):
 class CompaignSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Compaign
-        fields = ('id','name', 'message_set')
+        fields = ('id','name')
 
 class AdSerializer(serializers.ModelSerializer):
     podcast = PodcastsSerializer()
