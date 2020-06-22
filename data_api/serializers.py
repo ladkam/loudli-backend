@@ -89,7 +89,7 @@ class MessageOnlySerializer(serializers.ModelSerializer):
 
 class CompaignSerializer(serializers.ModelSerializer):
     ##  announcer=UserSerializer()
-    message_set = serializers.SerializerMethodField()(many=True)
+    message_set = serializers.SerializerMethodField()
 
     class Meta:
         model = Compaign
