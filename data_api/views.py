@@ -133,7 +133,7 @@ class CustomAuthToken(ObtainAuthToken):
 
 class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Compaign.objects.all()
-    serializer_class = CompaignSerializer
+    serializer_class = CompaignSerializerPost
 
 ### new comment
 
