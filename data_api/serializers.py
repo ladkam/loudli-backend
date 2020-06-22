@@ -95,7 +95,7 @@ class CompaignSerializer(serializers.ModelSerializer):
         model = Compaign
         fields = ('id','name', 'message_set')
 
-    def message_set_get(self, instance):
+    def get_message_set(self, instance):
         messages = instance.message_set.all().order_by('-sendDate')
         return MessageSerializer(messages, many=True).data
 
