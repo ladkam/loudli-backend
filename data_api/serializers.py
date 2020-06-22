@@ -88,7 +88,8 @@ class MessageOnlySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CompaignSerializer(serializers.ModelSerializer):
-    ##  announcer=UserSerializer()
+    announcer = UserSerializer()
+    podcast = PodcastsSerializer()
     message_set = serializers.SerializerMethodField()
 
     class Meta:
