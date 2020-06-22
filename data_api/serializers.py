@@ -91,9 +91,6 @@ class CompaignSerializer(serializers.ModelSerializer):
     ##  announcer=UserSerializer()
     message_set = MessageSerializer(many=True)
 
-    def message_set_get(self, instance):
-        messages = instance.message_set.all().order_by('sendDate')
-        return MessageSerializer(messages, many=True).data
     class Meta:
         model = Compaign
         fields = ('id','name', 'message_set')
