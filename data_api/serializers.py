@@ -92,8 +92,8 @@ class CompaignSerializer(serializers.ModelSerializer):
     message_set = MessageSerializer(many=True)
 
     def message_set_set(self, instance):
-        songs = instance.song_set.all().order_by('sendDate')
-        return MessageSerializer(songs, many=True).data
+        messages = instance.message_set.all().order_by('sendDate')
+        return MessageSerializer(messages, many=True).data
     class Meta:
         model = Compaign
         fields = ('id','name', 'message_set')
