@@ -68,6 +68,7 @@ class Compaign(models.Model):
     announcer = models.ForeignKey(User, on_delete=models.CASCADE)
     podcast = models.ForeignKey(Podcast,on_delete=models.CASCADE)
     description = models.TextField(blank=True,null=True)
+    status = models.CharField(max_length=20,default='Requested')
     compaignPicture = models.ImageField(blank=True,upload_to=scramble_uploaded_filename)
     def __str__(self):
         return self.name
