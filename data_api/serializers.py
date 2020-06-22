@@ -90,6 +90,10 @@ class MessageOnlySerializer(serializers.ModelSerializer):
 class CompaignSerializer(serializers.ModelSerializer):
     ##  announcer=UserSerializer()
     message_set = MessageSerializer(many=True)
+
+    def message_set_set(self, instance):
+        songs = instance.song_set.all().order_by('-sendDate')
+        return MessageSerializer(songs, many=True).data
     class Meta:
         model = Compaign
         fields = ('id','name', 'message_set')
