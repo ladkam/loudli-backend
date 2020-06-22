@@ -94,7 +94,7 @@ class CompaignSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Compaign
-        fields = ('id','name','type','description','startDate', 'message_set','announcer','podcast')
+        fields = ('id','name','type','description','startDate', 'message_set','announcer','podcast','status')
 
     def get_message_set(self, instance):
         messages = instance.message_set.all().order_by('sendDate')
