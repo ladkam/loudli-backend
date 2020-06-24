@@ -41,6 +41,8 @@ urlpatterns = [
     path('Compaign/<int:pk>/', views.CompaignDetail.as_view()),
     path('PodcastPlays/',views.PodcastPlays.as_view()),
     path('PodcastPlays/',views.PodcastPlays.as_view()),
+    path('AgeGroup/', views.AgeGroupList.as_view()),
+    path('Education/', views.EducationList.as_view()),
     path('UpdatePodcastEpisodes/', views.UpdatePodcastEpisodes.as_view()),
     path('Messages/',views.MessagesList.as_view()),
     path('Messages-details/',views.MessageDetail.as_view()),

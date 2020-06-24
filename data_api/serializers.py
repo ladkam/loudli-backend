@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Podcast,UserProfileInfo,Ad,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message
+from .models import Podcast,UserProfileInfo,Ad,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education
 
 
 class UserProfileInfoSerializer(serializers.ModelSerializer):
@@ -103,6 +103,16 @@ class CompaignSerializer(serializers.ModelSerializer):
 class CompaignSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Compaign
+        fields = '__all__'
+
+class AgeGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AgeGroup
+        fields = '__all__'
+
+class EducationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Education
         fields = '__all__'
 
 

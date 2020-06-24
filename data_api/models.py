@@ -36,8 +36,6 @@ class UserProfileInfo(models.Model):
         if created:
             UserProfileInfo.objects.create(user=instance)
 
-
-
 class Podcast(models.Model):
     name = models.CharField(max_length=256)
     tags = models.CharField(max_length=256,blank=True,null=True)
@@ -61,6 +59,17 @@ class Podcast(models.Model):
         else:
             return '(Sin imagen)'
 
+
+class AgeGroup(models.Model):
+    ageIntervalMin = models.IntegerField()
+    ageIntervalMax = models.IntegerField()
+    ageIntervalLabel = models.CharField(max_length=50)
+
+class Education(models.Model):
+    Education = models.CharField(max_length=20)
+    def __str__(self):
+        return self.Education
+
 class Compaign(models.Model):
     name = models.CharField(max_length=256)
     startDate = models.DateField(auto_now=True)
@@ -70,6 +79,8 @@ class Compaign(models.Model):
     description = models.TextField(blank=True,null=True)
     status = models.CharField(max_length=20,default='Requested')
     compaignPicture = models.ImageField(blank=True,upload_to=scramble_uploaded_filename)
+    ageGroup = models.ManyToManyField(AgeGroup,blank=True,null=True)
+
     def __str__(self):
         return self.name
 

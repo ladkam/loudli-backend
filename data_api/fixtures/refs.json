@@ -1,0 +1,102 @@
+[
+  {
+    "model": "data_api.AgeGroup",
+    "pk": 1,
+    "fields":
+    {
+      "ageIntervalMin": 18,
+      "ageIntervalMax": 24,
+      "ageIntervalLabel": "18-24"
+    }
+  },
+  {
+    "model": "data_api.AgeGroup",
+    "pk": 2,
+    "fields":
+    {
+      "ageIntervalMin": 25,
+      "ageIntervalMax": 34,
+      "ageIntervalLabel": "25-34"
+    }
+  },
+    {
+    "model": "data_api.AgeGroup",
+    "pk": 3,
+    "fields":
+    {
+      "ageIntervalMin": 45,
+      "ageIntervalMax": 54,
+      "ageIntervalLabel": "45-54"
+    }
+    },
+  {
+    "model": "data_api.AgeGroup",
+    "pk": 4,
+    "fields":
+    {
+      "ageIntervalMin": 55,
+      "ageIntervalMax": 64,
+      "ageIntervalLabel": "55-64"
+    }
+    },
+  {
+    "model": "data_api.AgeGroup",
+    "pk": 5,
+    "fields":
+    {
+      "ageIntervalMin": 45,
+      "ageIntervalMax": 65,
+      "ageIntervalLabel": "45-65"
+    }
+    },
+  {
+    "model": "data_api.AgeGroup",
+    "pk": 6,
+    "fields":
+    {
+      "ageIntervalMin": 65,
+      "ageIntervalMax": 100,
+      "ageIntervalLabel": "65+"
+    }
+    },
+   {
+    "model": "data_api.Education",
+    "pk": 1,
+    "fields":
+    {
+      "Education": "Bac"
+    }
+    },
+   {
+    "model": "data_api.Education",
+    "pk": 2,
+    "fields":
+    {
+      "Education": "Bac+2"
+    }
+    }, {
+    "model": "data_api.Education",
+    "pk": 3,
+    "fields":
+    {
+      "Education": "Bac+3"
+    }
+    }, {
+    "model": "data_api.Education",
+    "pk": 4,
+    "fields":
+    {
+      "Education": "Bac+5"
+    }
+    },
+  {
+    "model": "data_api.Education",
+    "pk": 5,
+    "fields":
+    {
+      "Education": "Bac+8"
+    }
+    },
+
+
+]
