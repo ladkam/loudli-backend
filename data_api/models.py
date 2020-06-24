@@ -75,11 +75,12 @@ class Compaign(models.Model):
     startDate = models.DateField(auto_now=True)
     type = models.TextField(blank=True,null=True)
     announcer = models.ForeignKey(User, on_delete=models.CASCADE)
-    podcast = models.ForeignKey(Podcast,on_delete=models.CASCADE)
+    podcast = models.ForeignKey(Podcast,null=True,on_delete=models.CASCADE)
     description = models.TextField(blank=True,null=True)
     status = models.CharField(max_length=20,default='Requested')
-    compaignPicture = models.ImageField(blank=True,upload_to=scramble_uploaded_filename)
+    compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True,null=True)
+    EducationLevel = models.ManyToManyField(Education,blank=True,null=True)
 
     def __str__(self):
         return self.name
