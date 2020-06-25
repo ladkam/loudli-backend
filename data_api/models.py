@@ -63,15 +63,15 @@ class Podcast(models.Model):
 class AgeGroup(models.Model):
     ageIntervalMin = models.IntegerField()
     ageIntervalMax = models.IntegerField()
-    ageIntervalLabel = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
 
 class Education(models.Model):
-    Education = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
     def __str__(self):
         return self.Education
 
 class Location(models.Model):
-    Location = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
 def __str__(self):
     return self.Education
 
