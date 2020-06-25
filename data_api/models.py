@@ -70,6 +70,11 @@ class Education(models.Model):
     def __str__(self):
         return self.Education
 
+class Gender(models.Model):
+    name = models.CharField(max_length=20)
+    def __str__(self):
+        return self.name
+
 class Compaign(models.Model):
     name = models.CharField(max_length=256)
     startDate = models.DateField(auto_now=True)
@@ -78,6 +83,7 @@ class Compaign(models.Model):
     podcast = models.ForeignKey(Podcast,null=True,on_delete=models.CASCADE)
     description = models.TextField(blank=True,null=True)
     status = models.CharField(max_length=20,default='Requested')
+    targetGender = models.ManyToManyField(Gender)
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True,null=True)
     EducationLevel = models.ManyToManyField(Education,blank=True,null=True)

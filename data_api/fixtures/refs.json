@@ -97,6 +97,29 @@
       "Education": "Bac+8"
     }
     },
+   {
+    "model": "data_api.Gender",
+    "pk": 1,
+    "fields":
+    {
+      "name": "Homme"
+    }
+    },
+   {
+    "model": "data_api.Gender",
+    "pk": 2,
+    "fields":
+    {
+      "name": "Femme"
+    },
+     "model": "data_api.Gender",
+    "pk": 3,
+    "fields":
+    {
+      "name": "Tous"
+    }
+   }
+
 
 
 ]
