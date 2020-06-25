@@ -86,7 +86,7 @@ class Compaign(models.Model):
     targetGender = models.ManyToManyField(Gender)
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True,null=True)
-    EducationLevel = models.ManyToManyField(Education,blank=True,null=True)
+    educationLevel = models.ManyToManyField(Education,blank=True,null=True)
 
     def __str__(self):
         return self.name
