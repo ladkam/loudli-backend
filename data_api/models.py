@@ -70,6 +70,11 @@ class Education(models.Model):
     def __str__(self):
         return self.Education
 
+class Location(models.Model):
+    Location = models.CharField(max_length=20)
+def __str__(self):
+    return self.Education
+
 class Gender(models.Model):
     name = models.CharField(max_length=20)
     def __str__(self):
@@ -77,6 +82,18 @@ class Gender(models.Model):
 
 class Interest(models.Model):
     name = models.CharField(max_length=20)
+    def __str__(self):
+        return self.name
+
+class Country(models.Model):
+    name = models.CharField(max_length=20)
+    def __str__(self):
+        return self.name
+
+class City(models.Model):
+    name = models.CharField(max_length=20)
+    name = models.ForeignKey(Country,on_delete=models.CASCADE)
+
     def __str__(self):
         return self.name
 
@@ -93,6 +110,9 @@ class Compaign(models.Model):
     ageGroup = models.ManyToManyField(AgeGroup,blank=True,null=True)
     educationLevel = models.ManyToManyField(Education,blank=True,null=True)
     interests = models.ManyToManyField(Interest,blank=True,null=True)
+    city = models.ManyToManyField(City,blank=True,null=True)
+    country = models.ManyToManyField(Country, blank=True, null=True)
+
 
     def __str__(self):
         return self.name
