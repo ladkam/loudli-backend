@@ -142,7 +142,12 @@ class CustomAuthToken(ObtainAuthToken):
 
 class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Compaign.objects.all()
-    serializer_class = CompaignSerializerPost
+    def get_serializer_class(self):
+        if self.request.method == 'PUT':
+            print(self.request.data)
+            return CompaignSerializerPost
+        if self.request.method == 'GET':
+            return CompaignSerializer
 
 ### new comment
 
