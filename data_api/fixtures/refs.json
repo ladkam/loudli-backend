@@ -105,20 +105,24 @@
       "name": "Homme"
     }
     },
-   {
+  {
     "model": "data_api.Gender",
     "pk": 2,
-    "fields":
-    {
+    "fields": {
       "name": "Femme"
-    },
+    }
+  },
+  {
      "model": "data_api.Gender",
     "pk": 3,
     "fields":
     {
       "name": "Tous"
     }
-   }
+   },
+  {"model": "data_api.Education","pk":	1	"""fields"":
+    {
+      ""Education"":"	"	Advertising 	"	},
 
 
 

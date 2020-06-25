@@ -20,7 +20,6 @@ from data_api.models import Podcast,Author
 Podcast.objects.all().delete()
 Author.object.all().delete()
 
-
 exit()
 
 

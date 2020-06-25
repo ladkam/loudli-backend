@@ -75,6 +75,11 @@ class Gender(models.Model):
     def __str__(self):
         return self.name
 
+class Interest(models.Model):
+    name = models.CharField(max_length=20)
+    def __str__(self):
+        return self.name
+
 class Compaign(models.Model):
     name = models.CharField(max_length=256)
     startDate = models.DateField(auto_now=True)
@@ -87,6 +92,7 @@ class Compaign(models.Model):
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True,null=True)
     educationLevel = models.ManyToManyField(Education,blank=True,null=True)
+    interests = models.ManyToManyField(Interest,blank=True,null=True)
 
     def __str__(self):
         return self.name
