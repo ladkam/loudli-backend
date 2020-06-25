@@ -24,10 +24,12 @@ Country.objects.all().delete()
 
 df = pd.read_csv('worldcities.csv')
 
-for country in df['country'].unique()[1]:
+for country in df['country'].unique():
     CountryObj, created = Country.objects.get_or_create(name=country)
-    for city in df[df['country']==country].city:
-        CountryObj, created = City.objects.get_or_create(name=city,country=CountryObj)
+    for index,row in df[df['country']==country].iterrows():
+        print(row['city'])
+        print(CountryObj)
+        _, created = City.objects.get_or_create(name=row.city,country=CountryObj)
 
 
 

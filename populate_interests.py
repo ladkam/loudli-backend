@@ -12,10 +12,6 @@ import csv
 django.setup()
 import pandas as pd
 
-
-
-faker = Faker()
-
 from data_api.models import Interest
 
 Interest.objects.all().delete()
@@ -24,12 +20,9 @@ fake_podcasts = []
 
 df = pd.read_csv('ListOfinterests.csv')
 
-print(df.head())
-
-for raw in df:
-    print(raw)
+for index, row in df.iterrows():
     _, created = Interest.objects.get_or_create(
-        name=raw)
+        name=row.Subject)
 
 if __name__ == '__main__':
     print('Populating Complete')
