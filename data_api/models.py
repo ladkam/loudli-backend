@@ -83,7 +83,7 @@ class Compaign(models.Model):
     podcast = models.ForeignKey(Podcast,null=True,on_delete=models.CASCADE)
     description = models.TextField(blank=True,null=True)
     status = models.CharField(max_length=20,default='Requested')
-    targetGender = models.ManyToManyField(Gender)
+    targetGender = models.ForeignKey(Gender,on_delete=models.CASCADE)
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True,null=True)
     educationLevel = models.ManyToManyField(Education,blank=True,null=True)

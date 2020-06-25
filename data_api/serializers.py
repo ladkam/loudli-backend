@@ -100,11 +100,6 @@ class CompaignSerializer(serializers.ModelSerializer):
         messages = instance.message_set.all().order_by('sendDate')
         return MessageSerializer(messages, many=True).data
 
-class CompaignSerializerPost(serializers.ModelSerializer):
-    class Meta:
-        model = Compaign
-        fields = '__all__'
-
 class AgeGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = AgeGroup
@@ -113,6 +108,11 @@ class AgeGroupSerializer(serializers.ModelSerializer):
 class EducationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Education
+        fields = '__all__'
+
+class CompaignSerializerPost(serializers.ModelSerializer):
+    class Meta:
+        model = Compaign
         fields = '__all__'
 
 
