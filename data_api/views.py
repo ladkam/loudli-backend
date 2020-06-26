@@ -129,23 +129,16 @@ class CompaignList(generics.ListCreateAPIView):
         else:
             return Compaign.objects.filter(announcer=user.id)
 
-
+"""
     def post(self, request, *args, **kwargs):
         if not self.request.POST._mutable:
             self.request.POST._mutable = True
-        """
         self.request.data.update({"educationLevel": [int(el) for el in self.request.data['educationLevellab'].split('L')]})
         self.request.data.update({"city": [int(el) for el in self.request.data['citylab'].split('L')]})
         self.request.data.update({"country": [int(el) for el in self.request.data['countrylab'].split('L')]})
         self.request.data.update({"interests": [int(el) for el in self.request.data['interestslab'].split('L')]})
         self.request.data.update({"ageGroup": [int(el) for el in self.request.data['ageGrouplab'].split('L')]})
-        """
 
-        request.data.update({"educationLevel": [1,2,3]})
-        request.data.update({"city": [5]})
-        request.data.update({"country": [456,455]})
-        request.data.update({"interests": [578,579]})
-        request.data.update({"ageGroup": [1,2]})
 
         logger.warning(request.data)
 
@@ -156,6 +149,8 @@ class CompaignList(generics.ListCreateAPIView):
             serializer = CompaignSerializerPost(Compaign)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+"""
 
 
 class CustomAuthToken(ObtainAuthToken):

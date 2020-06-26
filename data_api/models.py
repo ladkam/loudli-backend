@@ -97,6 +97,8 @@ class City(models.Model):
     def __str__(self):
         return self.name
 
+
+
 class Compaign(models.Model):
     name = models.CharField(max_length=256)
     startDate = models.DateField(auto_now=True)
@@ -116,9 +118,17 @@ class Compaign(models.Model):
     country = models.ManyToManyField(Country, blank=True)
     urlProduit = models.URLField(blank=True, null=True)
 
-
     def __str__(self):
         return self.name
+
+
+class CompaignFiles(models.Model):
+    attachedFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_filename)
+    attachedFileName = models.TextField(blank=True, null=True)
+    compaign = models.ForeignKey(Compaign,on_delete=models.CASCADE)
+
+
+
 
 class Episode(models.Model):
     podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
