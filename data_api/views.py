@@ -5,9 +5,9 @@ from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,AdSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageOnlySerializer,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,CountrySerializer,CitySerializer,InterestSerializer,GenderSerializer
+    ,EducationSerializer,CountrySerializer,CitySerializer,InterestSerializer,GenderSerializer,CompaignFilesSerializer
 from rest_framework import generics
-from .models import Podcast,UserProfileInfo,Gender,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
+from .models import Podcast,UserProfileInfo,CompaignFiles,Gender,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
@@ -110,6 +110,10 @@ class InterestList(generics.ListAPIView):
 class EducationList(generics.ListAPIView):
     queryset = Education.objects.all()
     serializer_class = EducationSerializer
+
+class CompaignFilesList(generics.ListAPIView):
+    queryset = CompaignFiles.objects.all()
+    serializer_class = CompaignFilesSerializer
 
 class CompaignList(generics.ListCreateAPIView):
     queryset = Compaign.objects.all()

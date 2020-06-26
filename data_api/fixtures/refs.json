@@ -99,7 +99,7 @@
     },
    {
     "model": "data_api.Gender",
-    "pk": 1,
+    "pk": 0,
     "fields":
     {
       "name": "Homme"
@@ -107,23 +107,17 @@
     },
   {
     "model": "data_api.Gender",
-    "pk": 2,
+    "pk": 1,
     "fields": {
       "name": "Femme"
     }
   },
   {
      "model": "data_api.Gender",
-    "pk": 3,
+    "pk": 2,
     "fields":
     {
       "name": "Tous"
     }
-   },
-  {"model": "data_api.Education","pk":	1	"""fields"":
-    {
-      ""Education"":"	"	Advertising 	"	},
-
-
-
+   }
 ]

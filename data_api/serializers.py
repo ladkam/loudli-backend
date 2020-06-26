@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Podcast,Gender,UserProfileInfo,Ad,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
+from .models import Podcast,Gender,CompaignFiles,UserProfileInfo,Ad,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
 
 
 class UserProfileInfoSerializer(serializers.ModelSerializer):
@@ -58,6 +58,11 @@ class EpisodeStatSerializer(serializers.ModelSerializer):
 class GenderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gender
+        fields = '__all__'
+
+class CompaignFilesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompaignFiles
         fields = '__all__'
 
 
@@ -134,6 +139,7 @@ class CompaignSerializerPost(serializers.ModelSerializer):
 
 
 class CompaignSerializer(serializers.ModelSerializer):
+    compaignFiles_set = serializers.SerializerMethodField()
     announcer = UserSerializer()
     podcast = PodcastsSerializer()
     message_set = serializers.SerializerMethodField()
