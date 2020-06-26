@@ -132,21 +132,15 @@ class CompaignList(generics.ListCreateAPIView):
         else:
             return Compaign.objects.filter(announcer=user.id)
 
-    def perform_create(self, serializer):
-        if not self.request.POST._mutable:
-            self.request.POST._mutable = True
-            print(self.request.data)
-            self.request.data.update({"targetGender": 3})
-            print(self.request.data)
 
     def post(self, request, *args, **kwargs):
         if not self.request.POST._mutable:
             self.request.POST._mutable = True
 
-        self.request.data.update({"educationLevel": [int(el) for el in self.request.data['educationLevel'].split(',')]})
-        self.request.data.update({"city": [int(el) for el in self.request.data['city'].split(',')]})
-        self.request.data.update({"country": [int(el) for el in self.request.data['country'].split(',')]})
-        self.request.data.update({"interests": [int(el) for el in self.request.data['interests'].split(',')]})
+        self.request.data.update({"educationLevel": [int(el) for el in self.request.data['educationLevel'].split('L')]})
+        self.request.data.update({"city": [int(el) for el in self.request.data['city'].split('L')]})
+        self.request.data.update({"country": [int(el) for el in self.request.data['country'].split('L')]})
+        self.request.data.update({"interests": [int(el) for el in self.request.data['interests'].split('L')]})
 
         serializer = CompaignSerializerPost(data=request.data)
         if serializer.is_valid():
