@@ -131,10 +131,9 @@ class CompaignList(generics.ListCreateAPIView):
 
 
     def post(self, request, *args, **kwargs):
-        if not self.request.POST._mutable:
-            self.request.POST._mutable = True
 
-        Data2=request.data
+
+        Data2=request.data.copy()
         Data2.update({"educationLevel": [int(el) for el in self.request.data['educationLevellab'].split('L')]})
         Data2.update({"city": [int(el) for el in self.request.data['citylab'].split('L')]})
         Data2.update({"country": [int(el) for el in self.request.data['countrylab'].split('L')]})
