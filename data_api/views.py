@@ -136,10 +136,12 @@ class CompaignList(generics.ListCreateAPIView):
 
         logger.warning("eudcation level now "+ self.request.data['educationLevel'])
 
-        self.request.data.update({"educationLevel": [int(el) for el in self.request.data['educationLevel'].split('L')]})
-        self.request.data.update({"city": [int(el) for el in self.request.data['city'].split('L')]})
-        self.request.data.update({"country": [int(el) for el in self.request.data['country'].split('L')]})
-        self.request.data.update({"interests": [int(el) for el in self.request.data['interests'].split('L')]})
+        self.request.data.update({"educationLevel": [int(el) for el in self.request.data['educationLevellab'].split('L')]})
+        self.request.data.update({"city": [int(el) for el in self.request.data['citylab'].split('L')]})
+        self.request.data.update({"country": [int(el) for el in self.request.data['countrylab'].split('L')]})
+        self.request.data.update({"interests": [int(el) for el in self.request.data['interestslab'].split('L')]})
+        self.request.data.update({"ageGroup": [int(el) for el in self.request.data['ageGrouplab'].split('L')]})
+
         logger.warning("eudcation level now ")
         logger.warning(self.request.data['educationLevel'])
         logger.warning(type(self.request.data['educationLevel']))
