@@ -134,7 +134,7 @@ class CompaignList(generics.ListCreateAPIView):
 
 
         Data2=request.data.copy()
-        Data2.update({"educationLevel": [int(el) for el in self.request.data['educationLevellab'].split('L')]})
+        Data2.update({"educationLevel": [el for el in self.request.data['educationLevellab'].split('L')]})
         Data2.update({"city": [el for el in self.request.data['citylab'].split('L')]})
         Data2.update({"country": [el for el in self.request.data['countrylab'].split('L')]})
         Data2.update({"interests": [el for el in self.request.data['interestslab'].split('L')]})
