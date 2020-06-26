@@ -142,6 +142,9 @@ class CompaignList(generics.ListCreateAPIView):
         self.request.data.update({"interests": [int(el) for el in self.request.data['interests'].split('L')]})
         logger.warning("eudcation level now ")
         logger.warning(self.request.data['educationLevel'])
+        logger.warning(type(self.request.data['educationLevel']))
+        logger.warning(type(self.request.data['educationLevel'][0]))
+
 
 
         serializer = CompaignSerializerPost(data=request.data)

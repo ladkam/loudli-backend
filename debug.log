@@ -16834,3 +16834,9 @@ Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 /Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
 Watching for file changes with StatReloader
+eudcation level now 2L3L4L5
+eudcation level now 
+[2, 3, 4, 5]
+"POST /Compaign/ HTTP/1.1" 201 801
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
+Watching for file changes with StatReloader
