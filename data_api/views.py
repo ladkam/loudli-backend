@@ -132,21 +132,18 @@ class CompaignList(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
 
+        self.request.data = request.data.copy()
+        self.request.data.update({"educationLevel": [el for el in self.request.data['educationLevellab'].split('L')]})
+        self.request.data.update({"city": [el for el in self.request.data['citylab'].split('L')]})
+        self.request.data.update({"country": [el for el in self.request.data['countrylab'].split('L')]})
+        self.request.data.update({"interests": [el for el in self.request.data['interestslab'].split('L')]})
+        self.request.data.update({"ageGroup": [el for el in self.request.data['ageGrouplab'].split('L')]})
 
-        Data2=request.data.copy()
-        Data2.update({"educationLevel": [el for el in self.request.data['educationLevellab'].split('L')]})
-        Data2.update({"city": [el for el in self.request.data['citylab'].split('L')]})
-        Data2.update({"country": [el for el in self.request.data['countrylab'].split('L')]})
-        Data2.update({"interests": [el for el in self.request.data['interestslab'].split('L')]})
-        Data2.update({"ageGroup": [el for el in self.request.data['ageGrouplab'].split('L')]})
-
-        """
         self.request.data.update({"educationLevel": [1,2,3]})
         self.request.data.update({"city": [5]})
         self.request.data.update({"country": [456,455]})
         self.request.data.update({"interests": [578,579]})
         self.request.data.update({"ageGroup": [1,2]})
-        """
 
 
 
