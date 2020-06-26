@@ -87,18 +87,7 @@ class MessageOnlySerializer(serializers.ModelSerializer):
         model = Message
         fields = '__all__'
 
-class CompaignSerializer(serializers.ModelSerializer):
-    announcer = UserSerializer()
-    podcast = PodcastsSerializer()
-    message_set = serializers.SerializerMethodField()
 
-    class Meta:
-        model = Compaign
-        fields = ('id','name','type','description','startDate', 'message_set','announcer','podcast','status','educationLevel','ageGroup','targetGender')
-
-    def get_message_set(self, instance):
-        messages = instance.message_set.all().order_by('sendDate')
-        return MessageSerializer(messages, many=True).data
 
 class AgeGroupSerializer(serializers.ModelSerializer):
     class Meta:
@@ -136,6 +125,23 @@ class CompaignSerializerPost(serializers.ModelSerializer):
         model = Compaign
         fields = '__all__'
 
+
+class CompaignSerializer(serializers.ModelSerializer):
+    announcer = UserSerializer()
+    podcast = PodcastsSerializer()
+    message_set = serializers.SerializerMethodField()
+    country = CountrySerializer(read_only=True, many=True)
+    interests = InterestSerializer(read_only=True, many=True)
+    city = CitySerializer(read_only=True, many=True)
+
+
+    class Meta:
+        model = Compaign
+        fields = '__all__'
+
+    def get_message_set(self, instance):
+        messages = instance.message_set.all().order_by('sendDate')
+        return MessageSerializer(messages, many=True).data
 
 class AdSerializer(serializers.ModelSerializer):
     podcast = PodcastsSerializer()
