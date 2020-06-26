@@ -121,11 +121,8 @@ class CompaignList(generics.ListCreateAPIView):
         if self.request.method == 'GET':
             return CompaignSerializer
 
-    def get_queryset(self,request):
+    def get_queryset(self):
         user = self.request.user
-        request.POST = request.POST.copy()
-
-
         userType = UserProfileInfo.objects.get(user = user.id).type
         if userType == 'podcaster':
             return Compaign.objects.filter(podcast__author=user.id)
