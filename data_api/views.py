@@ -5,9 +5,9 @@ from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,AdSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageOnlySerializer,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,CountrySerializer,CitySerializer,InterestSerializer
+    ,EducationSerializer,CountrySerializer,CitySerializer,InterestSerializer,GenderSerializer
 from rest_framework import generics
-from .models import Podcast,UserProfileInfo,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
+from .models import Podcast,UserProfileInfo,Gender,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
@@ -57,7 +57,6 @@ class PodcastsListFilter(generics.ListCreateAPIView):
     serializer_class = PodcastsSerializer
 
     def get_queryset(self):
-
         user = self.request.user
         return Podcast.objects.filter(author=user.id)
 
@@ -115,29 +114,51 @@ class EducationList(generics.ListAPIView):
 class CompaignList(generics.ListCreateAPIView):
     queryset = Compaign.objects.all()
 
+
     def get_serializer_class(self):
         if self.request.method == 'POST':
-            print('post')
-            print(self.request.data)
             return CompaignSerializerPost
         if self.request.method == 'GET':
             return CompaignSerializer
 
-    def get_queryset(self):
+    def get_queryset(self,request):
         user = self.request.user
+        request.POST = request.POST.copy()
+
+
         userType = UserProfileInfo.objects.get(user = user.id).type
         if userType == 'podcaster':
-            print('pod')
             return Compaign.objects.filter(podcast__author=user.id)
         else:
-            print('ANN')
             return Compaign.objects.filter(announcer=user.id)
 
-class CustomAuthToken(ObtainAuthToken):
+    def perform_create(self, serializer):
+        if not self.request.POST._mutable:
+            self.request.POST._mutable = True
+            print(self.request.data)
+            self.request.data.update({"targetGender": 3})
+            print(self.request.data)
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data,
-                                           context={'request': request})
+        if not self.request.POST._mutable:
+            self.request.POST._mutable = True
+
+        self.request.data.update({"educationLevel": [int(el) for el in self.request.data['educationLevel'].split(',')]})
+        self.request.data.update({"city": [int(el) for el in self.request.data['city'].split(',')]})
+        self.request.data.update({"country": [int(el) for el in self.request.data['country'].split(',')]})
+        self.request.data.update({"interests": [int(el) for el in self.request.data['interests'].split(',')]})
+
+        serializer = CompaignSerializerPost(data=request.data)
+        if serializer.is_valid():
+            Compaign = serializer.save()
+            serializer = CompaignSerializerPost(Compaign)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CustomAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,context={'request': request})
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
