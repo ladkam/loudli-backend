@@ -134,7 +134,6 @@ class CompaignList(generics.ListCreateAPIView):
         if not self.request.POST._mutable:
             self.request.POST._mutable = True
 
-        logger.warning("eudcation level now "+ self.request.data['educationLevel'])
 
         self.request.data.update({"educationLevel": [int(el) for el in self.request.data['educationLevellab'].split('L')]})
         self.request.data.update({"city": [int(el) for el in self.request.data['citylab'].split('L')]})
@@ -142,10 +141,7 @@ class CompaignList(generics.ListCreateAPIView):
         self.request.data.update({"interests": [int(el) for el in self.request.data['interestslab'].split('L')]})
         self.request.data.update({"ageGroup": [int(el) for el in self.request.data['ageGrouplab'].split('L')]})
 
-        logger.warning("eudcation level now ")
-        logger.warning(self.request.data['educationLevel'])
-        logger.warning(type(self.request.data['educationLevel']))
-        logger.warning(type(self.request.data['educationLevel'][0]))
+
 
 
 
