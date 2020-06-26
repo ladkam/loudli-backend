@@ -17162,3 +17162,5 @@ AssertionError: It is redundant to specify `source='compaignFiles'` on field 'Re
 /Users/amine/work/django_api_marketPlace/marketplace_api/data_api/serializers.py changed, reloading.
 Watching for file changes with StatReloader
 "GET /Compaign/ HTTP/1.1" 200 189194
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/admin.py changed, reloading.
+Watching for file changes with StatReloader
