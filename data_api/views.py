@@ -111,13 +111,12 @@ class EducationList(generics.ListAPIView):
     queryset = Education.objects.all()
     serializer_class = EducationSerializer
 
-class CompaignFilesList(generics.ListAPIView):
+class CompaignFilesList(generics.ListCreateAPIView):
     queryset = CompaignFiles.objects.all()
     serializer_class = CompaignFilesSerializer
 
 class CompaignList(generics.ListCreateAPIView):
     queryset = Compaign.objects.all()
-
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -152,10 +151,8 @@ class CompaignList(generics.ListCreateAPIView):
             Compaign = serializer.save()
             serializer = CompaignSerializerPost(Compaign)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)        
 """
-
 
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
@@ -170,8 +167,6 @@ class CustomAuthToken(ObtainAuthToken):
             'first_name':user.first_name,
             'last_name': user.last_name
         })
-
-
 
 class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Compaign.objects.all()
