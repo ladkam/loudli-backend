@@ -134,7 +134,6 @@ class CompaignList(generics.ListCreateAPIView):
         if not self.request.POST._mutable:
             self.request.POST._mutable = True
 
-        self.request.data = request.data.copy()
         self.request.data.update({"educationLevel": [el for el in self.request.data['educationLevellab'].split('L')]})
         self.request.data.update({"city": [el for el in self.request.data['citylab'].split('L')]})
         self.request.data.update({"country": [el for el in self.request.data['countrylab'].split('L')]})
@@ -150,7 +149,7 @@ class CompaignList(generics.ListCreateAPIView):
 
 
 
-        serializer = CompaignSerializerPost(data=Data2)
+        serializer = CompaignSerializerPost(data=    self.request.data)
         if serializer.is_valid():
             Compaign = serializer.save()
             serializer = CompaignSerializerPost(Compaign)
