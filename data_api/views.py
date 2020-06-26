@@ -141,17 +141,13 @@ class CompaignList(generics.ListCreateAPIView):
         self.request.data.update({"ageGroup": [int(el) for el in self.request.data['ageGrouplab'].split('L')]})
         """
 
-        self.request.data.update({"educationLevel": [1,2,3]})
-        self.request.data.update({"city": [5]})
-        self.request.data.update({"country": [456,455]})
-        self.request.data.update({"interests": [578,579]})
-        self.request.data.update({"ageGroup": [1,2]})
+        request.data.update({"educationLevel": [1,2,3]})
+        request.data.update({"city": [5]})
+        request.data.update({"country": [456,455]})
+        request.data.update({"interests": [578,579]})
+        request.data.update({"ageGroup": [1,2]})
 
-
-
-
-
-
+        logger.warning(request.data)
 
 
         serializer = CompaignSerializerPost(data=request.data)
