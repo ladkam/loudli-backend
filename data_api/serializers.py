@@ -133,7 +133,8 @@ class CompaignSerializer(serializers.ModelSerializer):
     country = CountrySerializer(read_only=True, many=True)
     interests = InterestSerializer(read_only=True, many=True)
     city = CitySerializer(read_only=True, many=True)
-
+    ageGroup = AgeGroupSerializer(read_only=True, many=True)
+    educationLevel = EducationSerializer(read_only=True, many=True)
 
     class Meta:
         model = Compaign
