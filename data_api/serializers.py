@@ -139,7 +139,6 @@ class CompaignSerializerPost(serializers.ModelSerializer):
 
 
 class CompaignSerializer(serializers.ModelSerializer):
-    compaignFiles_set = serializers.SerializerMethodField()
     announcer = UserSerializer()
     podcast = PodcastsSerializer()
     message_set = serializers.SerializerMethodField()
@@ -149,7 +148,7 @@ class CompaignSerializer(serializers.ModelSerializer):
     ageGroup = AgeGroupSerializer(read_only=True, many=True)
     educationLevel = EducationSerializer(read_only=True, many=True)
     genderSerializer = GenderSerializer(read_only=True, many=True)
-
+    compaignFiles =  serializers.RelatedField( read_only=True)
     class Meta:
         model = Compaign
         fields = '__all__'

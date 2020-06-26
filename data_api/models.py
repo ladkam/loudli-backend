@@ -128,8 +128,6 @@ class CompaignFiles(models.Model):
     compaign = models.ForeignKey(Compaign,on_delete=models.CASCADE)
 
 
-
-
 class Episode(models.Model):
     podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
     name = models.CharField(max_length=256)

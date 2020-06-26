@@ -17016,3 +17016,149 @@ Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 /Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
 Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/serializers.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /Compaign/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/generics.py", line 239, in get
+    return self.list(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 760, in data
+    ret = super().data
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 529, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/fields.py", line 1904, in to_representation
+    method = getattr(self.parent, self.method_name)
+AttributeError: 'CompaignSerializer' object has no attribute 'get_compaignFiles_set'
+"GET /Compaign/ HTTP/1.1" 500 17810
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/serializers.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /Compaign/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/fields.py", line 454, in get_attribute
+    return get_attribute(instance, self.source_attrs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/fields.py", line 94, in get_attribute
+    instance = getattr(instance, attr)
+AttributeError: 'Compaign' object has no attribute 'compaignFiles_set'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/generics.py", line 239, in get
+    return self.list(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 760, in data
+    ret = super().data
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 516, in to_representation
+    attribute = field.get_attribute(instance)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/fields.py", line 487, in get_attribute
+    raise type(exc)(msg)
+AttributeError: Got AttributeError when attempting to get a value for field `compaignFiles_set` on serializer `CompaignSerializer`.
+The serializer field might be named incorrectly and not match any attribute or key on the `Compaign` instance.
+Original exception text was: 'Compaign' object has no attribute 'compaignFiles_set'.
+"GET /Compaign/ HTTP/1.1" 500 18727
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/serializers.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/serializers.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/serializers.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /Compaign/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/generics.py", line 239, in get
+    return self.list(request, *args, **kwargs)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 760, in data
+    ret = super().data
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 514, in to_representation
+    for field in fields:
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 375, in _readable_fields
+    for field in self.fields.values():
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/serializers.py", line 364, in fields
+    fields[key] = value
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/utils/serializer_helpers.py", line 145, in __setitem__
+    field.bind(field_name=key, parent=self.serializer)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/rest_framework/fields.py", line 379, in bind
+    (field_name, self.__class__.__name__, parent.__class__.__name__)
+AssertionError: It is redundant to specify `source='compaignFiles'` on field 'RelatedField' in serializer 'CompaignSerializer', because it is the same as the field name. Remove the `source` keyword argument.
+"GET /Compaign/ HTTP/1.1" 500 18741
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/serializers.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /Compaign/ HTTP/1.1" 200 189194
