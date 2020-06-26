@@ -108,6 +108,8 @@ class Compaign(models.Model):
     targetGender = models.ForeignKey(Gender,on_delete=models.CASCADE)
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True,null=True)
+    ageMin = models.IntegerField(blank=True,null=True)
+    ageMax = models.IntegerField(blank=True,null=True)
     educationLevel = models.ManyToManyField(Education,blank=True,null=True)
     interests = models.ManyToManyField(Interest,blank=True,null=True)
     city = models.ManyToManyField(City,blank=True,null=True)
