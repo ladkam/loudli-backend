@@ -16964,3 +16964,5 @@ Bad Request: /Compaign/
 "POST /Compaign/ HTTP/1.1" 400 59
 /Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
 Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
+Watching for file changes with StatReloader
