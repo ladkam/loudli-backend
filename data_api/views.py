@@ -133,12 +133,13 @@ class CompaignList(generics.ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         if not self.request.POST._mutable:
             self.request.POST._mutable = True
-
+        """
         self.request.data.update({"educationLevel": [el for el in self.request.data['educationLevellab'].split('L')]})
         self.request.data.update({"city": [el for el in self.request.data['citylab'].split('L')]})
         self.request.data.update({"country": [el for el in self.request.data['countrylab'].split('L')]})
         self.request.data.update({"interests": [el for el in self.request.data['interestslab'].split('L')]})
         self.request.data.update({"ageGroup": [el for el in self.request.data['ageGrouplab'].split('L')]})
+        """
 
         self.request.data.update({"educationLevel": [1, 2, 3]})
         self.request.data.update({"city": [5]})

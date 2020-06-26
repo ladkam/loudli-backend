@@ -17001,3 +17001,5 @@ NameError: name 'Data2' is not defined
 /Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
 Watching for file changes with StatReloader
 "POST /Compaign/ HTTP/1.1" 201 802
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
+Watching for file changes with StatReloader
