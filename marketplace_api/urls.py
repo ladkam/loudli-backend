@@ -49,7 +49,7 @@ urlpatterns = [
     path('UpdatePodcastEpisodes/', views.UpdatePodcastEpisodes.as_view()),
     path('Messages/',views.MessagesList.as_view()),
     path('Messages-details/',views.MessageDetail.as_view()),
-    path('CompaignFiles/', views.CompaignFilesList.as_view()),
+    path('CompaignFiles/', views.CompaignAttachedFileList.as_view()),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 

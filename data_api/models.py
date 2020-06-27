@@ -122,10 +122,10 @@ class Compaign(models.Model):
         return self.name
 
 
-class CompaignFiles(models.Model):
+class CompaignAttachedFile(models.Model):
     attachedFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     attachedFileName = models.TextField(blank=True, null=True)
-    compaign = models.ForeignKey(Compaign,on_delete=models.CASCADE)
+    compaign = models.ForeignKey(Compaign,related_name='naaa',on_delete=models.CASCADE)
 
 
 class Episode(models.Model):
