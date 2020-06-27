@@ -68,12 +68,12 @@ class AgeGroup(models.Model):
 class Education(models.Model):
     name = models.CharField(max_length=20)
     def __str__(self):
-        return self.Education
+        return self.name
 
 class Location(models.Model):
     name = models.CharField(max_length=20)
 def __str__(self):
-    return self.Education
+    return self.name
 
 class Gender(models.Model):
     name = models.CharField(max_length=20)

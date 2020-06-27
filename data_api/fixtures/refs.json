@@ -6,7 +6,7 @@
     {
       "ageIntervalMin": 18,
       "ageIntervalMax": 24,
-      "ageIntervalLabel": "18-24"
+      "name": "18-24"
     }
   },
   {
@@ -16,7 +16,7 @@
     {
       "ageIntervalMin": 25,
       "ageIntervalMax": 34,
-      "ageIntervalLabel": "25-34"
+      "name": "25-34"
     }
   },
     {
@@ -26,7 +26,7 @@
     {
       "ageIntervalMin": 45,
       "ageIntervalMax": 54,
-      "ageIntervalLabel": "45-54"
+      "name": "45-54"
     }
     },
   {
@@ -36,7 +36,7 @@
     {
       "ageIntervalMin": 55,
       "ageIntervalMax": 64,
-      "ageIntervalLabel": "55-64"
+      "name": "55-64"
     }
     },
   {
@@ -46,7 +46,7 @@
     {
       "ageIntervalMin": 45,
       "ageIntervalMax": 65,
-      "ageIntervalLabel": "45-65"
+      "name": "45-65"
     }
     },
   {
@@ -56,7 +56,7 @@
     {
       "ageIntervalMin": 65,
       "ageIntervalMax": 100,
-      "ageIntervalLabel": "65+"
+      "name": "65+"
     }
     },
    {
@@ -64,7 +64,7 @@
     "pk": 1,
     "fields":
     {
-      "Education": "Bac"
+      "name": "Bac"
     }
     },
    {
@@ -72,21 +72,21 @@
     "pk": 2,
     "fields":
     {
-      "Education": "Bac+2"
+      "name": "Bac+2"
     }
     }, {
     "model": "data_api.Education",
     "pk": 3,
     "fields":
     {
-      "Education": "Bac+3"
+      "name": "Bac+3"
     }
     }, {
     "model": "data_api.Education",
     "pk": 4,
     "fields":
     {
-      "Education": "Bac+5"
+      "name": "Bac+5"
     }
     },
   {
@@ -94,7 +94,7 @@
     "pk": 5,
     "fields":
     {
-      "Education": "Bac+8"
+      "name": "Bac+8"
     }
     },
    {
