@@ -116,7 +116,7 @@ class Compaign(models.Model):
     interests = models.ManyToManyField(Interest,blank=True)
     city = models.ManyToManyField(City,blank=True)
     country = models.ManyToManyField(Country, blank=True)
-    urlProduit = models.URLField(blank=True, null=True)
+    urlProduit = models.CharField(max_length=40,blank=True, null=True)
 
     def __str__(self):
         return self.name
