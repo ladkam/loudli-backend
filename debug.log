@@ -18291,3 +18291,67 @@ Not Found: /favicon.ico
 Not Found: /media/e4f98568-18a5-43c0-9488-d984ddeb3dea.jpg
 "GET /media/e4f98568-18a5-43c0-9488-d984ddeb3dea.jpg HTTP/1.1" 404 1907
 "GET /data_api/compaignattachedfile/1/change/ HTTP/1.1" 200 6297
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /RedirectView/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: my_view() takes 0 positional arguments but 1 was given
+"GET /RedirectView/ HTTP/1.1" 500 62442
+"GET /RedirectView HTTP/1.1" 301 0
+Internal Server Error: /RedirectView/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: my_view() takes 0 positional arguments but 1 was given
+"GET /RedirectView/ HTTP/1.1" 500 62589
+"GET /RedirectView HTTP/1.1" 301 0
+Internal Server Error: /RedirectView/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: my_view() takes 0 positional arguments but 1 was given
+"GET /RedirectView/ HTTP/1.1" 500 62589
+"GET /RedirectView HTTP/1.1" 301 0
+Internal Server Error: /RedirectView/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: my_view() takes 0 positional arguments but 1 was given
+"GET /RedirectView/ HTTP/1.1" 500 62589
+"GET /RedirectView HTTP/1.1" 301 0
+Internal Server Error: /RedirectView/
+Traceback (most recent call last):
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/amine/venv/django_api_marketPlace/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: my_view() takes 0 positional arguments but 1 was given
+"GET /RedirectView/ HTTP/1.1" 500 62589
+/Users/amine/work/django_api_marketPlace/marketplace_api/data_api/views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /RedirectView HTTP/1.1" 301 0
+"GET /RedirectView/ HTTP/1.1" 302 0
+/Users/amine/work/django_api_marketPlace/marketplace_api/marketplace_api/settings.py changed, reloading.

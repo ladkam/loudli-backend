@@ -15,6 +15,7 @@ from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from django.shortcuts import redirect
 
 import logging
 
@@ -305,3 +306,13 @@ class MessagesList(generics.ListCreateAPIView):
 class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
+def my_view(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    print(ip)
+    return redirect('https://cdn-images-1.listennotes.com/podcasts/du-raisin-et-des-papilles-mickael-weiss-MugP7OV6QKW-RIBm_g3PFLt.300x300.jpg')
+

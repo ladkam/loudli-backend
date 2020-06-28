@@ -50,8 +50,11 @@ urlpatterns = [
     path('Messages/',views.MessagesList.as_view()),
     path('Messages-details/',views.MessageDetail.as_view()),
     path('CompaignFiles/', views.CompaignAttachedFileList.as_view()),
+    path('RedirectView/', views.my_view),
+
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
+
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

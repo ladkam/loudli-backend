@@ -145,6 +145,10 @@ class CompaignSerializer(serializers.ModelSerializer):
     country = CountrySerializer(read_only=True, many=True)
     interests = InterestSerializer(read_only=True, many=True)
     city = CitySerializer(read_only=True, many=True)
+    targetGender = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='name'
+     )
     ageGroup = AgeGroupSerializer(read_only=True, many=True)
     educationLevel = EducationSerializer(read_only=True, many=True)
     genderSerializer = GenderSerializer(read_only=True, many=True)
