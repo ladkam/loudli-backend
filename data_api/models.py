@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.contrib.postgres.fields import ArrayField
 from datetime import datetime
 import uuid
 from django.contrib.auth.models import AbstractUser
@@ -36,28 +37,7 @@ class UserProfileInfo(models.Model):
         if created:
             UserProfileInfo.objects.create(user=instance)
 
-class Podcast(models.Model):
-    name = models.CharField(max_length=256)
-    tags = models.CharField(max_length=256,blank=True,null=True)
-    episodesLoadingStatus = models.CharField(max_length=20,blank=True,null=True,default=('Not initialized'))
-    listenNotesId = models.CharField(max_length=256,blank=True,null=True)
-    genre = models.CharField(max_length=256,default='Other')
-    editor = models.CharField(max_length=256,null=True)
-    thumbnail = models.URLField(blank=True,null=True)
-    podcastPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
-    duration = models.IntegerField(blank=True,null=True)
-    pub_date = models.DateTimeField(blank=True,null=True)
-    about = models.TextField()
-    public = models.CharField(max_length=256)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    nb_episodes = models.IntegerField(blank=True,default=0,null=True )
-    def __str__(self):
-        return self.name
-    def image_img(self):
-        if self.podcastPicture:
-            return u'<img src="%s" width="50" height="50" />' % self.podcastPicture.url
-        else:
-            return '(Sin imagen)'
+
 
 
 class AgeGroup(models.Model):
@@ -98,6 +78,38 @@ class City(models.Model):
         return self.name
 
 
+class Podcast(models.Model):
+    name = models.CharField(max_length=256)
+    tags = models.CharField(max_length=256, blank=True, null=True)
+    urlFeed = models.CharField(max_length=256, blank=True, null=True)
+    nbPlays = models.IntegerField()
+    price = models.IntegerField()
+    interests = models.ManyToManyField(Interest, blank=True)
+    city = models.ManyToManyField(City, blank=True)
+    country = models.ManyToManyField(Country, blank=True)
+    ageInterval = ArrayField(models.IntegerField( blank=True, null=True), blank=True,null=True)
+
+    """episodesLoadingStatus = models.CharField(max_length=20,blank=True,null=True,default=('Not initialized'))
+    listenNotesId = models.CharField(max_length=256,blank=True,null=True)
+    genre = models.CharField(max_length=256,default='Other')
+    editor = models.CharField(max_length=256,null=True)
+    thumbnail = models.URLField(blank=True,null=True)
+    podcastPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
+    duration = models.IntegerField(blank=True,null=True)
+    pub_date = models.DateTimeField(blank=True,null=True)
+    about = models.TextField()
+    public = models.CharField(max_length=256)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    nb_episodes = models.IntegerField(blank=True,default=0,null=True )"""
+
+    def __str__(self):
+        return self.name
+
+    """def image_img(self):
+        if self.podcastPicture:
+            return u'<img src="%s" width="50" height="50" />' % self.podcastPicture.url
+        else:
+            return '(Sin imagen)'"""
 
 class Compaign(models.Model):
     name = models.CharField(max_length=256)
