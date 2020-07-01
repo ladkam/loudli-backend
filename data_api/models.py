@@ -72,15 +72,20 @@ class Country(models.Model):
 
 class City(models.Model):
     name = models.CharField(max_length=52)
-    country = models.ForeignKey(Country,on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=52)
     def __str__(self):
         return self.name
 
 
 class Podcast(models.Model):
     name = models.CharField(max_length=256)
-    tags = models.CharField(max_length=256, blank=True, null=True)
+    tags = models.ManyToManyField(Tag, blank=True)
     urlFeed = models.CharField(max_length=256, blank=True, null=True)
     nbPlays = models.IntegerField()
     price = models.IntegerField()
@@ -88,6 +93,7 @@ class Podcast(models.Model):
     city = models.ManyToManyField(City, blank=True)
     country = models.ManyToManyField(Country, blank=True)
     ageInterval = ArrayField(models.IntegerField( blank=True, null=True), blank=True,null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     """episodesLoadingStatus = models.CharField(max_length=20,blank=True,null=True,default=('Not initialized'))
     listenNotesId = models.CharField(max_length=256,blank=True,null=True)
@@ -99,7 +105,6 @@ class Podcast(models.Model):
     pub_date = models.DateTimeField(blank=True,null=True)
     about = models.TextField()
     public = models.CharField(max_length=256)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
     nb_episodes = models.IntegerField(blank=True,default=0,null=True )"""
 
     def __str__(self):

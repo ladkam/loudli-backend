@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Podcast,Gender,CompaignAttachedFile,UserProfileInfo,Ad,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
-
+from .models import Tag,Podcast,Gender,CompaignAttachedFile,UserProfileInfo,Ad,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
+from django.db.models import Q
 
 class UserProfileInfoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,16 +27,94 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ['url', 'name']
 
+
+
+class AgeGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AgeGroup
+        fields = '__all__'
+
+class EducationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Education
+        fields = '__all__'
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = '__all__'
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = '__all__'
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = '__all__'
+
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = '__all__'
+
+class InterestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Interest
+        fields ='__all__'
+
 class PodcastsSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
+    tags = TagSerializer(many=True)
     class Meta:
         model = Podcast
         fields = '__all__'
 
+
 class PodcastsSerializerPost(serializers.ModelSerializer):
+    tags = TagSerializer(many=True)
+    interests = serializers.PrimaryKeyRelatedField(many=True,queryset=Interest.objects.all())
+    city = serializers.PrimaryKeyRelatedField(many=True,queryset = City.objects.all())
+    country = serializers.PrimaryKeyRelatedField(many=True,queryset = Country.objects.all())
+
     class Meta:
         model = Podcast
         fields = '__all__'
+        print('here')
+
+
+    def create(self, validated_data):
+        tags_data = validated_data.pop('tags')
+        interests_data = validated_data.pop('interests')
+        city_data = validated_data.pop('city')
+        country_data = validated_data.pop('country')
+        print('here 2')
+
+        podcast = Podcast.objects.create(**validated_data)
+        for tag in tags_data:
+            name = tag.get("name")
+            tag, created = Tag.objects.filter(
+                Q(name=name)
+            ).get_or_create(name=name)
+            podcast.tags.add(tag)
+
+        for interest in interests_data:
+            """
+            name = interest.get("name")
+            inter,created = Interest.objects.filter(
+                Q(name=name)
+            ).get_or_create(name=name)
+            """
+            podcast.interests.add(interest)
+        for city in city_data:
+            podcast.city.add(city)
+        for country in country_data:
+            podcast.country.add(country)
+
+
+        podcast.save()
+        return podcast
 
 class EpisodeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -93,7 +171,6 @@ class MessageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-
 class MessageOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
@@ -101,35 +178,7 @@ class MessageOnlySerializer(serializers.ModelSerializer):
 
 
 
-class AgeGroupSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = AgeGroup
-        fields = '__all__'
 
-class EducationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Education
-        fields = '__all__'
-
-class CountrySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Country
-        fields = '__all__'
-
-class CountrySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Country
-        fields = '__all__'
-
-class CitySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = City
-        fields = '__all__'
-
-class InterestSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Interest
-        fields = '__all__'
 
 
 class CompaignSerializerPost(serializers.ModelSerializer):
