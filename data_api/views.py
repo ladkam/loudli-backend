@@ -51,7 +51,7 @@ class PodcastsList(generics.ListCreateAPIView):
         if self.request.method == 'POST':
             return PodcastsSerializerPost
         if self.request.method == 'GET':
-            return PodcastsSerializerPost
+            return PodcastsSerializer
 
 class PodcastsListFilter(generics.ListCreateAPIView):
     queryset = Podcast.objects.all()

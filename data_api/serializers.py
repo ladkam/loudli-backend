@@ -67,10 +67,24 @@ class InterestSerializer(serializers.ModelSerializer):
 class PodcastsSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
     tags = TagSerializer(many=True)
+    interests = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name'
+     )
+    city = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name'
+     )
+    country = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name'
+     )
     class Meta:
         model = Podcast
         fields = '__all__'
-
 
 class PodcastsSerializerPost(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
@@ -81,15 +95,12 @@ class PodcastsSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Podcast
         fields = '__all__'
-        print('here')
-
 
     def create(self, validated_data):
         tags_data = validated_data.pop('tags')
         interests_data = validated_data.pop('interests')
         city_data = validated_data.pop('city')
         country_data = validated_data.pop('country')
-        print('here 2')
 
         podcast = Podcast.objects.create(**validated_data)
         for tag in tags_data:
