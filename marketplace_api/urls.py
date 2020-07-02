@@ -43,6 +43,7 @@ urlpatterns = [
     path('PodcastPlays/',views.PodcastPlays.as_view()),
     path('AgeGroup/', views.AgeGroupList.as_view()),
     path('Education/', views.EducationList.as_view()),
+    path('Tag/', views.TagList.as_view()),
     path('Interest/', views.InterestList.as_view()),
     path('City/', views.CityList.as_view()),
     path('Country/', views.CountryList.as_view()),

@@ -138,12 +138,10 @@ class Compaign(models.Model):
     def __str__(self):
         return self.name
 
-
 class CompaignAttachedFile(models.Model):
     attachedFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     attachedFileName = models.TextField(blank=True, null=True)
     compaign = models.ForeignKey(Compaign,related_name='naaa',on_delete=models.CASCADE)
-
 
 class Episode(models.Model):
     podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
