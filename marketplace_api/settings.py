@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'djoser',
     'corsheaders',
     'scrape_podcast_data',
-    'django_extensions'
+    'django_extensions',
+                     'dry_rest_permissions',
+
 ]
 
 MIDDLEWARE = [
@@ -208,16 +210,16 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
+       # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
-
-
-
 }
+
+
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',

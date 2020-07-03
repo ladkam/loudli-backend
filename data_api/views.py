@@ -3,11 +3,11 @@ from rest_framework import viewsets
 from django.db.models import Sum
 from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
-    UserProfileInfoSerializer,AdSerializer,CompaignSerializer,EpisodeStatSerializer,\
+    UserProfileInfoSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageOnlySerializer,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,CountrySerializer,CitySerializer,InterestSerializer,GenderSerializer,CompaignAttachedFileSerializer,TagSerializer
+    ,EducationSerializer,CountrySerializer,CitySerializer,InterestSerializer,GenderSerializer,CompaignAttachedFileSerializer,TagSerializer,MyTokenObtainPairSerializer
 from rest_framework import generics
-from .models import Podcast,Tag,UserProfileInfo,CompaignAttachedFile,Gender,Ad,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
+from .models import Podcast,Tag,UserProfileInfo,CompaignAttachedFile,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
@@ -16,6 +16,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from django.shortcuts import redirect
+from dry_rest_permissions.generics import DRYPermissions
 
 import logging
 
@@ -33,6 +34,13 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
     """
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
 class UserProfileInfoList(generics.ListCreateAPIView):
     queryset = UserProfileInfo.objects.all()
 
@@ -47,6 +55,7 @@ class UserProfileInfoList(generics.ListCreateAPIView):
 
 class PodcastsList(generics.ListCreateAPIView):
     queryset = Podcast.objects.all()
+    permission_classes = (DRYPermissions,)
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return PodcastsSerializerPost
@@ -65,6 +74,7 @@ class PodcastsListFilter(generics.ListCreateAPIView):
 class PodcastsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Podcast.objects.all()
     serializer_class = PodcastsSerializer
+    permission_classes = (DRYPermissions,)
 
 class UserProfileInfoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserProfileInfo.objects.all()
@@ -74,27 +84,12 @@ class UserProfileInfoDetail(generics.RetrieveUpdateDestroyAPIView):
         return UserProfileInfo.objects.filter(user=user.id)
 
 
-class AdList(generics.ListCreateAPIView):
-    queryset = Ad.objects.all()
-    serializer_class = AdSerializer
-    def get_queryset(self):
-        user = self.request.user
-        querytype=self.request.GET.get('type','')
-
-        if querytype=='podcaster':
-            return Ad.objects.filter(podcast__author=user.id)
-        if querytype == 'announcer':
-            return Ad.objects.filter(compaign__announcer=user.id)
-
-    filterset_fields = ['podcast', 'compaign']
-
-class AdDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Ad.objects.all()
-    serializer_class = AdSerializer
 
 class AgeGroupList(generics.ListAPIView):
     queryset = AgeGroup.objects.all()
     serializer_class = AgeGroupSerializer
+    permission_classes = (DRYPermissions,)
+
 
 class CountryList(generics.ListAPIView):
     queryset = Country.objects.all()
@@ -122,6 +117,7 @@ class CompaignAttachedFileList(generics.ListCreateAPIView):
 
 class CompaignList(generics.ListCreateAPIView):
     queryset = Compaign.objects.all()
+    permission_classes = (DRYPermissions,)
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -175,6 +171,7 @@ class CustomAuthToken(ObtainAuthToken):
 
 class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Compaign.objects.all()
+    permission_classes = (DRYPermissions,)
     def get_serializer_class(self):
         if self.request.method == 'PUT':
             print(self.request.data)
@@ -292,7 +289,6 @@ class PodcastPlays(APIView):
             return Response({'no plays for podcast'+podcast}, status=status.HTTP_400_BAD_REQUEST)
 
 class MessagesList(generics.ListCreateAPIView):
-
     queryset = Message.objects.all()
 
     def get_serializer_class(self):
@@ -300,6 +296,7 @@ class MessagesList(generics.ListCreateAPIView):
             return MessageOnlySerializer
         if self.request.method == 'GET':
             return MessageSerializer
+    permission_classes = (DRYPermissions,)
 
     def get_queryset(self):
         user = self.request.user
@@ -310,13 +307,4 @@ class MessagesList(generics.ListCreateAPIView):
 class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
-
-def my_view(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    print(ip)
-    return redirect('https://cdn-images-1.listennotes.com/podcasts/du-raisin-et-des-papilles-mickael-weiss-MugP7OV6QKW-RIBm_g3PFLt.300x300.jpg')
-
+    permission_classes = (DRYPermissions,)

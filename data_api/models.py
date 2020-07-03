@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.postgres.fields import ArrayField
+from dry_rest_permissions.generics import allow_staff_or_superuser, authenticated_users
 from datetime import datetime
 import uuid
 from django.contrib.auth.models import AbstractUser
@@ -45,30 +46,125 @@ class AgeGroup(models.Model):
     ageIntervalMax = models.IntegerField()
     name = models.CharField(max_length=50)
 
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_write_permission(request):
+        return False
+
+    @staticmethod
+    @authenticated_users
+    def has_read_permission(self):
+        return True
+
+    @staticmethod
+    @allow_staff_or_superuser
+    def has_create_permission(request):
+        return False
+
+
+
 class Education(models.Model):
     name = models.CharField(max_length=20)
     def __str__(self):
         return self.name
+
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_write_permission(request):
+        return False
+
+    @staticmethod
+    @authenticated_users
+    def has_read_permission(self):
+        return True
+
+    @staticmethod
+    @allow_staff_or_superuser
+    def has_create_permission(request):
+        return False
 
 class Location(models.Model):
     name = models.CharField(max_length=20)
 def __str__(self):
     return self.name
 
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_write_permission(request):
+        return False
+
+    @staticmethod
+    @authenticated_users
+    def has_read_permission(self):
+        return True
+
+    @staticmethod
+    @allow_staff_or_superuser
+    def has_create_permission(request):
+        return False
+
 class Gender(models.Model):
     name = models.CharField(max_length=20)
     def __str__(self):
         return self.name
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_write_permission(request):
+        return False
+
+    @staticmethod
+    @authenticated_users
+    def has_read_permission(self):
+        return True
+
+    @staticmethod
+    @allow_staff_or_superuser
+    def has_create_permission(request):
+        return False
 
 class Interest(models.Model):
     name = models.CharField(max_length=100)
     def __str__(self):
         return self.name
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_write_permission(request):
+        return False
+
+    @staticmethod
+    @authenticated_users
+    def has_read_permission(self):
+        return True
+
+    @staticmethod
+    @allow_staff_or_superuser
+    def has_create_permission(request):
+        return False
 
 class Country(models.Model):
     name = models.CharField(max_length=52)
     def __str__(self):
         return self.name
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_write_permission(request):
+        return False
+
+    @staticmethod
+    @authenticated_users
+    def has_read_permission(self):
+        return True
+
+    @staticmethod
+    @allow_staff_or_superuser
+    def has_create_permission(request):
+        return False
 
 class City(models.Model):
     name = models.CharField(max_length=52)
@@ -76,12 +172,26 @@ class City(models.Model):
     def __str__(self):
         return self.name
 
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_write_permission(request):
+        return False
+
+    @staticmethod
+    @authenticated_users
+    def has_read_permission(self):
+        return True
+
+    @staticmethod
+    @allow_staff_or_superuser
+    def has_create_permission(request):
+        return False
 
 class Tag(models.Model):
     name = models.CharField(max_length=52)
     def __str__(self):
         return self.name
-
 
 class Podcast(models.Model):
     name = models.CharField(max_length=256)
@@ -94,6 +204,24 @@ class Podcast(models.Model):
     country = models.ManyToManyField(Country, blank=True)
     ageInterval = ArrayField(models.IntegerField( blank=True, null=True), blank=True,null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_write_permission(self,request):
+        if self.author == request.user:
+            return False
+
+    @authenticated_users
+    def has_read_permission(self):
+        return True
+
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_create_permission(request):
+        if UserProfileInfo.objects.filter(user=request.user,type='announcer') :
+            return True
+        return False
 
     """episodesLoadingStatus = models.CharField(max_length=20,blank=True,null=True,default=('Not initialized'))
     listenNotesId = models.CharField(max_length=256,blank=True,null=True)
@@ -135,8 +263,48 @@ class Compaign(models.Model):
     country = models.ManyToManyField(Country, blank=True)
     urlProduit = models.CharField(max_length=40,blank=True, null=True)
 
+
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_write_permission(request):
+        return False
+
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_object_update_permission(self,request):
+        if request.user == self.announcer or Podcast.objects.filter(pk=self.podcast,author=request.user):
+            return True
+        return False
+
+    @staticmethod
+    @authenticated_users
+    def has_object_read_permission(self,request):
+        if request.user == self.announcer or Podcast.objects.filter(pk=self.podcast,author=request.user):
+            return True
+        return True
+
+    @staticmethod
+    @authenticated_users
+    def has_read_permission(request):
+        return True
+
+
+    @staticmethod
+    @allow_staff_or_superuser
+    def has_create_permission(request):
+        if UserProfileInfo.objects.filter(user=request.user,type='announcer'):
+            return True
+
+
     def __str__(self):
         return self.name
+
+
+
+
+
 
 class CompaignAttachedFile(models.Model):
     attachedFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_filename)
@@ -175,16 +343,6 @@ class PodcastStatGeneral(models.Model):
     plays = models.IntegerField()
     nbEpisodes = models.IntegerField()
 
-class Ad(models.Model):
-    name = models.CharField(max_length=256)
-    type = models.CharField(max_length=256)
-    startDate = models.DateField(auto_now=True)
-    status = models.CharField(max_length=256)
-    podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
-    compaign = models.ForeignKey(Compaign, on_delete=models.CASCADE)
-    Requesttext = models.TextField()
-    def __str__(self):
-        return self.name
 
 class Message(models.Model):
     sendDate = models.DateTimeField(auto_now=True)
@@ -194,4 +352,35 @@ class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
     attachedFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     attachedFileName = models.TextField(blank=True, null=True)
+
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_write_permission(request):
+        return True
+
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_object_update_permission(self, request):
+        return False
+
+    @staticmethod
+    @allow_staff_or_superuser
+    def has_read_permission(request):
+        return True
+
+    @staticmethod
+    @allow_staff_or_superuser
+    @authenticated_users
+    def has_object_read_permission(self, request):
+        return True
+
+
+
+    @staticmethod
+    @allow_staff_or_superuser
+    @authenticated_users
+    def has_create_permission(request):
+            return False
 

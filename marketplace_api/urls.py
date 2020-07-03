@@ -1,5 +1,6 @@
 from django.urls import include, path
 from data_api import views
+from rest_framework_simplejwt import views as jwt_views
 
 from rest_framework.authtoken import views as authview
 
@@ -26,7 +27,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('', admin.site.urls),
-    url(r'^api-token-auth/', views.CustomAuthToken.as_view()),
+    url(r'^api-token-auth/', views.MyTokenObtainPairView.as_view()),
     path('podcasts/<int:pk>/', views.PodcastsDetail.as_view()),
     path('usersInfo/', views.UserProfileInfoList.as_view()),
     path('usersInfo/<int:pk>/', views.UserProfileInfoDetail.as_view()),
@@ -35,10 +36,9 @@ urlpatterns = [
     path('episodestats/', views.PodcastatList.as_view()),
     path('episodes/', views.EpisodeList.as_view()),
     path('podcaststatGeneral/', views.PodcastStatsGeneral.as_view()),
-    path('ads/', views.AdList.as_view()),
-    path('ads/<int:pk>/', views.AdDetail.as_view()),
     path('Compaign/', views.CompaignList.as_view()),
     path('Compaign/<int:pk>/', views.CompaignDetail.as_view()),
+    path('Message/<int:pk>/', views.MessageDetail.as_view()),
     path('PodcastPlays/',views.PodcastPlays.as_view()),
     path('PodcastPlays/',views.PodcastPlays.as_view()),
     path('AgeGroup/', views.AgeGroupList.as_view()),
@@ -51,9 +51,10 @@ urlpatterns = [
     path('Messages/',views.MessagesList.as_view()),
     path('Messages-details/',views.MessageDetail.as_view()),
     path('CompaignFiles/', views.CompaignAttachedFileList.as_view()),
-    path('RedirectView/', views.my_view),
-
     path('auth/', include('djoser.urls')),
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/customToken/', views.MyTokenObtainPairView.as_view()),
     path('auth/', include('djoser.urls.authtoken')),
 
 

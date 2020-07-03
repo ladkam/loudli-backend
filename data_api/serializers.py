@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Tag,Podcast,Gender,CompaignAttachedFile,UserProfileInfo,Ad,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
+from .models import Tag,Podcast,Gender,CompaignAttachedFile,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
 from django.db.models import Q
 
 class UserProfileInfoSerializer(serializers.ModelSerializer):
@@ -221,9 +221,16 @@ class CompaignSerializer(serializers.ModelSerializer):
         messages = instance.message_set.all().order_by('sendDate')
         return MessageSerializer(messages, many=True).data
 
-class AdSerializer(serializers.ModelSerializer):
-    podcast = PodcastsSerializer()
-    compaign=CompaignSerializer()
-    class Meta:
-        model = Ad
-        fields = '__all__'
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['first_name'] = user.first_name
+        token['last_name'] = user.last_name
+        token['email'] = user.email
+        return token
