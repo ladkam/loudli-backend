@@ -215,7 +215,7 @@ class Podcast(models.Model):
         return True
 
     @authenticated_users
-    def has_object_read_permission(self):
+    def has_object_read_permission(self,request):
         return True
 
     @staticmethod

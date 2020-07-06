@@ -60,7 +60,7 @@ class UserProfileInfoList(generics.ListCreateAPIView):
 
 class PodcastsList(generics.ListCreateAPIView):
     queryset = Podcast.objects.all()
-    permission_classes = (DRYPermissions,)
+   # permission_classes = (DRYPermissions,)
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return PodcastsSerializerPost
