@@ -207,9 +207,8 @@ class Podcast(models.Model):
     @staticmethod
     @authenticated_users
     @allow_staff_or_superuser
-    def has_write_permission(self,request):
-        if self.author == request.user:
-            return False
+    def has_write_permission(self):
+        return True
 
     @authenticated_users
     def has_read_permission(self):

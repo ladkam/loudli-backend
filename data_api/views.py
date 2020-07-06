@@ -35,11 +35,16 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
+
+class MyTokenRefreshView(TokenRefreshView):
+    serializer_class = MyTokenObtainPairSerializer
+
 
 class UserProfileInfoList(generics.ListCreateAPIView):
     queryset = UserProfileInfo.objects.all()
