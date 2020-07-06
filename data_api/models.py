@@ -197,6 +197,9 @@ class Podcast(models.Model):
     name = models.CharField(max_length=256)
     tags = models.ManyToManyField(Tag, blank=True)
     urlFeed = models.CharField(max_length=256, blank=True, null=True)
+    image = models.CharField(max_length=256, blank=True, null=True)
+    nbEpisodes = models.IntegerField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     nbPlays = models.IntegerField()
     price = models.IntegerField()
     interests = models.ManyToManyField(Interest, blank=True)
@@ -234,7 +237,7 @@ class Podcast(models.Model):
     podcastPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     duration = models.IntegerField(blank=True,null=True)
     pub_date = models.DateTimeField(blank=True,null=True)
-    about = models.TextField()
+
     public = models.CharField(max_length=256)
     nb_episodes = models.IntegerField(blank=True,default=0,null=True )"""
 
