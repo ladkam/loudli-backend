@@ -214,6 +214,10 @@ class Podcast(models.Model):
     def has_read_permission(self):
         return True
 
+    @authenticated_users
+    def has_object_read_permission(self):
+        return True
+
     @staticmethod
     @authenticated_users
     @allow_staff_or_superuser
