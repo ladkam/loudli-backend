@@ -276,7 +276,7 @@ class Compaign(models.Model):
     @authenticated_users
     @allow_staff_or_superuser
     def has_write_permission(request):
-        return False
+        return True
 
     @staticmethod
     @authenticated_users
