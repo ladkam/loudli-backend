@@ -41,11 +41,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-
-class MyTokenRefreshView(TokenRefreshView):
-    serializer_class = MyTokenObtainPairSerializer
-
-
 class UserProfileInfoList(generics.ListCreateAPIView):
     queryset = UserProfileInfo.objects.all()
 
@@ -60,7 +55,7 @@ class UserProfileInfoList(generics.ListCreateAPIView):
 
 class PodcastsList(generics.ListCreateAPIView):
     queryset = Podcast.objects.all()
-   # permission_classes = (DRYPermissions,)
+    permission_classes = (DRYPermissions,)
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return PodcastsSerializerPost

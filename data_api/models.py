@@ -382,8 +382,6 @@ class Message(models.Model):
     def has_object_read_permission(self, request):
         return True
 
-
-
     @staticmethod
     @allow_staff_or_superuser
     @authenticated_users
