@@ -56,6 +56,7 @@ urlpatterns = [
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('api/customToken/', views.MyTokenObtainPairView.as_view()),
     path('auth/', include('djoser.urls.authtoken')),
+    path('checkRss/',views.CheckRssPodcast.as_view())
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

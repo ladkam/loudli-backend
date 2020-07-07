@@ -17,6 +17,9 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from django.shortcuts import redirect
 from dry_rest_permissions.generics import DRYPermissions
+from pyPodcastParser.Podcast import Podcast as PodcastParser
+import requests
+
 
 import logging
 
@@ -309,3 +312,22 @@ class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
     permission_classes = (DRYPermissions,)
+
+
+class CheckRssPodcast(APIView):
+    def post(self, request):
+        url = request.data.__getitem__('url')
+        response = requests.get(url)
+        podcast = PodcastParser(response.content)
+
+        return Response({
+            'name': podcast.title,
+            'image':podcast.itune_image,
+            'author':podcast.itunes_author_name,
+            'category':podcast.itunes_categories,
+            'tags':podcast.itunes_keywords,
+            'lang':podcast.language,
+            'length':len(podcast.items),
+            'lastPubDate':podcast.items[0].published_date,
+            'summary':podcast.summary
+        })
