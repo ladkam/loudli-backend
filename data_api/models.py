@@ -270,44 +270,76 @@ class Compaign(models.Model):
     city = models.ManyToManyField(City,blank=True)
     country = models.ManyToManyField(Country, blank=True)
     urlProduit = models.CharField(max_length=40,blank=True, null=True)
-
-
+    """
     @staticmethod
     @authenticated_users
     @allow_staff_or_superuser
     def has_write_permission(request):
-        return True
-
-    @staticmethod
-    @authenticated_users
-    @allow_staff_or_superuser
-    def has_object_update_permission(self,request):
-        if request.user == self.announcer or Podcast.objects.filter(pk=self.podcast,author=request.user):
+        if len(UserProfileInfo.objects.filter(user=request.user,type='announcer'))>0:
             return True
         return False
 
     @staticmethod
-    @authenticated_users
-    def has_object_read_permission(self,request):
-        if request.user == self.announcer or Podcast.objects.filter(pk=self.podcast,author=request.user):
+    @allow_staff_or_superuser
+    def has_create_permission(request):
+        if len(UserProfileInfo.objects.filter(user=request.user,type='announcer'))>0:
+            print('has')
             return True
+        else:
+            print('has')
+            return False
+
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_object_write_permission(self,request):
         return True
+        
+
 
     @staticmethod
     @authenticated_users
     def has_read_permission(request):
         return True
 
+    @staticmethod
+    @authenticated_users
+    def has_object_read_permission(self,request):
+            return True
+        return False
+        """
 
     @staticmethod
-    @allow_staff_or_superuser
-    def has_create_permission(request):
-        if UserProfileInfo.objects.filter(user=request.user,type='announcer'):
+    def has_read_permission(request):
+        return True
+
+    def has_object_read_permission(self, request):
+        if request.user == self.announcer or Podcast.objects.filter(pk=self.podcast.id,author=request.user):
             return True
+
+    @staticmethod
+    def has_write_permission(request):
+            return True
+
+
+    @staticmethod
+    def has_create_permission(request):
+        if len(UserProfileInfo.objects.filter(user=request.user, type='announcer')) > 0:
+            return True
+        else:
+            False
+
+    def has_object_write_permission(self,request):
+        if request.user == self.announcer or Podcast.objects.filter(pk=self.podcast.id,author=request.user):
+            return True
+
 
 
     def __str__(self):
         return self.name
+
+
+
 
 
 

@@ -133,6 +133,7 @@ class CompaignList(generics.ListCreateAPIView):
         else:
             return Compaign.objects.filter(announcer=user.id)
 
+
 """
     def post(self, request, *args, **kwargs):
         if not self.request.POST._mutable:
@@ -174,7 +175,7 @@ class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (DRYPermissions,)
     def get_serializer_class(self):
         if self.request.method == 'PUT':
-            print(self.request.data)
+
             return CompaignSerializerPost
         if self.request.method == 'GET':
             return CompaignSerializer
