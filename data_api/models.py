@@ -196,7 +196,7 @@ class Tag(models.Model):
 class Podcast(models.Model):
     name = models.CharField(max_length=256)
     tags = models.ManyToManyField(Tag, blank=True)
-    urlFeed = models.CharField(max_length=256, blank=True, null=True)
+    urlFeed = models.CharField(max_length=256, blank=True, null=True,unique=True)
     image = models.CharField(max_length=256, blank=True, null=True)
     nbEpisodes = models.IntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -251,6 +251,19 @@ class Podcast(models.Model):
             return u'<img src="%s" width="50" height="50" />' % self.podcastPicture.url
         else:
             return '(Sin imagen)'"""
+
+
+class episodePodcast(models.Model):
+    name = models.CharField(max_length=256)
+    pubDate = models.DateField(auto_now=True)
+    audio = models.CharField(max_length=256,null=True,blank=True)
+    image = models.CharField(max_length=256,null=True,blank=True)
+    text = models.TextField(max_length=400,null=True,blank=True)
+    podcast = models.ForeignKey(Podcast,on_delete=models.CASCADE)
+    duration = models.IntegerField(null=True,blank=True)
+    def __str__(self):
+        return self.namer
+
 
 class Compaign(models.Model):
     name = models.CharField(max_length=256)
@@ -333,17 +346,8 @@ class Compaign(models.Model):
         if request.user == self.announcer or Podcast.objects.filter(pk=self.podcast.id,author=request.user):
             return True
 
-
-
     def __str__(self):
         return self.name
-
-
-
-
-
-
-
 
 
 class CompaignAttachedFile(models.Model):
@@ -420,5 +424,4 @@ class Message(models.Model):
     @allow_staff_or_superuser
     @authenticated_users
     def has_create_permission(request):
-            return False
-
+        return False

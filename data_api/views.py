@@ -317,8 +317,35 @@ class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
 class CheckRssPodcast(APIView):
     def post(self, request):
         url = request.data.__getitem__('url')
-        response = requests.get(url)
-        podcast = PodcastParser(response.content)
+
+        try:
+            response = requests.get(url)
+        except:
+            return Response('url incorrect', status=status.HTTP_400_BAD_REQUEST)
+
+        if(len(Podcast.objects.filter(urlFeed=url))>0):
+            return Response(('this feed is already used'), status=status.HTTP_226_IM_USED)
+
+        try:
+            podcast = PodcastParser(response.content)
+        except:
+            return Response('Not a podcast feed)',status=status.HTTP_400_BAD_REQUEST)
+
+        if podcast.description == None:
+            return Response('Not a podcast feed)',status=status.HTTP_400_BAD_REQUEST)
+
+
+        entries = []
+        items = PodcastParser(response.content).items
+
+
+        for item in items:
+            entry={}
+            entry['name'] = item.title
+            entry['audio'] = item.enclosure_url
+            entry['image'] = item.itune_image
+            entry['text'] = item.description
+            entries.append(entry)
 
         return Response({
             'name': podcast.title,
@@ -329,5 +356,6 @@ class CheckRssPodcast(APIView):
             'lang':podcast.language,
             'length':len(podcast.items),
             'lastPubDate':podcast.items[0].published_date,
-            'summary':podcast.summary
+            'summary':podcast.summary,
+            'episodes':entries
         })

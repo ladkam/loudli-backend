@@ -44,15 +44,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'data_api',
+    'data_api.apps.DataApiConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
     'corsheaders',
     'scrape_podcast_data',
     'django_extensions',
-                     'dry_rest_permissions',
-
+    'dry_rest_permissions',
 ]
 
 MIDDLEWARE = [
@@ -227,12 +226,10 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(hours=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
-
     'ALGORITHM': 'HS256',
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
     'ISSUER': None,
-
     'AUTH_HEADER_TYPES': ('Bearer',),
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',

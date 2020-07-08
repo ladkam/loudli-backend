@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Podcast,UserProfileInfo,Tag,CompaignAttachedFile,Compaign,EpisodeStat,PodcastStatGeneral,Episode,EpisodeImported,Message,AgeGroup,Interest,City,Country
+from .models import Podcast,episodePodcast,UserProfileInfo,Tag,CompaignAttachedFile,Compaign,EpisodeStat,PodcastStatGeneral,Episode,EpisodeImported,Message,AgeGroup,Interest,City,Country
 from django.contrib.auth.admin import UserAdmin
 from .models import User
 
@@ -21,6 +21,7 @@ admin.site.register(City)
 admin.site.register(Country)
 admin.site.register(CompaignAttachedFile)
 admin.site.register(Tag)
+admin.site.register(episodePodcast)
 
 
 
