@@ -66,7 +66,11 @@ class InterestSerializer(serializers.ModelSerializer):
 
 class PodcastsSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
-    tags = TagSerializer(many=True)
+    tags = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name'
+     )
     interests = serializers.SlugRelatedField(
         many=True,
         read_only=True,
