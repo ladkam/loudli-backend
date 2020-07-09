@@ -71,7 +71,7 @@ class PodcastsSerializer(serializers.ModelSerializer):
         read_only=True,
         slug_field='name'
      )
-    AgeGroup = serializers.SlugRelatedField(
+    ageGroup = serializers.SlugRelatedField(
         many=True,
         read_only=True,
         slug_field='name'
