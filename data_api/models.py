@@ -202,6 +202,7 @@ class Podcast(models.Model):
     description = models.TextField(blank=True, null=True)
     nbPlays = models.IntegerField()
     price = models.IntegerField()
+    targetGender = models.ForeignKey(Gender,blank=True,null=True,on_delete=models.CASCADE)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
     city = models.ManyToManyField(City,blank=True,null=True)
     country = models.ManyToManyField(Country, blank=True,null=True)
