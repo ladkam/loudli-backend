@@ -277,7 +277,6 @@ class Compaign(models.Model):
     ageMin = models.IntegerField(blank=True,null=True)
     ageMax = models.IntegerField(blank=True,null=True)
     educationLevel = models.ManyToManyField(Education,blank=True)
-    interests = models.ManyToManyField(Interest,blank=True)
     city = models.ManyToManyField(City,blank=True,null=True)
     country = models.ManyToManyField(Country, blank=True,null=True)
     urlProduit = models.CharField(max_length=40,blank=True, null=True)
