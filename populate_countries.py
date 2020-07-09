@@ -19,12 +19,12 @@ faker = Faker()
 from data_api.models import City
 from data_api.models import Country
 
-City.objects.all().delete()
+Country.objects.all().delete()
 
-df = pd.read_csv('worldcities.csv')
+df = pd.read_csv('countries.csv')
 
 for index,row in df.iterrows():
-    _, created = City.objects.get_or_create(name=row.city)
+    _, created = Country.objects.get_or_create(name=row['Country FR'])
 
 
 

@@ -92,9 +92,14 @@ class PodcastsSerializer(serializers.ModelSerializer):
 
 class PodcastsSerializerPost(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
-    interests = serializers.PrimaryKeyRelatedField(many=True,queryset=Interest.objects.all())
-    city = serializers.PrimaryKeyRelatedField(many=True,queryset = City.objects.all())
-    country = serializers.PrimaryKeyRelatedField(many=True,queryset = Country.objects.all())
+    city = serializers.SlugRelatedField(
+        slug_field='name',
+        many=True,
+        queryset = City.objects.all())
+    country=serializers.SlugRelatedField(
+        slug_field='name',
+        many=True,
+        queryset=Country.objects.all())
 
     class Meta:
         model = Podcast
@@ -102,7 +107,6 @@ class PodcastsSerializerPost(serializers.ModelSerializer):
 
     def create(self, validated_data):
         tags_data = validated_data.pop('tags')
-        interests_data = validated_data.pop('interests')
         city_data = validated_data.pop('city')
         country_data = validated_data.pop('country')
 
@@ -114,19 +118,10 @@ class PodcastsSerializerPost(serializers.ModelSerializer):
             ).get_or_create(name=name)
             podcast.tags.add(tag)
 
-        for interest in interests_data:
-            """
-            name = interest.get("name")
-            inter,created = Interest.objects.filter(
-                Q(name=name)
-            ).get_or_create(name=name)
-            """
-            podcast.interests.add(interest)
         for city in city_data:
             podcast.city.add(city)
         for country in country_data:
             podcast.country.add(country)
-
 
         podcast.save()
         return podcast

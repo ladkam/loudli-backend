@@ -202,12 +202,11 @@ class Podcast(models.Model):
     description = models.TextField(blank=True, null=True)
     nbPlays = models.IntegerField()
     price = models.IntegerField()
-    interests = models.ManyToManyField(Interest, blank=True)
-    city = models.ManyToManyField(City, blank=True)
-    country = models.ManyToManyField(Country, blank=True)
+    city = models.ManyToManyField(City,blank=True,null=True)
+    country = models.ManyToManyField(Country, blank=True,null=True)
     ageInterval = ArrayField(models.IntegerField( blank=True, null=True), blank=True,null=True)
     categories = ArrayField(models.CharField(max_length=40,blank=True, null=True), blank=True, null=True)
-    editor=models.CharField(max_length=30, blank=True, null=True)
+    editor = models.CharField(max_length=30, blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     @staticmethod
     @authenticated_users
@@ -252,7 +251,6 @@ class Podcast(models.Model):
         else:
             return '(Sin imagen)'"""
 
-
 class episodePodcast(models.Model):
     name = models.CharField(max_length=256)
     pubDate = models.DateField(auto_now=True)
@@ -262,7 +260,7 @@ class episodePodcast(models.Model):
     podcast = models.ForeignKey(Podcast,on_delete=models.CASCADE)
     duration = models.IntegerField(null=True,blank=True)
     def __str__(self):
-        return self.namer
+        return self.name
 
 
 class Compaign(models.Model):
@@ -280,8 +278,8 @@ class Compaign(models.Model):
     ageMax = models.IntegerField(blank=True,null=True)
     educationLevel = models.ManyToManyField(Education,blank=True)
     interests = models.ManyToManyField(Interest,blank=True)
-    city = models.ManyToManyField(City,blank=True)
-    country = models.ManyToManyField(Country, blank=True)
+    city = models.ManyToManyField(City,blank=True,null=True)
+    country = models.ManyToManyField(Country, blank=True,null=True)
     urlProduit = models.CharField(max_length=40,blank=True, null=True)
     """
     @staticmethod
