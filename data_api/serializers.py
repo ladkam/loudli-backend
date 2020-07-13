@@ -67,6 +67,7 @@ class InterestSerializer(serializers.ModelSerializer):
 class PodcastsSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
     targetGender = serializers.SlugRelatedField(
+        many=True,
         read_only=True,
         slug_field='name'
     )
@@ -206,16 +207,26 @@ class CompaignSerializer(serializers.ModelSerializer):
     announcer = UserSerializer()
     podcast = PodcastsSerializer()
     message_set = serializers.SerializerMethodField()
-    country = CountrySerializer(read_only=True, many=True)
-    interests = InterestSerializer(read_only=True, many=True)
-    city = CitySerializer(read_only=True, many=True)
-    targetGender = serializers.SlugRelatedField(
+    country = serializers.SlugRelatedField(
+        many=True,
         read_only=True,
         slug_field='name'
-     )
-    ageGroup = AgeGroupSerializer(read_only=True, many=True)
-    educationLevel = EducationSerializer(read_only=True, many=True)
-    genderSerializer = GenderSerializer(read_only=True, many=True)
+    )
+    interests = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name'
+    )
+    city = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name'
+    )
+    ageGroup = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name'
+    )
     CompaignAttachedFile =  CompaignAttachedFileSerializer(many=True,read_only=True)
     class Meta:
         model = Compaign
