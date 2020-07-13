@@ -27,8 +27,6 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ['url', 'name']
 
-
-
 class AgeGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = AgeGroup
@@ -194,8 +192,6 @@ class MessageOnlySerializer(serializers.ModelSerializer):
 
 
 
-
-
 class CompaignSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Compaign
@@ -206,6 +202,10 @@ class CompaignSerializer(serializers.ModelSerializer):
     announcer = UserSerializer()
     podcast = PodcastsSerializer()
     message_set = serializers.SerializerMethodField()
+    targetGender = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='name'
+    )
     country = serializers.SlugRelatedField(
         many=True,
         read_only=True,
