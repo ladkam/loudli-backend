@@ -212,11 +212,6 @@ class CompaignSerializer(serializers.ModelSerializer):
         read_only=True,
         slug_field='name'
     )
-    interests = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field='name'
-    )
     city = serializers.SlugRelatedField(
         many=True,
         read_only=True,
