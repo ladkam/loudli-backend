@@ -59,7 +59,6 @@ class UserProfileInfoList(generics.ListCreateAPIView):
 class PodcastsList(generics.ListCreateAPIView):
     queryset = Podcast.objects.all()
     permission_classes = (DRYPermissions,)
-    filter_backends = [DjangoFilterBackend]
     filter_fields = ['targetGender']
     def get_serializer_class(self):
         if self.request.method == 'POST':

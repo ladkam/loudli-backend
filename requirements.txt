@@ -1,3 +1,4 @@
+APScheduler==3.6.3
 argcomplete==1.11.1
 asgiref==3.2.3
 attrs==19.3.0
@@ -28,6 +29,7 @@ django-filters==0.2.1
 django-guardian==2.3.0
 django-rest-framework==0.1.0
 django-templated-mail==1.1.1
+django-url-filter==0.3.15
 django-utils==0.0.2
 djangorestframework==3.11.0
 djangorestframework-jwt==1.11.0
@@ -40,6 +42,7 @@ docopt==0.6.2
 docutils==0.15.2
 dry-rest-permissions==0.1.10
 durationpy==0.5
+enum-compat==0.0.3
 Faker==4.0.0
 feedparser==5.2.1
 future==0.16.0
@@ -79,6 +82,7 @@ texttable==1.6.2
 toml==0.10.1
 tqdm==4.32.2
 troposphere==2.6.1
+tzlocal==2.1
 urllib3==1.24.3
 wcwidth==0.1.9
 webdriver-manager==2.5.2
