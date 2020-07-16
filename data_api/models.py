@@ -216,6 +216,10 @@ class Podcast(models.Model):
     @allow_staff_or_superuser
     def has_write_permission(self):
         return True
+    def has_object_write_permission(self,request):
+        if UserProfileInfo.objects.filter(user=request.user):
+            return True
+        return False
 
     @authenticated_users
     def has_read_permission(self):
