@@ -11,6 +11,7 @@ from .models import Podcast,Tag,UserProfileInfo,CompaignAttachedFile,Gender,Comp
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
+from url_filter.integrations.drf import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
@@ -59,6 +60,8 @@ class UserProfileInfoList(generics.ListCreateAPIView):
 class PodcastsList(generics.ListCreateAPIView):
     queryset = Podcast.objects.all()
     permission_classes = (DRYPermissions,)
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = ['targetGender']
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return PodcastsSerializerPost

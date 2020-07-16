@@ -208,7 +208,7 @@ class Podcast(models.Model):
     country = models.ManyToManyField(Country, blank=True,null=True)
     ageInterval = ArrayField(models.IntegerField( blank=True, null=True), blank=True,null=True)
     categories = ArrayField(models.CharField(max_length=40,blank=True, null=True), blank=True, null=True)
-    editor = models.CharField(max_length=30, blank=True, null=True)
+    editor = models.CharField(max_length=60, blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     @staticmethod
     @authenticated_users

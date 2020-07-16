@@ -117,6 +117,14 @@
     "pk": 3,
     "fields":
     {
+      "name": "Autre"
+    }
+   },
+  {
+     "model": "data_api.Gender",
+    "pk": 4,
+    "fields":
+    {
       "name": "Tous"
     }
    }
