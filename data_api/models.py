@@ -194,6 +194,7 @@ class Tag(models.Model):
         return self.name
 
 class Podcast(models.Model):
+
     name = models.CharField(max_length=256)
     tags = models.ManyToManyField(Tag, blank=True)
     urlFeed = models.CharField(max_length=256, blank=True, null=True,unique=True)
@@ -202,14 +203,13 @@ class Podcast(models.Model):
     description = models.TextField(blank=True, null=True)
     nbPlays = models.IntegerField()
     price = models.IntegerField()
-    targetGender = models.ForeignKey(Gender,blank=True,null=True,on_delete=models.CASCADE)
-    ageGroup = models.ManyToManyField(AgeGroup,blank=True)
+    targetGender = models.ForeignKey(Gender,blank=True, null=True , on_delete = models.CASCADE)
+    ageGroup = models.ManyToManyField(AgeGroup,blank=True,null=True)
     city = models.ManyToManyField(City,blank=True,null=True)
     country = models.ManyToManyField(Country, blank=True,null=True)
-    ageInterval = ArrayField(models.IntegerField( blank=True, null=True), blank=True,null=True)
     categories = ArrayField(models.CharField(max_length=40,blank=True, null=True), blank=True, null=True)
     editor = models.CharField(max_length=128, blank=True, null=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete = models.CASCADE)
 
     @staticmethod
     @authenticated_users

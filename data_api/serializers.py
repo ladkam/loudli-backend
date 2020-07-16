@@ -121,6 +121,7 @@ class PodcastsSerializerPost(serializers.ModelSerializer):
         tags_data = validated_data.pop('tags')
         city_data = validated_data.pop('city')
         country_data = validated_data.pop('country')
+        ageGroup_data = validated_data.pop('ageGroup')
 
         podcast = Podcast.objects.create(**validated_data)
         for tag in tags_data:
@@ -132,8 +133,12 @@ class PodcastsSerializerPost(serializers.ModelSerializer):
 
         for city in city_data:
             podcast.city.add(city)
+
         for country in country_data:
             podcast.country.add(country)
+
+        for ageGroup in ageGroup_data:
+            podcast.ageGroup.add(ageGroup)
 
         podcast.save()
         return podcast
