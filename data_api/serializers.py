@@ -94,15 +94,24 @@ class PodcastsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PodcastsSerializerPost(serializers.ModelSerializer):
+
     tags = TagSerializer(many=True)
+
     city = serializers.SlugRelatedField(
         slug_field='name',
         many=True,
         queryset = City.objects.all())
-    country=serializers.SlugRelatedField(
+
+    country = serializers.SlugRelatedField(
         slug_field='name',
         many=True,
         queryset=Country.objects.all())
+
+    ageGroup = serializers.SlugRelatedField(
+        slug_field='name',
+        many=True,
+        queryset = AgeGroup.objects.all()
+    )
 
     class Meta:
         model = Podcast

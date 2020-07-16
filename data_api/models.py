@@ -210,6 +210,7 @@ class Podcast(models.Model):
     categories = ArrayField(models.CharField(max_length=40,blank=True, null=True), blank=True, null=True)
     editor = models.CharField(max_length=128, blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+
     @staticmethod
     @authenticated_users
     @allow_staff_or_superuser
