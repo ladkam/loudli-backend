@@ -11,7 +11,6 @@ from .models import Podcast,Tag,UserProfileInfo,CompaignAttachedFile,Gender,Comp
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
-from url_filter.integrations.drf import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
