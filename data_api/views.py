@@ -325,9 +325,10 @@ class CheckRssPodcast(APIView):
             response = requests.get(url)
         except:
             return Response('url incorrect', status=status.HTTP_400_BAD_REQUEST)
-
+        """
         if(len(Podcast.objects.filter(urlFeed=url))>0 and type=='check'):
             return Response(('this feed is already used'), status=status.HTTP_400_BAD_REQUEST)
+            """
 
         try:
             podcast = PodcastParser(response.content)

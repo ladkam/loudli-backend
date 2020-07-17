@@ -197,7 +197,7 @@ class Podcast(models.Model):
 
     name = models.CharField(max_length=256)
     tags = models.ManyToManyField(Tag, blank=True)
-    urlFeed = models.CharField(max_length=256, blank=True, null=True,unique=True)
+    urlFeed = models.CharField(max_length=256, blank=True, null=True)
     image = models.CharField(max_length=256, blank=True, null=True)
     nbEpisodes = models.IntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
