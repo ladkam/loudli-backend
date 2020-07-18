@@ -178,8 +178,7 @@ class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Compaign.objects.all()
     permission_classes = (DRYPermissions,)
     def get_serializer_class(self):
-        if self.request.method == 'PUT':
-
+        if self.request.method == 'PUT' or self.request.method == 'PATCH':
             return CompaignSerializerPost
         if self.request.method == 'GET':
             return CompaignSerializer
