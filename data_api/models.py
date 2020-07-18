@@ -278,6 +278,8 @@ class Compaign(models.Model):
     podcast = models.ForeignKey(Podcast,null=True,on_delete=models.CASCADE)
     description = models.TextField(blank=True,null=True)
     status = models.CharField(max_length=20,default='Créée')
+    targetReach = models.IntegerField(blank=True,null=True)
+    Price = models.IntegerField(blank=True,null=True)
     targetGender = models.ForeignKey(Gender,blank=True,null=True,on_delete=models.CASCADE)
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
