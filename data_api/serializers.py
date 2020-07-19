@@ -2,6 +2,35 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from .models import Tag,Podcast,Gender,CompaignAttachedFile,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
 from django.db.models import Q
+import boto3
+from botocore.exceptions import ClientError
+import logging
+import boto3
+from botocore.exceptions import ClientError
+
+
+def create_presigned_url(bucket_name, object_name, expiration=3600):
+    """Generate a presigned URL to share an S3 object
+
+    :param bucket_name: string
+    :param object_name: string
+    :param expiration: Time in seconds for the presigned URL to remain valid
+    :return: Presigned URL as string. If error, returns None.
+    """
+
+    # Generate a presigned URL for the S3 object
+    s3_client = boto3.client('s3')
+    try:
+        response = s3_client.generate_presigned_url('get_object',
+                                                    Params={'Bucket': bucket_name,
+                                                            'Key': object_name},
+                                                    ExpiresIn=expiration)
+    except ClientError as e:
+        logging.error(e)
+        return None
+
+    # The response contains the presigned URL
+    return response
 
 class UserProfileInfoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -212,8 +241,12 @@ class CompaignSerializerPost(serializers.ModelSerializer):
         fields = '__all__'
 
 
+
 class CompaignSerializer(serializers.ModelSerializer):
     announcer = UserSerializer()
+    audioFile =  serializers.SerializerMethodField()
+
+
     podcast = PodcastsSerializer()
     message_set = serializers.SerializerMethodField()
     targetGender = serializers.SlugRelatedField(
@@ -243,6 +276,10 @@ class CompaignSerializer(serializers.ModelSerializer):
     def get_message_set(self, instance):
         messages = instance.message_set.all().order_by('sendDate')
         return MessageSerializer(messages, many=True).data
+
+    def get_audioFile(self, obj):
+        print(obj.audioFileName)
+        return create_presigned_url('loudli-files',obj.audioFileName)
 
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer

@@ -19,6 +19,8 @@ from django.shortcuts import redirect
 from dry_rest_permissions.generics import DRYPermissions
 from pyPodcastParser.Podcast import Podcast as PodcastParser
 import requests
+import boto3
+from botocore.exceptions import ClientError
 
 
 import logging
@@ -119,6 +121,12 @@ class CompaignAttachedFileList(generics.ListCreateAPIView):
     queryset = CompaignAttachedFile.objects.all()
     serializer_class = CompaignAttachedFileSerializer
 
+
+
+
+
+
+
 class CompaignList(generics.ListCreateAPIView):
     queryset = Compaign.objects.all()
     permission_classes = (DRYPermissions,)
@@ -177,10 +185,12 @@ class CustomAuthToken(ObtainAuthToken):
 class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Compaign.objects.all()
     permission_classes = (DRYPermissions,)
+
     def get_serializer_class(self):
         if self.request.method == 'PUT' or self.request.method == 'PATCH':
             return CompaignSerializerPost
         if self.request.method == 'GET':
+            print('hey')
             return CompaignSerializer
 
 ### new comment
