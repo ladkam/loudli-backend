@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'scrape_podcast_data',
     'django_extensions',
     'dry_rest_permissions',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -282,6 +283,14 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'amine.ladiki@landoconsulting.com'
 EMAIL_HOST_PASSWORD = "Dohatabali09"
 DEFAULT_FROM_EMAIL = 'admin <noreply@landoconsulting.com>'
+
+
+AWS_ACCESS_KEY_ID = 'AKIAVJK5HEDTNR4OM6HO'
+AWS_SECRET_ACCESS_KEY = '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'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_STORAGE_BUCKET_NAME = 'loudli-files'
+AWS_S3_REGION_NAME = 'eu-west-3'
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploaded_media')
