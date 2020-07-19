@@ -5,7 +5,7 @@ from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageOnlySerializer,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,CountrySerializer,CitySerializer,InterestSerializer,GenderSerializer,CompaignAttachedFileSerializer,TagSerializer,MyTokenObtainPairSerializer
+    ,EducationSerializer,CountrySerializer,CitySerializer,InterestSerializer,GenderSerializer,CompaignAttachedFileSerializer,TagSerializer,MyTokenObtainPairSerializer,CompaignSerializerDetails
 from rest_framework import generics
 from .models import Podcast,Tag,UserProfileInfo,CompaignAttachedFile,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
@@ -121,12 +121,6 @@ class CompaignAttachedFileList(generics.ListCreateAPIView):
     queryset = CompaignAttachedFile.objects.all()
     serializer_class = CompaignAttachedFileSerializer
 
-
-
-
-
-
-
 class CompaignList(generics.ListCreateAPIView):
     queryset = Compaign.objects.all()
     permission_classes = (DRYPermissions,)
@@ -190,8 +184,7 @@ class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
         if self.request.method == 'PUT' or self.request.method == 'PATCH':
             return CompaignSerializerPost
         if self.request.method == 'GET':
-            print('hey')
-            return CompaignSerializer
+            return CompaignSerializerDetails
 
 ### new comment
 
