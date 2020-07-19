@@ -282,6 +282,7 @@ class Compaign(models.Model):
     price = models.IntegerField(blank=True,null=True)
     targetGender = models.ForeignKey(Gender,blank=True,null=True,on_delete=models.CASCADE)
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
+    adText =  models.TextField(max_length=2000,blank=True,null=True)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
     city = models.ManyToManyField(City,blank=True,null=True)
     country = models.ManyToManyField(Country, blank=True,null=True)
