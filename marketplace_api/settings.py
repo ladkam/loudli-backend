@@ -285,12 +285,13 @@ EMAIL_HOST_PASSWORD = "Dohatabali09"
 DEFAULT_FROM_EMAIL = 'admin <noreply@landoconsulting.com>'
 
 
-AWS_ACCESS_KEY_ID = 'AKIAVJK5HEDTNR4OM6HO'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'AKIAVJK5HEDTJWBHFDVF'
+AWS_SECRET_ACCESS_KEY = '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'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_STORAGE_BUCKET_NAME = 'loudli-files'
 AWS_S3_REGION_NAME = 'eu-west-3'
+
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploaded_media')
@@ -301,4 +302,6 @@ MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_URL = '/static/'
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
