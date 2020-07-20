@@ -5,7 +5,7 @@ from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageOnlySerializer,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,CountrySerializer,CitySerializer,InterestSerializer,GenderSerializer,CompaignAttachedFileSerializer,TagSerializer,MyTokenObtainPairSerializer,CompaignSerializerDetails
+    ,EducationSerializer,CountrySerializer,CitySerializer,InterestSerializer,GenderSerializer,CompaignAttachedFileSerializer,TagSerializer,MyTokenObtainPairSerializer
 from rest_framework import generics
 from .models import Podcast,Tag,UserProfileInfo,CompaignAttachedFile,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
@@ -184,7 +184,7 @@ class CompaignDetail(generics.RetrieveUpdateDestroyAPIView):
         if self.request.method == 'PUT' or self.request.method == 'PATCH':
             return CompaignSerializerPost
         if self.request.method == 'GET':
-            return CompaignSerializerDetails
+            return CompaignSerializer
 
 ### new comment
 

@@ -242,49 +242,11 @@ class CompaignSerializerPost(serializers.ModelSerializer):
 
 
 
+
+
+
+
 class CompaignSerializer(serializers.ModelSerializer):
-    announcer = UserSerializer()
-    """audioFile =  serializers.SerializerMethodField()"""
-
-
-    podcast = PodcastsSerializer()
-    message_set = serializers.SerializerMethodField()
-    targetGender = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='name'
-    )
-    country = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field='name'
-    )
-    city = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field='name'
-    )
-    ageGroup = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field='name'
-    )
-    CompaignAttachedFile =  CompaignAttachedFileSerializer(many=True,read_only=True)
-    class Meta:
-        model = Compaign
-        fields = '__all__'
-
-    def get_message_set(self, instance):
-        messages = instance.message_set.all().order_by('sendDate')
-        return MessageSerializer(messages, many=True).data
-    """
-    def get_audioFile(self, obj):
-        print(obj.audioFileName)
-        return create_presigned_url('loudli-files',obj.audioFileName)
-    """
-
-
-
-class CompaignSerializerDetails(serializers.ModelSerializer):
     announcer = UserSerializer()
     audioFile =  serializers.SerializerMethodField()
 
@@ -319,10 +281,10 @@ class CompaignSerializerDetails(serializers.ModelSerializer):
         messages = instance.message_set.all().order_by('sendDate')
         return MessageSerializer(messages, many=True).data
     def get_audioFile(self, obj):
-        print(obj.audioFileName)
-        return create_presigned_url('loudli-files',obj.audioFileName)
-
-
+        if obj.audioFileName:
+            return create_presigned_url('loudli-files',obj.audioFileName)
+        else:
+            return ''
 
 
 
