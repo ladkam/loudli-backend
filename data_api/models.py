@@ -284,6 +284,7 @@ class Compaign(models.Model):
     podcast = models.ForeignKey(Podcast,null=True,on_delete=models.CASCADE)
     description = models.TextField(blank=True,null=True)
     status = models.CharField(max_length=20,default='Créée')
+    statusNum = models.IntegerField(default=1)
     plays = models.IntegerField(blank=True,null=True)
     price = models.IntegerField(blank=True,null=True)
     targetGender = models.ForeignKey(Gender,blank=True,null=True,on_delete=models.CASCADE)
