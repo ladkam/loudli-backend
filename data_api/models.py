@@ -293,6 +293,7 @@ class Compaign(models.Model):
     audioFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_audiofilename)
     audioFileName = models.CharField(max_length=128,blank=True, null=True)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
+
     city = models.ManyToManyField(City,blank=True,null=True)
     country = models.ManyToManyField(Country, blank=True,null=True)
     pitch= models.TextField(max_length=2000,blank=True,null=True)
@@ -364,10 +365,7 @@ class Compaign(models.Model):
         return self.name
 
 
-class CompaignAttachedFile(models.Model):
-    attachedFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_filename)
-    attachedFileName = models.TextField(blank=True, null=True)
-    compaign = models.ForeignKey(Compaign,related_name='naaa',on_delete=models.CASCADE)
+
 
 class Episode(models.Model):
     podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
@@ -400,6 +398,12 @@ class PodcastStatGeneral(models.Model):
     podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
     plays = models.IntegerField()
     nbEpisodes = models.IntegerField()
+
+
+class attached(models.Model):
+    attachedFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_filename)
+    attachedFileName = models.TextField(blank=True, null=True)
+    compaign = models.ForeignKey(Compaign, on_delete=models.CASCADE)
 
 
 class Message(models.Model):

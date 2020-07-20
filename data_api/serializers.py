@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Tag,Podcast,Gender,CompaignAttachedFile,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
+from .models import Tag,Podcast,Gender,attached,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
 from django.db.models import Q
 import boto3
 from botocore.exceptions import ClientError
@@ -194,10 +194,7 @@ class GenderSerializer(serializers.ModelSerializer):
         model = Gender
         fields = '__all__'
 
-class CompaignAttachedFileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CompaignAttachedFile
-        fields = '__all__'
+
 
 
 """
@@ -224,6 +221,11 @@ class MessageSerializer(serializers.ModelSerializer):
     sender = UserSerializer()
     class Meta:
         model = Message
+        fields = '__all__'
+
+class attachedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = attached
         fields = '__all__'
 
 
@@ -266,7 +268,7 @@ class CompaignSerializer(serializers.ModelSerializer):
         read_only=True,
         slug_field='name'
     )
-    CompaignAttachedFile = CompaignAttachedFileSerializer(many=True, read_only=True)
+    attached_set = serializers.SerializerMethodField()
 
     class Meta:
         model = Compaign
@@ -281,6 +283,9 @@ class CompaignSerializer(serializers.ModelSerializer):
         else:
             return 'coco'
             """
+    def get_attached_set(self,instance):
+        files = instance.attached_set.all()
+        return attachedSerializer(files, many=True).data
 
 
 
