@@ -289,6 +289,8 @@ class Compaign(models.Model):
     price = models.IntegerField(blank=True,null=True)
     targetGender = models.ForeignKey(Gender,blank=True,null=True,on_delete=models.CASCADE)
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
+    actionFor = models.IntegerField(default=0,choices = [(0,0),(1,1)])
+
     adText =  models.TextField(max_length=2000,blank=True,null=True)
     audioFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_audiofilename)
     audioFileName = models.CharField(max_length=128,blank=True, null=True)
