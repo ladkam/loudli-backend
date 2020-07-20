@@ -20,6 +20,9 @@ def scramble_uploaded_filename(instance, filename):
     extension = filename.split(".")[-1]
     return "{}.{}".format(uuid.uuid4(), extension)
 
+def scramble_uploaded_audiofilename(instance, filename):
+    return 'campaign_'+str(instance.id)+'_'+filename
+
 class UserProfileInfo(models.Model):
     user = models.OneToOneField(User,related_name='profile',on_delete=models.CASCADE)
     first_name =models.CharField(max_length=30)
@@ -286,7 +289,7 @@ class Compaign(models.Model):
     targetGender = models.ForeignKey(Gender,blank=True,null=True,on_delete=models.CASCADE)
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     adText =  models.TextField(max_length=2000,blank=True,null=True)
-    audioFile = models.FileField(blank=True,null=True)
+    audioFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_audiofilename)
     audioFileName = models.CharField(max_length=128,blank=True, null=True)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
     city = models.ManyToManyField(City,blank=True,null=True)
