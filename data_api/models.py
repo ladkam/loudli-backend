@@ -275,7 +275,6 @@ class episodePodcast(models.Model):
     def __str__(self):
         return self.name
 
-
 class Compaign(models.Model):
     name = models.CharField(max_length=256)
     startDate = models.DateField(auto_now=True)
@@ -290,13 +289,13 @@ class Compaign(models.Model):
     targetGender = models.ForeignKey(Gender,blank=True,null=True,on_delete=models.CASCADE)
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     actionFor = models.IntegerField(default=0,choices = [(0,0),(1,1)])
-
     adText =  models.TextField(max_length=2000,blank=True,null=True)
     audioFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_audiofilename)
     audioFileName = models.CharField(max_length=128,blank=True, null=True)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
     city = models.ManyToManyField(City,blank=True,null=True)
     country = models.ManyToManyField(Country, blank=True,null=True)
+    pitch= models.TextField(max_length=2000,blank=True,null=True)
     urlProduit = models.CharField(max_length=40,blank=True, null=True)
     """
     @staticmethod
