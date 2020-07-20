@@ -282,7 +282,7 @@ class CompaignSerializer(serializers.ModelSerializer):
         return MessageSerializer(messages, many=True).data
     def get_audioFile(self, obj):
         if obj.audioFileName:
-            return create_presigned_url('loudli-files',obj.audioFileName)
+            return create_presigned_url('loudli-files','campaign_'+str(obj.id)+'_'+obj.audioFileName)
         else:
             return ''
 
