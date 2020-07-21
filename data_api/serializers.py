@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Tag,Podcast,Gender,attached,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
+from .models import Tag,Podcast,Gender,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
 from django.db.models import Q
 import boto3
 from botocore.exceptions import ClientError
@@ -237,10 +237,8 @@ class MessageOnlySerializer(serializers.ModelSerializer):
 
 class PropositionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Message
+        model = Proposition
         fields = '__all__'
-
-
 
 class CompaignSerializerPost(serializers.ModelSerializer):
     class Meta:
@@ -252,7 +250,7 @@ class CompaignSerializer(serializers.ModelSerializer):
     announcer = UserSerializer()
     """audioFile =  serializers.SerializerMethodField()"""
 
-    proposition_set = PropositionSerializer()
+    proposition_set = serializers.SerializerMethodField()
     podcast = PodcastsSerializer()
     message_set = serializers.SerializerMethodField()
     targetGender = serializers.SlugRelatedField(
@@ -283,6 +281,9 @@ class CompaignSerializer(serializers.ModelSerializer):
     def get_message_set(self, instance):
         messages = instance.message_set.all().order_by('sendDate')
         return MessageSerializer(messages, many=True).data
+    def get_proposition_set(self, instance):
+        propositions = instance.proposition_set.all().order_by('date')
+        return PropositionSerializer(propositions, many=True).data
     """def get_audioFile(self, obj):
         if obj.audioFileName:
             return create_presigned_url('loudli-files','campaign_'+str(obj.id)+'_'+obj.audioFileName)
