@@ -5,15 +5,14 @@ from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageOnlySerializer,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,CountrySerializer,CitySerializer,InterestSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
+    ,EducationSerializer,CountrySerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
 from rest_framework import generics
-from .models import Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
+from .models import Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from django.shortcuts import redirect
 from dry_rest_permissions.generics import DRYPermissions
@@ -120,6 +119,10 @@ class EducationList(generics.ListAPIView):
 class attachedList(generics.ListCreateAPIView):
     queryset = attached.objects.all()
     serializer_class = attachedSerializer
+
+class propositionList(generics.ListCreateAPIView):
+    queryset = Proposition.objects.all()
+    serializer_class = PropositionSerializer
 
 class CompaignList(generics.ListCreateAPIView):
     queryset = Compaign.objects.all()

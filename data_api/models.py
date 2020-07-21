@@ -399,6 +399,12 @@ class PodcastStatGeneral(models.Model):
     plays = models.IntegerField()
     nbEpisodes = models.IntegerField()
 
+class Proposition(models.Model):
+    price = models.IntegerField()
+    plays = models.IntegerField()
+    date = models.DateTimeField(auto_now=True)
+    comment = models.TextField(max_length=1200)
+    compaign = models.ForeignKey(Compaign, on_delete=models.CASCADE)
 
 class attached(models.Model):
     attachedFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_filename)

@@ -51,6 +51,7 @@ urlpatterns = [
     path('Messages/',views.MessagesList.as_view()),
     path('Messages-details/',views.MessageDetail.as_view()),
     path('CompaignFiles/', views.attachedList.as_view()),
+    path('CompaignProposition/', views.propositionList.as_view()),
     path('auth/', include('djoser.urls')),
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
