@@ -236,7 +236,7 @@ class MessageOnlySerializer(serializers.ModelSerializer):
 
 
 class PropositionSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    sender = UserSerializer()
     class Meta:
         model = Proposition
         fields = '__all__'
