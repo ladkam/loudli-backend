@@ -5,7 +5,7 @@ from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageOnlySerializer,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,CountrySerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
+    ,EducationSerializer,CountrySerializer,PropositionSerializerPost,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
 from rest_framework import generics
 from .models import Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
@@ -122,7 +122,7 @@ class attachedList(generics.ListCreateAPIView):
 
 class propositionList(generics.ListCreateAPIView):
     queryset = Proposition.objects.all()
-    serializer_class = PropositionSerializer
+    serializer_class = PropositionSerializerPost
 
 class CompaignList(generics.ListCreateAPIView):
     queryset = Compaign.objects.all()

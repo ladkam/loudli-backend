@@ -241,6 +241,11 @@ class PropositionSerializer(serializers.ModelSerializer):
         model = Proposition
         fields = '__all__'
 
+class PropositionSerializerPost(serializers.ModelSerializer):
+    class Meta:
+        model = Proposition
+        fields = '__all__'
+
 class CompaignSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Compaign
