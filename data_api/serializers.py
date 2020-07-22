@@ -292,7 +292,7 @@ class CompaignSerializer(serializers.ModelSerializer):
 
     def get_message_set(self, instance):
         messages = instance.message_set.all().order_by('sendDate')
-        return MessageSerializer(messages, many=True).data
+        return MessageSerializerPropositions(messages, many=True).data
     """
     def get_proposition_set(self, instance):
         propositions = instance.proposition_set.all().order_by('date')

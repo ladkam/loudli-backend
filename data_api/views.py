@@ -303,7 +303,7 @@ class MessagesList(generics.ListCreateAPIView):
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
-            if self.request.data.__getitem__('Type')=='proposition':
+            if self.request.data.__getitem__('type')=='proposition':
                 print('here')
                 return MessageSerializerPropositions
             else:
