@@ -243,6 +243,12 @@ class MessageSerializerPropositions(serializers.ModelSerializer):
         model = Message
         fields = '__all__'
 
+    def create(self, validated_data):
+        proposition_data = validated_data.pop('proposition')
+        message = Message.objects.create(**validated_data)
+        proposition = Proposition.objects.create(message=message, **proposition_data)
+        return message
+
 class MessageSerializerOnly(serializers.ModelSerializer):
     class Meta:
         model = Message
@@ -263,6 +269,7 @@ class CompaignSerializer(serializers.ModelSerializer):
     announcer = UserSerializer()
     """audioFile =  serializers.SerializerMethodField()"""
 
+    ##proposition_set = serializers.SerializerMethodField()
     podcast = PodcastsSerializer()
     message_set = serializers.SerializerMethodField()
     targetGender = serializers.SlugRelatedField(
@@ -293,11 +300,9 @@ class CompaignSerializer(serializers.ModelSerializer):
     def get_message_set(self, instance):
         messages = instance.message_set.all().order_by('sendDate')
         return MessageSerializerPropositions(messages, many=True).data
-    """
-    def get_proposition_set(self, instance):
-        propositions = instance.proposition_set.all().order_by('date')
-        return PropositionSerializer(propositions, many=True).data
-        """
+    ##def get_proposition_set(self, instance):
+      ##  propositions = instance.proposition_set.all().order_by('date')
+       ## return PropositionSerializer(propositions, many=True).data
     """def get_audioFile(self, obj):
         if obj.audioFileName:
             return create_presigned_url('loudli-files','campaign_'+str(obj.id)+'_'+obj.audioFileName)

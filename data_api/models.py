@@ -400,13 +400,10 @@ class PodcastStatGeneral(models.Model):
     nbEpisodes = models.IntegerField()
 
 
-
-
 class attached(models.Model):
     attachedFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     attachedFileName = models.TextField(blank=True, null=True)
     compaign = models.ForeignKey(Compaign, on_delete=models.CASCADE)
-
 
 class Message(models.Model):
     type=models.CharField(max_length = 28)
@@ -447,7 +444,9 @@ class Message(models.Model):
     def has_create_permission(request):
         return False
 
+
 class Proposition(models.Model):
     price = models.IntegerField()
     plays = models.IntegerField()
     date = models.DateTimeField(auto_now=True)
+    message = models.OneToOneField(Message, on_delete=models.CASCADE,null=True)
