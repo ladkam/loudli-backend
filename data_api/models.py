@@ -21,7 +21,8 @@ def scramble_uploaded_filename(instance, filename):
     return "{}.{}".format(uuid.uuid4(), extension)
 
 def scramble_uploaded_audiofilename(instance, filename):
-    return 'campaign_'+str(instance.id)+'_'+filename
+    extension = filename.split(".")[-1]
+    return 'campaign'+'_'+str(instance.id)+'/audio/'+'_'+"{}.{}".format(uuid.uuid4(), extension)
 
 class UserProfileInfo(models.Model):
     user = models.OneToOneField(User,related_name='profile',on_delete=models.CASCADE)
@@ -43,8 +44,6 @@ class UserProfileInfo(models.Model):
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             UserProfileInfo.objects.create(user=instance)
-
-
 
 
 class AgeGroup(models.Model):
@@ -290,10 +289,7 @@ class Compaign(models.Model):
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     actionFor = models.IntegerField(default=0,choices = [(0,0),(1,1)])
     adText =  models.TextField(max_length=2000,blank=True,null=True)
-    audioFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_audiofilename)
-    audioFileName = models.CharField(max_length=128,blank=True, null=True)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
-
     city = models.ManyToManyField(City,blank=True,null=True)
     country = models.ManyToManyField(Country, blank=True,null=True)
     pitch= models.TextField(max_length=2000,blank=True,null=True)
@@ -363,6 +359,13 @@ class Compaign(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class AudioFile(models.Model):
+    audioFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_audiofilename)
+    audioFileName = models.CharField(max_length=128,blank=True, null=True)
+    status = models.IntegerField(default=0,choices = [('draft','0'),('final','final')])
+
 
 
 
