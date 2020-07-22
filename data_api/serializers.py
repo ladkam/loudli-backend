@@ -229,16 +229,23 @@ class attachedSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class MessageOnlySerializer(serializers.ModelSerializer):
+
+
+class PropositionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Proposition
+        fields = '__all__'
+
+
+class MessageSerializerPropositions(serializers.ModelSerializer):
+    proposition = PropositionSerializer()
     class Meta:
         model = Message
         fields = '__all__'
 
-
-class PropositionSerializer(serializers.ModelSerializer):
-    sender = UserSerializer()
+class MessageSerializerOnly(serializers.ModelSerializer):
     class Meta:
-        model = Proposition
+        model = Message
         fields = '__all__'
 
 class PropositionSerializerPost(serializers.ModelSerializer):
