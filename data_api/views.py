@@ -312,7 +312,7 @@ class MessagesList(generics.ListCreateAPIView):
                 return MessageSerializerOnly
         if self.request.method == 'GET':
             return MessageSerializer
-    permission_classes = (DRYPermissions,)
+    #permission_classes = (DRYPermissions,)
 
     def get_queryset(self):
         user = self.request.user

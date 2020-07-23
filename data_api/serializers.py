@@ -284,16 +284,17 @@ class AudioSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class MessageSerializerAudio(serializers.ModelSerializer):
-    audio = AudioSerializer()
     class Meta:
-        model = Message
+        model = Audio
         fields = '__all__'
     def create(self, validated_data):
-        audioFile = validated_data.pop('audioFile')
-        audioFileName = validated_data.pop('audioFileName')
-        message = Message.objects.create(**validated_data)
-        audio = Proposition.objects.create(message=message, audioFile=audioFile,audioFileName=audioFileName)
-        return message
+        print(validated_data)
+        initData = dict(self.initial_data)
+        sender = User.objects.get(id=int(initData['sender'][0]))
+        compaign = Compaign.objects.get(id=int(initData['compaign'][0]))
+        message = Message.objects.create(text=initData['text'][0],type='audio',sender=sender,compaign=compaign)
+        audio = Audio.objects.create(**validated_data,message=message)
+        return audio
 
 
 
