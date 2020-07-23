@@ -289,9 +289,10 @@ class MessageSerializerAudio(serializers.ModelSerializer):
         model = Message
         fields = '__all__'
     def create(self, validated_data):
-        audio_data = validated_data.pop('audio')
+        audioFile = validated_data.pop('audioFile')
+        audioFileName = validated_data.pop('audioFileName')
         message = Message.objects.create(**validated_data)
-        audio = Proposition.objects.create(message=message, **audio_data)
+        audio = Proposition.objects.create(message=message, audioFile=audioFile,audioFileName=audioFileName)
         return message
 
 
