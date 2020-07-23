@@ -222,26 +222,25 @@ class PodcastPlaysSerializer(serializers.Serializer):
     date = serializers.DateField()
     plays = serializers.IntegerField(read_only=True)
 
-
-class MessageSerializer(serializers.ModelSerializer):
-    sender = UserSerializer()
-    class Meta:
-        model = Message
-        fields = '__all__'
-
 class attachedSerializer(serializers.ModelSerializer):
     class Meta:
         model = attached
         fields = '__all__'
-
-
-
 
 class PropositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proposition
         fields = '__all__'
 
+class PropositionSerializerPost(serializers.ModelSerializer):
+    class Meta:
+        model = Proposition
+        fields = '__all__'
+
+class MessageSerializerOnly(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = '__all__'
 
 class MessageSerializerPropositions(serializers.ModelSerializer):
     proposition = PropositionSerializer()
@@ -254,24 +253,6 @@ class MessageSerializerPropositions(serializers.ModelSerializer):
         message = Message.objects.create(**validated_data)
         proposition = Proposition.objects.create(message=message, **proposition_data)
         return message
-
-
-
-    def create(self, validated_data):
-        proposition_data = validated_data.pop('proposition')
-        message = Message.objects.create(**validated_data)
-        proposition = Proposition.objects.create(message=message, **proposition_data)
-        return message
-
-class MessageSerializerOnly(serializers.ModelSerializer):
-    class Meta:
-        model = Message
-        fields = '__all__'
-
-class PropositionSerializerPost(serializers.ModelSerializer):
-    class Meta:
-        model = Proposition
-        fields = '__all__'
 
 class CompaignSerializerPost(serializers.ModelSerializer):
     class Meta:
@@ -296,6 +277,14 @@ class MessageSerializerAudio(serializers.ModelSerializer):
         audio = Audio.objects.create(**validated_data,message=message)
         return audio
 
+class MessageSerializer(serializers.ModelSerializer):
+    sender = UserSerializer()
+    audio = AudioSerializer()
+    proposition = PropositionSerializer()
+
+    class Meta:
+        model = Message
+        fields = '__all__'
 
 
 class CompaignSerializer(serializers.ModelSerializer):
@@ -332,7 +321,7 @@ class CompaignSerializer(serializers.ModelSerializer):
 
     def get_message_set(self, instance):
         messages = instance.message_set.all().order_by('sendDate')
-        return MessageSerializerPropositions(messages, many=True).data
+        return MessageSerializer(messages, many=True).data
     ##def get_proposition_set(self, instance):
       ##  propositions = instance.proposition_set.all().order_by('date')
        ## return PropositionSerializer(propositions, many=True).data
