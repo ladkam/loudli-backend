@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Tag,Podcast,Gender,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
+from .models import Tag,Podcast,Gender,Audio,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
 from django.db.models import Q
 import boto3
 from botocore.exceptions import ClientError
@@ -211,6 +211,12 @@ class PodcastStatsGeneralSerializer(serializers.ModelSerializer):
         model = PodcastStatGeneral
         fields = '__all__'
 
+
+class PodcastStatsGeneralSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PodcastStatGeneral
+        fields = '__all__'
+
 class PodcastPlaysSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     date = serializers.DateField()
@@ -249,6 +255,14 @@ class MessageSerializerPropositions(serializers.ModelSerializer):
         proposition = Proposition.objects.create(message=message, **proposition_data)
         return message
 
+
+
+    def create(self, validated_data):
+        proposition_data = validated_data.pop('proposition')
+        message = Message.objects.create(**validated_data)
+        proposition = Proposition.objects.create(message=message, **proposition_data)
+        return message
+
 class MessageSerializerOnly(serializers.ModelSerializer):
     class Meta:
         model = Message
@@ -263,6 +277,23 @@ class CompaignSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Compaign
         fields = '__all__'
+
+class AudioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Audio
+        fields = '__all__'
+
+class MessageSerializerAudio(serializers.ModelSerializer):
+    audio = AudioSerializer()
+    class Meta:
+        model = Message
+        fields = '__all__'
+    def create(self, validated_data):
+        audio_data = validated_data.pop('audio')
+        message = Message.objects.create(**validated_data)
+        audio = Proposition.objects.create(message=message, **audio_data)
+        return message
+
 
 
 class CompaignSerializer(serializers.ModelSerializer):

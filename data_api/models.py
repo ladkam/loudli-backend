@@ -21,8 +21,7 @@ def scramble_uploaded_filename(instance, filename):
     return "{}.{}".format(uuid.uuid4(), extension)
 
 def scramble_uploaded_audiofilename(instance, filename):
-    extension = filename.split(".")[-1]
-    return 'campaign'+'_'+str(instance.id)+'/audio/'+'_'+"{}.{}".format(uuid.uuid4(), extension)
+    return '/campaign_'+str(instance.id)+'/audio/'+filename
 
 class UserProfileInfo(models.Model):
     user = models.OneToOneField(User,related_name='profile',on_delete=models.CASCADE)
@@ -44,6 +43,8 @@ class UserProfileInfo(models.Model):
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             UserProfileInfo.objects.create(user=instance)
+
+
 
 
 class AgeGroup(models.Model):
@@ -294,6 +295,7 @@ class Compaign(models.Model):
     country = models.ManyToManyField(Country, blank=True,null=True)
     pitch= models.TextField(max_length=2000,blank=True,null=True)
     urlProduit = models.CharField(max_length=40,blank=True, null=True)
+
     """
     @staticmethod
     @authenticated_users
@@ -359,12 +361,6 @@ class Compaign(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class AudioFile(models.Model):
-    audioFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_audiofilename)
-    audioFileName = models.CharField(max_length=128,blank=True, null=True)
-    status = models.IntegerField(default=0,choices = [('draft','0'),('final','final')])
 
 
 
@@ -453,3 +449,9 @@ class Proposition(models.Model):
     plays = models.IntegerField()
     date = models.DateTimeField(auto_now=True)
     message = models.OneToOneField(Message, on_delete=models.CASCADE,null=True)
+
+
+class Audio(models.Model):
+    audioFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_audiofilename)
+    audioFileName = models.FileField(blank=True,null=True,max_length=200)
+    message = models.ForeignKey(Message ,blank=True,null=True,on_delete=models.CASCADE)

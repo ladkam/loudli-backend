@@ -5,7 +5,7 @@ from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageSerializerPropositions,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
+    ,EducationSerializer,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
 from rest_framework import generics
 from .models import Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
@@ -306,6 +306,8 @@ class MessagesList(generics.ListCreateAPIView):
             if self.request.data.__getitem__('type')=='proposition':
                 print('here')
                 return MessageSerializerPropositions
+            elif self.request.data.__getitem__('type')=='audio':
+                return MessageSerializerAudio
             else:
                 return MessageSerializerOnly
         if self.request.method == 'GET':
