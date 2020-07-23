@@ -281,16 +281,13 @@ class MessageSerializer(serializers.ModelSerializer):
     sender = UserSerializer()
     audio = AudioSerializer()
     proposition = PropositionSerializer()
-
     class Meta:
         model = Message
         fields = '__all__'
 
-
 class CompaignSerializer(serializers.ModelSerializer):
     announcer = UserSerializer()
-    """audioFile =  serializers.SerializerMethodField()"""
-
+    #audioFile_set =  serializers.SerializerMethodField()
     ##proposition_set = serializers.SerializerMethodField()
     podcast = PodcastsSerializer()
     message_set = serializers.SerializerMethodField()

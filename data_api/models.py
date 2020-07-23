@@ -454,4 +454,4 @@ class Proposition(models.Model):
 class Audio(models.Model):
     audioFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_audiofilename)
     audioFileName = models.CharField(blank=True,null=True,max_length=200)
-    message = models.ForeignKey(Message ,blank=True,null=True,on_delete=models.CASCADE)
+    message = models.OneToOneField(Message, on_delete=models.CASCADE,null=True)
