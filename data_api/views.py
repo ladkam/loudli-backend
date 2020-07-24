@@ -5,7 +5,7 @@ from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageSerializerPropositions,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
+    ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
 from rest_framework import generics
 from .models import Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
@@ -302,12 +302,14 @@ class MessagesList(generics.ListCreateAPIView):
     queryset = Message.objects.all()
 
     def get_serializer_class(self):
+        type = self.request.data.__getitem__('type')
         if self.request.method == 'POST':
-            if self.request.data.__getitem__('type')=='proposition':
-                print('here')
+            if type=='proposition':
                 return MessageSerializerPropositions
-            elif self.request.data.__getitem__('type')=='audio':
+            elif type=='audio':
                 return MessageSerializerAudio
+            elif type=='date':
+                return MessageSerializerDatePublication
             else:
                 return MessageSerializerOnly
         if self.request.method == 'GET':

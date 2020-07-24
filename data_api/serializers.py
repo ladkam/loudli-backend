@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Tag,Podcast,Gender,Audio,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
+from .models import Tag,Podcast,Gender, Date,Audio,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
 from django.db.models import Q
 import boto3
 from botocore.exceptions import ClientError
@@ -259,10 +259,28 @@ class CompaignSerializerPost(serializers.ModelSerializer):
         model = Compaign
         fields = '__all__'
 
+
+class DatePublicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Date
+        fields = '__all__'
+
 class AudioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Audio
         fields = '__all__'
+
+class MessageSerializerDatePublication(serializers.ModelSerializer):
+    date = DatePublicationSerializer()
+    class Meta:
+        model = Message
+        fields = '__all__'
+
+    def create(self, validated_data):
+        DatePublication_data = validated_data.pop('date')
+        message = Message.objects.create(**validated_data)
+        proposition = Date.objects.create(message=message, **DatePublication_data)
+        return message
 
 class MessageSerializerAudio(serializers.ModelSerializer):
     class Meta:
@@ -281,6 +299,7 @@ class MessageSerializer(serializers.ModelSerializer):
     sender = UserSerializer()
     audio = AudioSerializer()
     proposition = PropositionSerializer()
+    date = DatePublicationSerializer()
     class Meta:
         model = Message
         fields = '__all__'

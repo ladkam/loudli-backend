@@ -455,3 +455,8 @@ class Audio(models.Model):
     audioFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_audiofilename)
     audioFileName = models.CharField(blank=True,null=True,max_length=200)
     message = models.OneToOneField(Message, on_delete=models.CASCADE,null=True)
+
+
+class Date(models.Model):
+    dates = ArrayField(models.CharField(max_length=40, blank=True, null=True), blank=True, null=True)
+    message = models.OneToOneField(Message, on_delete=models.CASCADE,null=True)
