@@ -1,7 +1,7 @@
 [
   {
     "model": "data_api.AgeGroup",
-    "pk": 1,
+    "pk": 0,
     "fields":
     {
       "ageIntervalMin": 18,
@@ -11,7 +11,7 @@
   },
   {
     "model": "data_api.AgeGroup",
-    "pk": 2,
+    "pk": 1,
     "fields":
     {
       "ageIntervalMin": 25,
@@ -21,7 +21,7 @@
   },
     {
     "model": "data_api.AgeGroup",
-    "pk": 3,
+    "pk": 2,
     "fields":
     {
       "ageIntervalMin": 45,
@@ -31,7 +31,7 @@
     },
   {
     "model": "data_api.AgeGroup",
-    "pk": 4,
+    "pk": 3,
     "fields":
     {
       "ageIntervalMin": 55,
@@ -41,7 +41,7 @@
     },
   {
     "model": "data_api.AgeGroup",
-    "pk": 5,
+    "pk": 4,
     "fields":
     {
       "ageIntervalMin": 45,
@@ -51,7 +51,7 @@
     },
   {
     "model": "data_api.AgeGroup",
-    "pk": 6,
+    "pk": 5,
     "fields":
     {
       "ageIntervalMin": 65,

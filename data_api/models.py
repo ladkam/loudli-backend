@@ -289,7 +289,7 @@ class Compaign(models.Model):
     targetGender = models.ForeignKey(Gender,blank=True,null=True,on_delete=models.CASCADE)
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     startDateValidated = models.DateField(auto_now=True)
-    actionFor = models.IntegerField(default=0,choices = [(0,0),(1,1)])
+    actionFor = models.IntegerField()
     adText =  models.TextField(max_length=2000,blank=True,null=True)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
     city = models.ManyToManyField(City,blank=True,null=True)
