@@ -293,7 +293,8 @@ class Compaign(models.Model):
     targetGender = models.ForeignKey(Gender,blank=True,null=True,on_delete=models.CASCADE)
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     startDateValidated = models.DateField(auto_now=True)
-    actionFor = models.IntegerField()
+    messageFor = models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE,related_name='messageFor')
+    actionFor = models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE,related_name='action')
     adText =  models.TextField(max_length=2000,blank=True,null=True)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
     city = models.ManyToManyField(City,blank=True,null=True)
@@ -424,7 +425,13 @@ class Message(models.Model):
     @authenticated_users
     @allow_staff_or_superuser
     def has_write_permission(request):
-        return True
+        compaign = request.data.__getitem__('compaign')
+        message_type = request.data.__getitem__('type')
+        compaign = Compaign.objects.get(id=compaign)
+        if message_type=='text':
+            return (request.user == compaign.messageFor)
+        else:
+                return ((message_type==compaign.status.name) and (request.user == compaign.actionFor))
 
     @staticmethod
     @authenticated_users
@@ -454,6 +461,7 @@ class Proposition(models.Model):
     price = models.IntegerField()
     plays = models.IntegerField()
     date = models.DateTimeField(auto_now=True)
+    valid= models.BooleanField(default=True)
     message = models.OneToOneField(Message, on_delete=models.CASCADE,null=True)
 
 

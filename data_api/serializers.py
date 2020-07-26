@@ -241,6 +241,17 @@ class MessageSerializerOnly(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = '__all__'
+    def create(self,validated_data):
+        message = Message.objects.create(**validated_data)
+        compaignId = message.compaign.id
+        compaign = Compaign.objects.get(id=compaignId)
+        print(compaign.podcast.author.id)
+        messageFor = compaign.podcast.author if compaign.podcast.author!=compaign.messageFor else compaign.announcer
+        setattr(compaign,'messageFor',messageFor)
+        compaign.save()
+        return message
+
+
 
 class MessageSerializerPropositions(serializers.ModelSerializer):
     proposition = PropositionSerializer()
@@ -251,7 +262,16 @@ class MessageSerializerPropositions(serializers.ModelSerializer):
     def create(self, validated_data):
         proposition_data = validated_data.pop('proposition')
         message = Message.objects.create(**validated_data)
+        oldPropositions = Proposition.objects.filter(message__compaign=message.compaign,valid=True)
+        for proposition in oldPropositions:
+            setattr(proposition,'valid',False)
+            proposition.save()
         proposition = Proposition.objects.create(message=message, **proposition_data)
+        compaign = Compaign.objects.get(id=message.compaign.id)
+        actionFor = compaign.podcast.author if compaign.podcast.author != self.context['request'].user else compaign.announcer
+        setattr(compaign, 'actionFor', actionFor)
+        compaign.save()
+
         return message
 
 class CompaignSerializerPost(serializers.ModelSerializer):

@@ -302,17 +302,17 @@ class MessagesList(generics.ListCreateAPIView):
     def get_serializer_class(self):
         type = self.request.data.__getitem__('type')
         if self.request.method == 'POST':
-            if type=='proposition':
+            if type=='devis':
                 return MessageSerializerPropositions
-            elif type=='audio':
+            elif type=='enregistrement':
                 return MessageSerializerAudio
-            elif type=='date':
+            elif type=='Choix de date':
                 return MessageSerializerDatePublication
             else:
                 return MessageSerializerOnly
         if self.request.method == 'GET':
             return MessageSerializer
-    #permission_classes = (DRYPermissions,)
+    permission_classes = (DRYPermissions,)
 
     def get_queryset(self):
         user = self.request.user
@@ -379,18 +379,29 @@ class NextCompaignStep(APIView):
     def post(self,request):
         id = request.data.__getitem__('id')
         compaign = Compaign.objects.get(id=id)
-        status = compaign.status.id
-        print(status)
-        if(status!=6):
-            compaignStatus = CompaignStatus.objects.get(id=status+1)
-            print(compaignStatus)
-            setattr(compaign, 'status', compaignStatus)
-            compaign.save()
-            compaign = Compaign.objects.get(id=id)
+        compaignStatusId = compaign.status.id
+        if(compaign.actionFor==request.user):
+            if(compaignStatusId==1):
+                compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
+                setattr(compaign, 'status', compaignStatus)
+                setattr(compaign,'actionFor',request.user)
+                compaign.save()
 
-        return Response({
-            'Status':  compaign.status.name
-        })
+            if (compaignStatusId != 2):
+                compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
+                setattr(compaign, 'status', compaignStatus)
+                compaign.save()
+                compaign = Compaign.objects.get(id=id)
+                return Response({
+                    'Status': compaign.status.name
+                })
+        else:
+           return Response({'Unauthorized action'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
 
 
 
