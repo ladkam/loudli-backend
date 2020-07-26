@@ -262,7 +262,7 @@ class MessageSerializerPropositions(serializers.ModelSerializer):
     def create(self, validated_data):
         proposition_data = validated_data.pop('proposition')
         message = Message.objects.create(**validated_data)
-        oldPropositions = Proposition.objects.filter(message__compaign=message.compaign,valid=True)
+        oldPropositions = Proposition.objects.filter(message__compaign=message.compaign,status='pending')
         for proposition in oldPropositions:
             setattr(proposition,'status','refused')
             proposition.save()
