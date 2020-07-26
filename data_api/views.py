@@ -389,6 +389,7 @@ class NextCompaignStep(APIView):
                 setattr(compaign,'price',proposition.price)
                 setattr(compaign,'plays',proposition.plays)
                 setattr(proposition,'valid',False)
+                proposition.save()
                 compaign.save()
 
             if (compaignStatusId != 5):
