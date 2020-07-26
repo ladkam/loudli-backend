@@ -7,7 +7,7 @@ from .serializers import UserSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageSerializerPropositions,UserProfileInfoGetSerializer,AgeGroupSerializer\
     ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
 from rest_framework import generics
-from .models import Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
+from .models import CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
@@ -87,8 +87,6 @@ class UserProfileInfoDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         user = self.request.user
         return UserProfileInfo.objects.filter(user=user.id)
-
-
 
 class AgeGroupList(generics.ListAPIView):
     queryset = AgeGroup.objects.all()
@@ -376,3 +374,21 @@ class CheckRssPodcast(APIView):
             'summary':podcast.summary,
             'episodes':entries
         })
+
+class NextCompaignStep(APIView):
+    def post(self,request):
+        id = request.data.__getitem__('id')
+        compaign = Compaign.objects.get(id=id)
+        status =  compaign.status.id
+        compaignStatus = CompaignStatus.objects.get(id=status+1)
+        setattr(compaign, 'status', compaignStatus)
+        compaign.save()
+        compaign = Compaign.objects.get(id=id)
+
+        print(Compaign.status)
+        return Response({
+            'test':  compaign.status.id
+        })
+
+
+

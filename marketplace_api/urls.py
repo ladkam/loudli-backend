@@ -57,6 +57,7 @@ urlpatterns = [
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('api/customToken/', views.MyTokenObtainPairView.as_view()),
     path('auth/', include('djoser.urls.authtoken')),
+    path('validate/',views.NextCompaignStep.as_view()),
     path('checkRss/',views.CheckRssPodcast.as_view())
 
 

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Tag,Podcast,Gender, Date,Audio,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
+from .models import CompaignStatus,Tag,Podcast,Gender, Date,Audio,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
 from django.db.models import Q
 import boto3
 from botocore.exceptions import ClientError
@@ -257,7 +257,7 @@ class MessageSerializerPropositions(serializers.ModelSerializer):
 class CompaignSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Compaign
-        fields = '__all__'
+        exclude = ('status', )
 
 
 class DatePublicationSerializer(serializers.ModelSerializer):
@@ -269,6 +269,11 @@ class AudioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Audio
         fields = '__all__'
+
+class CompaignStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=CompaignStatus
+        fields='__all__'
 
 class MessageSerializerDatePublication(serializers.ModelSerializer):
     date = DatePublicationSerializer()
@@ -304,12 +309,18 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = '__all__'
 
+
+
 class CompaignSerializer(serializers.ModelSerializer):
     announcer = UserSerializer()
     #audioFile_set =  serializers.SerializerMethodField()
     ##proposition_set = serializers.SerializerMethodField()
     podcast = PodcastsSerializer()
     message_set = serializers.SerializerMethodField()
+    status = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='name'
+    ),
     targetGender = serializers.SlugRelatedField(
         read_only=True,
         slug_field='name'
@@ -333,7 +344,8 @@ class CompaignSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Compaign
-        fields = '__all__'
+        #fields = '__all__'
+        exclude = ('status', )
 
     def get_message_set(self, instance):
         messages = instance.message_set.all().order_by('sendDate')

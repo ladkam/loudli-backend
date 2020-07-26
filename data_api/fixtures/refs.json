@@ -127,5 +127,53 @@
     {
       "name": "Tous"
     }
+   },
+   {
+     "model": "data_api.CompaignStatus",
+    "pk": 1,
+    "fields":
+    {
+      "name": "Demande"
+    }
+   },
+  {
+     "model": "data_api.CompaignStatus",
+    "pk": 2,
+    "fields":
+    {
+      "name": "Devis"
+    }
+   },
+  {
+     "model": "data_api.CompaignStatus",
+    "pk": 3,
+    "fields":
+    {
+      "name": "Enregistrement"
+    }
+   },
+  {
+     "model": "data_api.CompaignStatus",
+    "pk": 4,
+    "fields":
+    {
+      "name": "Choix de date"
+    }
+   },
+  {
+     "model": "data_api.Gender",
+    "pk": 5,
+    "fields":
+    {
+      "name": "En cours"
+    }
+   },
+  {
+     "model": "data_api.CompaignStatus",
+    "pk": 6,
+    "fields":
+    {
+      "name": "Terminée"
+    }
    }
 ]

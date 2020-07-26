@@ -275,6 +275,25 @@ class episodePodcast(models.Model):
     def __str__(self):
         return self.name
 
+
+
+status = [
+        (1,'Demande'),
+        (2,'Devis'),
+        (3,'Pitch'),
+        (4,'3nregistrement'),
+        (5,'Choix de date'),
+        (6,'En cours'),
+        (7,'Terminée')
+    ]
+
+
+class CompaignStatus(models.Model):
+    name = models.CharField(max_length=36)
+
+    def __str__(self):
+        return self.name
+
 class Compaign(models.Model):
     name = models.CharField(max_length=256)
     startDate = models.DateField(auto_now=True)
@@ -282,8 +301,6 @@ class Compaign(models.Model):
     announcer = models.ForeignKey(User, on_delete=models.CASCADE)
     podcast = models.ForeignKey(Podcast,null=True,on_delete=models.CASCADE)
     description = models.TextField(blank=True,null=True)
-    status = models.CharField(max_length=20,default='Créée')
-    statusNum = models.IntegerField(default=1)
     plays = models.IntegerField(blank=True,null=True)
     price = models.IntegerField(blank=True,null=True)
     targetGender = models.ForeignKey(Gender,blank=True,null=True,on_delete=models.CASCADE)
@@ -296,6 +313,7 @@ class Compaign(models.Model):
     country = models.ManyToManyField(Country, blank=True,null=True)
     pitch= models.TextField(max_length=2000,blank=True,null=True)
     urlProduit = models.CharField(max_length=40,blank=True, null=True)
+    status = models.ForeignKey(CompaignStatus,on_delete=models.CASCADE,blank=True,null=True,default=1)
 
     """
     @staticmethod
