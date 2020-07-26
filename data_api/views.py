@@ -387,7 +387,7 @@ class NextCompaignStep(APIView):
                 setattr(compaign,'actionFor',request.user)
                 compaign.save()
 
-            if (compaignStatusId != 2):
+            if (compaignStatusId != 5):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
                 compaign.save()
