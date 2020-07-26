@@ -302,9 +302,9 @@ class MessagesList(generics.ListCreateAPIView):
     def get_serializer_class(self):
         type = self.request.data.__getitem__('type')
         if self.request.method == 'POST':
-            if type=='devis':
+            if type=='Devis':
                 return MessageSerializerPropositions
-            elif type=='enregistrement':
+            elif type=='Enregistrement':
                 return MessageSerializerAudio
             elif type=='Choix de date':
                 return MessageSerializerDatePublication
