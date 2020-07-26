@@ -461,7 +461,7 @@ class Proposition(models.Model):
     price = models.IntegerField()
     plays = models.IntegerField()
     date = models.DateTimeField(auto_now=True)
-    valid= models.BooleanField(default=True)
+    status= models.CharField(default='pending',max_length=25)
     message = models.OneToOneField(Message, on_delete=models.CASCADE,null=True)
 
 

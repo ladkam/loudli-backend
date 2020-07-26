@@ -264,7 +264,7 @@ class MessageSerializerPropositions(serializers.ModelSerializer):
         message = Message.objects.create(**validated_data)
         oldPropositions = Proposition.objects.filter(message__compaign=message.compaign,valid=True)
         for proposition in oldPropositions:
-            setattr(proposition,'valid',False)
+            setattr(proposition,'status','refused')
             proposition.save()
         proposition = Proposition.objects.create(message=message, **proposition_data)
         compaign = Compaign.objects.get(id=message.compaign.id)

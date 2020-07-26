@@ -390,10 +390,10 @@ class NextCompaignStep(APIView):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
                 setattr(compaign, 'actionFor', request.user)
-                proposition = Proposition.objects.get(message__compaign=compaign, valid=True)
+                proposition = Proposition.objects.get(message__compaign=compaign, status='pending')
                 setattr(compaign, 'price', proposition.price)
                 setattr(compaign, 'plays', proposition.plays)
-                setattr(proposition, 'valid', False)
+                setattr(proposition, 'accepted', False)
                 proposition.save()
                 compaign.save()
 
