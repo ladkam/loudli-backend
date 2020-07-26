@@ -393,7 +393,7 @@ class NextCompaignStep(APIView):
                 proposition = Proposition.objects.get(message__compaign=compaign, status='pending')
                 setattr(compaign, 'price', proposition.price)
                 setattr(compaign, 'plays', proposition.plays)
-                setattr(proposition, 'accepted', False)
+                setattr(proposition, 'status', 'accepted')
                 type='devis accepté'
                 message = Message.objects.create(compaign=compaign,text='Devis accepté',sender=request.user,type='Devis accepté')
                 message.save()
