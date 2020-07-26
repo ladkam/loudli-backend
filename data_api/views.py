@@ -385,6 +385,10 @@ class NextCompaignStep(APIView):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
                 setattr(compaign,'actionFor',request.user)
+                proposition = Proposition.objects.filter(message__compaign=compaign, valid=True)
+                setattr(compaign,'price',proposition.price)
+                setattr(compaign,'plays',proposition.plays)
+                setattr(proposition,'valid',False)
                 compaign.save()
 
             if (compaignStatusId != 5):
