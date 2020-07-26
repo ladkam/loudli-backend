@@ -317,10 +317,8 @@ class CompaignSerializer(serializers.ModelSerializer):
     ##proposition_set = serializers.SerializerMethodField()
     podcast = PodcastsSerializer()
     message_set = serializers.SerializerMethodField()
-    status = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='name'
-    ),
+    status = serializers.SlugRelatedField(read_only=True,slug_field='name')
+
     targetGender = serializers.SlugRelatedField(
         read_only=True,
         slug_field='name'
@@ -344,8 +342,7 @@ class CompaignSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Compaign
-        #fields = '__all__'
-        exclude = ('status', )
+        fields = '__all__'
 
     def get_message_set(self, instance):
         messages = instance.message_set.all().order_by('sendDate')

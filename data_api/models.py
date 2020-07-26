@@ -275,19 +275,6 @@ class episodePodcast(models.Model):
     def __str__(self):
         return self.name
 
-
-
-status = [
-        (1,'Demande'),
-        (2,'Devis'),
-        (3,'Pitch'),
-        (4,'3nregistrement'),
-        (5,'Choix de date'),
-        (6,'En cours'),
-        (7,'Terminée')
-    ]
-
-
 class CompaignStatus(models.Model):
     name = models.CharField(max_length=36)
 

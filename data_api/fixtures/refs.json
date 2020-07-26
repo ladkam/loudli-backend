@@ -161,7 +161,7 @@
     }
    },
   {
-     "model": "data_api.Gender",
+     "model": "data_api.CompaignStatus",
     "pk": 5,
     "fields":
     {

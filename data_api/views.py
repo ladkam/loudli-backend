@@ -379,15 +379,17 @@ class NextCompaignStep(APIView):
     def post(self,request):
         id = request.data.__getitem__('id')
         compaign = Compaign.objects.get(id=id)
-        status =  compaign.status.id
-        compaignStatus = CompaignStatus.objects.get(id=status+1)
-        setattr(compaign, 'status', compaignStatus)
-        compaign.save()
-        compaign = Compaign.objects.get(id=id)
+        status = compaign.status.id
+        print(status)
+        if(status!=6):
+            compaignStatus = CompaignStatus.objects.get(id=status+1)
+            print(compaignStatus)
+            setattr(compaign, 'status', compaignStatus)
+            compaign.save()
+            compaign = Compaign.objects.get(id=id)
 
-        print(Compaign.status)
         return Response({
-            'test':  compaign.status.id
+            'Status':  compaign.status.name
         })
 
 
