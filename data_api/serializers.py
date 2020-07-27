@@ -315,7 +315,7 @@ class MessageSerializerAudio(serializers.ModelSerializer):
         initData = dict(self.initial_data)
         sender = User.objects.get(id=int(initData['sender'][0]))
         compaign = Compaign.objects.get(id=int(initData['compaign'][0]))
-        message = Message.objects.create(text=initData['text'][0],type='audio',sender=sender,compaign=compaign)
+        message = Message.objects.create(text=initData['text'][0],type='Enregistrement',sender=sender,compaign=compaign)
         audio = Audio.objects.create(**validated_data,message=message)
         return audio
 
