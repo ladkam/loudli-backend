@@ -470,6 +470,39 @@ class Audio(models.Model):
     audioFileName = models.CharField(blank=True,null=True,max_length=200)
     message = models.OneToOneField(Message, on_delete=models.CASCADE,null=True)
 
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_write_permission(request):
+        compaign = request.data.__getitem__('compaign')
+        message_type = request.data.__getitem__('type')
+        compaign = Compaign.objects.get(id=compaign)
+        return ((message_type == compaign.status.name) and (request.user == compaign.actionFor))
+
+
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
+    def has_object_update_permission(self, request):
+        return False
+
+    @staticmethod
+    @allow_staff_or_superuser
+    def has_read_permission(request):
+        return True
+
+    @staticmethod
+    @allow_staff_or_superuser
+    @authenticated_users
+    def has_object_read_permission(self, request):
+        return True
+
+    @staticmethod
+    @allow_staff_or_superuser
+    @authenticated_users
+    def has_create_permission(request):
+        return False
+
 
 class Date(models.Model):
     dates = ArrayField(models.CharField(max_length=40, blank=True, null=True), blank=True, null=True)

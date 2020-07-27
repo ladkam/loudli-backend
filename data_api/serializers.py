@@ -312,7 +312,6 @@ class MessageSerializerAudio(serializers.ModelSerializer):
         model = Audio
         fields = '__all__'
     def create(self, validated_data):
-        print(validated_data)
         initData = dict(self.initial_data)
         sender = User.objects.get(id=int(initData['sender'][0]))
         compaign = Compaign.objects.get(id=int(initData['compaign'][0]))
