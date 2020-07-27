@@ -168,9 +168,17 @@
       "name": "Choix de date"
     }
    },
-  {
+    {
      "model": "data_api.CompaignStatus",
     "pk": 6,
+    "fields":
+    {
+      "name": "Selection episodes"
+    }
+   },
+  {
+     "model": "data_api.CompaignStatus",
+    "pk": 7,
     "fields":
     {
       "name": "En cours"
@@ -178,7 +186,7 @@
    },
   {
      "model": "data_api.CompaignStatus",
-    "pk": 7,
+    "pk": 8,
     "fields":
     {
       "name": "Terminée"

@@ -281,6 +281,18 @@ class CompaignStatus(models.Model):
     def __str__(self):
         return self.name
 
+
+class Episodes(models.Model):
+    podcast = models.ForeignKey(Podcast,on_delete=models.CASCADE)
+    name = models.TextField(max_length=300,null=True,blank=True)
+    audio = models.URLField()
+    image = models.URLField()
+    text = models.TextField(max_length=1000,null=True,blank=True)
+    def __str__(self):
+        return self.podcast.name +'-' + self.name
+
+
+
 class Compaign(models.Model):
     name = models.CharField(max_length=256)
     startDate = models.DateField(auto_now=True)
@@ -298,6 +310,7 @@ class Compaign(models.Model):
     adText =  models.TextField(max_length=2000,blank=True,null=True)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
     city = models.ManyToManyField(City,blank=True,null=True)
+    episodes = models.ManyToManyField(Episodes,blank=True,null=True)
     country = models.ManyToManyField(Country, blank=True,null=True)
     pitch= models.TextField(max_length=2000,blank=True,null=True)
     urlProduit = models.CharField(max_length=40,blank=True, null=True)
@@ -305,46 +318,6 @@ class Compaign(models.Model):
     audioFileName = models.CharField(blank=True, null=True, max_length=200)
     status = models.ForeignKey(CompaignStatus,on_delete=models.CASCADE,blank=True,null=True,default=1)
     pubDate = models.CharField(max_length=40, blank=True, null=True)
-
-
-    """
-    @staticmethod
-    @authenticated_users
-    @allow_staff_or_superuser
-    def has_write_permission(request):
-        if len(UserProfileInfo.objects.filter(user=request.user,type='announcer'))>0:
-            return True
-        return False
-
-    @staticmethod
-    @allow_staff_or_superuser
-    def has_create_permission(request):
-        if len(UserProfileInfo.objects.filter(user=request.user,type='announcer'))>0:
-            print('has')
-            return True
-        else:
-            print('has')
-            return False
-
-    @staticmethod
-    @authenticated_users
-    @allow_staff_or_superuser
-    def has_object_write_permission(self,request):
-        return True
-        
-
-
-    @staticmethod
-    @authenticated_users
-    def has_read_permission(request):
-        return True
-
-    @staticmethod
-    @authenticated_users
-    def has_object_read_permission(self,request):
-            return True
-        return False
-        """
 
     @staticmethod
     def has_read_permission(request):

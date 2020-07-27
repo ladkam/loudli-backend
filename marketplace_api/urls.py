@@ -38,6 +38,7 @@ urlpatterns = [
     path('podcaststatGeneral/', views.PodcastStatsGeneral.as_view()),
     path('Compaign/', views.CompaignList.as_view()),
     path('Compaign/<int:pk>/', views.CompaignDetail.as_view()),
+    path('CompaignAttach/<int:pk>/', views.CompaignAttachEpisodes.as_view()),
     path('Message/<int:pk>/', views.MessageDetail.as_view()),
     path('PodcastPlays/',views.PodcastPlays.as_view()),
     path('PodcastPlays/',views.PodcastPlays.as_view()),
@@ -60,6 +61,7 @@ urlpatterns = [
     path('validate/',views.NextCompaignStep.as_view()),
     path('decline/', views.Decline.as_view()),
     path('checkRss/',views.CheckRssPodcast.as_view()),
+
     path('episodesRss/',views.EpisodesPodcast.as_view()),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

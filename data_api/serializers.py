@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import CompaignStatus,Tag,Podcast,Gender, Date,Audio,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
+from .models import Episodes,CompaignStatus,Tag,Podcast,Gender, Date,Audio,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
 from django.db.models import Q
 import boto3
 from botocore.exceptions import ClientError
@@ -90,6 +90,31 @@ class InterestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Interest
         fields ='__all__'
+
+class episodeSerializer(serializers.ModelSerializer):
+    class Meta:
+        Model = Episode
+        fields='__all__'
+
+class CompaignSerlizerAssociate(serializers.ModelSerializer):
+    class Meta:
+        Model = Episodes
+        fields = '__all__'
+
+    def update(self, validated_data):
+        initData = dict(self.initial_data)
+        episodes_data = initData['episodes']
+        compaign = Compaign.objects.create(**validated_data)
+        podcast = compaign.podcast
+        for episode in episodes_data:
+            name = episode.name
+            episode, created = Episodes.objects.filter(
+                Q(name=name)
+            ).get_or_create(**episode)
+            compaign.episodes.add(episode)
+        compaign.save()
+        return compaign
+
 
 class PodcastsSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
@@ -196,7 +221,6 @@ class GenderSerializer(serializers.ModelSerializer):
 
 
 
-
 """
 class AdSerializer(serializers.ModelSerializer):
     podcast = PodcastsSerializer()
@@ -278,9 +302,6 @@ class CompaignSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Compaign
         exclude = ('status', )
-
-
-
 
 class AudioSerializer(serializers.ModelSerializer):
     class Meta:

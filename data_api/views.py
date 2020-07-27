@@ -5,9 +5,9 @@ from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageSerializerPropositions,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
+    ,EducationSerializer,CompaignSerlizerAssociate,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
 from rest_framework import generics
-from .models import Date,Audio,CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
+from .models import Episodes,Date,Audio,CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
@@ -410,6 +410,11 @@ class EpisodesPodcast(APIView):
             entries.append(entry)
         return Response(entries)
 
+class CompaignAttachEpisodes(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Compaign.objects.all()
+    serializer_class = CompaignSerlizerAssociate
+
+
 class NextCompaignStep(APIView):
     def post(self,request):
         id = request.data.__getitem__('id')
@@ -460,15 +465,24 @@ class NextCompaignStep(APIView):
                 date = request.data.__getitem__('date')
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
-                setattr(compaign, 'datePub' , date)
+                setattr(compaign, 'startDateValidated' , date)
                 setattr(compaign,'actionFor', compaign.podcast.author)
-
                 date = Date.objects.get(message__compaign=compaign, status='pending')
                 setattr(date, 'status', 'accepted')
                 message = Message.objects.create(compaign=compaign,text='Date de publication choisie',sender=request.user,type='Notification')
                 message.save()
                 date.save()
                 compaign.save()
+
+            if(compaignStatusId == 6):
+                episodes = request.data.__getitem__('episodes')
+                podcast = compaign.podcast
+                for episode in episodes:
+                    ep = Episodes.objects.create(podcast=podcast,**episode)
+                    compaign.episodes.add(ep.id)
+                compaign.save()
+                message = Message.objects.create(compaign=compaign,text='Episode de publication choisi',sender=request.user,type='Notification')
+
 
 
             if (compaignStatusId != 5):
