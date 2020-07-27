@@ -505,7 +505,7 @@ class Decline(APIView):
                                                  type='Declined Notification')
                 message.save()
                 oldDate = Date.objects.filter(message__compaign=compaign, status='pending')
-                for date in Date:
+                for date in oldDate:
                     setattr(Date, 'status', 'refused')
                     date.save()
                 setattr(compaign, 'actionFor', compaign.podcast.author)
