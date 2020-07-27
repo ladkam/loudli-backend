@@ -93,7 +93,7 @@ class InterestSerializer(serializers.ModelSerializer):
 
 class episodeSerializer(serializers.ModelSerializer):
     class Meta:
-        Model = Episode
+        Model = Episodes
         fields='__all__'
 
 
