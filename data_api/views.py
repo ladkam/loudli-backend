@@ -340,7 +340,6 @@ class CheckRssPodcast(APIView):
         if(len(Podcast.objects.filter(urlFeed=url))>0 and type=='check'):
             return Response(('this feed is already used'), status=status.HTTP_400_BAD_REQUEST)
             """
-
         try:
             podcast = PodcastParser(response.content)
         except:
@@ -374,6 +373,42 @@ class CheckRssPodcast(APIView):
             'summary':podcast.summary,
             'episodes':entries
         })
+
+class EpisodesPodcast(APIView):
+    def post(self, request):
+        id = request.data.__getitem__('id')
+        podcast = Podcast.objects.get(id=id)
+        url = podcast.urlFeed
+
+        try:
+            response = requests.get(url)
+        except:
+            return Response('url incorrect', status=status.HTTP_400_BAD_REQUEST)
+        """
+        if(len(Podcast.objects.filter(urlFeed=url))>0 and type=='check'):
+            return Response(('this feed is already used'), status=status.HTTP_400_BAD_REQUEST)
+            """
+        try:
+            podcast = PodcastParser(response.content)
+        except:
+            return Response('Not a podcast feed)',status=status.HTTP_400_BAD_REQUEST)
+
+        if podcast.description == None:
+            return Response('Not a podcast feed)',status=status.HTTP_400_BAD_REQUEST)
+
+
+        entries = []
+
+        items = PodcastParser(response.content).items
+
+        for item in items:
+            entry={}
+            entry['name'] = item.title
+            entry['audio'] = item.enclosure_url
+            entry['image'] = item.itune_image
+            entry['text'] = item.description
+            entries.append(entry)
+        return Response(entries)
 
 class NextCompaignStep(APIView):
     def post(self,request):

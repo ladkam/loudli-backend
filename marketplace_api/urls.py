@@ -59,8 +59,8 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
     path('validate/',views.NextCompaignStep.as_view()),
     path('decline/', views.Decline.as_view()),
-    path('checkRss/',views.CheckRssPodcast.as_view())
-
+    path('checkRss/',views.CheckRssPodcast.as_view()),
+    path('episodesRss/',views.EpisodesPodcast.as_view()),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
