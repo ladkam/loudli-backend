@@ -434,6 +434,8 @@ class Decline(APIView):
                     audio.save()
                 setattr(compaign, 'actionFor', compaign.podcast.author)
                 compaign.save()
+            else:
+                return Response({'Unauthorized action'}, status=status.HTTP_400_BAD_REQUEST)
         else:
            return Response({'Unauthorized action'}, status=status.HTTP_400_BAD_REQUEST)
 
