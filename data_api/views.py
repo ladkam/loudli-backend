@@ -517,12 +517,3 @@ class Decline(APIView):
                 return Response({'Unauthorized action'}, status=status.HTTP_400_BAD_REQUEST)
         else:
            return Response({'Unauthorized action'}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-
-
-
-
-
