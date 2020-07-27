@@ -149,7 +149,7 @@
     "pk": 3,
     "fields":
     {
-      "name": "Enregistrement"
+      "name": "Pitch"
     }
    },
   {
@@ -157,7 +157,7 @@
     "pk": 4,
     "fields":
     {
-      "name": "Choix de date"
+      "name": "Enregistrement"
     }
    },
   {
@@ -165,12 +165,20 @@
     "pk": 5,
     "fields":
     {
-      "name": "En cours"
+      "name": "Choix de date"
     }
    },
   {
      "model": "data_api.CompaignStatus",
     "pk": 6,
+    "fields":
+    {
+      "name": "En cours"
+    }
+   },
+  {
+     "model": "data_api.CompaignStatus",
+    "pk": 7,
     "fields":
     {
       "name": "Terminée"
