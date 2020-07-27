@@ -411,7 +411,7 @@ class NextCompaignStep(APIView):
             if (compaignStatusId == 4):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
-                setattr(compaign, 'actionFor', compaign.podcaster)
+                setattr(compaign, 'actionFor', compaign.podcast.author)
                 audio = Audio.objects.get(message__compaign=compaign, status='pending')
                 setattr(compaign, 'audio', audio.audioFile)
                 setattr(compaign, 'audioFile', audio.audioFileName)
