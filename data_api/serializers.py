@@ -96,24 +96,6 @@ class episodeSerializer(serializers.ModelSerializer):
         Model = Episode
         fields='__all__'
 
-class CompaignSerlizerAssociate(serializers.ModelSerializer):
-    class Meta:
-        Model = Episodes
-        fields = '__all__'
-
-    def update(self, validated_data):
-        initData = dict(self.initial_data)
-        episodes_data = initData['episodes']
-        compaign = Compaign.objects.create(**validated_data)
-        podcast = compaign.podcast
-        for episode in episodes_data:
-            name = episode.name
-            episode, created = Episodes.objects.filter(
-                Q(name=name)
-            ).get_or_create(**episode)
-            compaign.episodes.add(episode)
-        compaign.save()
-        return compaign
 
 
 class PodcastsSerializer(serializers.ModelSerializer):
@@ -375,6 +357,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
 class CompaignSerializer(serializers.ModelSerializer):
     announcer = UserSerializer()
+    episodes=episodeSerializer()
     #audioFile_set =  serializers.SerializerMethodField()
     ##proposition_set = serializers.SerializerMethodField()
     podcast = PodcastsSerializer()

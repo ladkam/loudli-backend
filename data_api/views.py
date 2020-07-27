@@ -5,7 +5,7 @@ from .serializers import UserSerializer,\
     GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageSerializerPropositions,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,CompaignSerlizerAssociate,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
+    ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
 from rest_framework import generics
 from .models import Episodes,Date,Audio,CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
@@ -410,11 +410,6 @@ class EpisodesPodcast(APIView):
             entries.append(entry)
         return Response(entries)
 
-class CompaignAttachEpisodes(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Compaign.objects.all()
-    serializer_class = CompaignSerlizerAssociate
-
-
 class NextCompaignStep(APIView):
     def post(self,request):
         id = request.data.__getitem__('id')
@@ -482,7 +477,7 @@ class NextCompaignStep(APIView):
                     compaign.episodes.add(ep.id)
                 compaign.save()
                 message = Message.objects.create(compaign=compaign,text='Episode de publication choisi',sender=request.user,type='Notification')
-
+                message.save()
 
 
             if (compaignStatusId != 5):
