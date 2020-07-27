@@ -403,7 +403,7 @@ class NextCompaignStep(APIView):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 message = Message.objects.create(compaign=compaign,text='Pitch envoyé',sender=request.user,type='Notification')
                 setattr(compaign, 'status', compaignStatus)
-                setattr(compaign, 'actionFor', compaign.podcast.author.userid)
+                setattr(compaign, 'actionFor', compaign.podcast.author.id)
                 message.save()
                 proposition.save()
                 compaign.save()
