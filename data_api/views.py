@@ -460,8 +460,8 @@ class NextCompaignStep(APIView):
                 date = request.data.__getitem__('date')
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
-                setattr(compaign, 'actionFor', date)
-                setattr(compaign, 'datePub', compaign.podcast.author)
+                setattr(compaign, 'datePub' , date)
+                setattr(compaign,'actionFor', compaign.podcast.author)
 
                 date = Date.objects.get(message__compaign=compaign, status='pending')
                 setattr(date, 'status', 'accepted')
