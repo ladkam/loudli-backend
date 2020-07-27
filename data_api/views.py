@@ -399,6 +399,14 @@ class NextCompaignStep(APIView):
                 message.save()
                 proposition.save()
                 compaign.save()
+            if (compaignStatusId == 3):
+                compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
+                message = Message.objects.create(compaign=compaign,text='Pitch envoyé',sender=request.user,type='Notification')
+                setattr(compaign, 'status', compaignStatus)
+                setattr(compaign, 'actionFor', compaign.podcast.author.userid)
+                message.save()
+                proposition.save()
+                compaign.save()
 
             if (compaignStatusId != 5):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
