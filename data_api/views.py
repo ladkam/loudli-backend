@@ -7,7 +7,7 @@ from .serializers import UserSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageSerializerPropositions,UserProfileInfoGetSerializer,AgeGroupSerializer\
     ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
 from rest_framework import generics
-from .models import Audio,CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
+from .models import Date,Audio,CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
@@ -456,6 +456,19 @@ class NextCompaignStep(APIView):
                 audio.save()
                 compaign.save()
 
+            if (compaignStatusId == 5):
+                id = request.data.__getitem__('Date')
+                compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
+                setattr(compaign, 'status', compaignStatus)
+                setattr(compaign, 'actionFor', compaign.podcast.author)
+                date = Date.objects.get(message__compaign=compaign, status='pending')
+                setattr(date, 'status', 'accepted')
+                message = Message.objects.create(compaign=compaign,text='Date de publication choisie',sender=request.user,type='Notification')
+                message.save()
+                date.save()
+                compaign.save()
+
+
             if (compaignStatusId != 5):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
@@ -486,10 +499,25 @@ class Decline(APIView):
                 return Response({
                     'Status': compaign.status.name
                 })
+            if (compaignStatusId == 5):
+                comment = request.data.__getitem__('comment')
+                message = Message.objects.create(compaign=compaign, text=comment, sender=request.user,
+                                                 type='Declined Notification')
+                message.save()
+                oldDate = Date.objects.filter(message__compaign=compaign, status='pending')
+                for date in Date:
+                    setattr(Date, 'status', 'refused')
+                    date.save()
+                setattr(compaign, 'actionFor', compaign.podcast.author)
+                compaign.save()
+                return Response({
+                    'Status': compaign.status.name
+                })
             else:
                 return Response({'Unauthorized action'}, status=status.HTTP_400_BAD_REQUEST)
         else:
            return Response({'Unauthorized action'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 
