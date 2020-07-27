@@ -399,12 +399,26 @@ class NextCompaignStep(APIView):
                 message.save()
                 proposition.save()
                 compaign.save()
+
             if (compaignStatusId == 3):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 message = Message.objects.create(compaign=compaign,text='Pitch envoyé',sender=request.user,type='Notification')
                 setattr(compaign, 'status', compaignStatus)
                 setattr(compaign, 'actionFor', compaign.podcast.author)
                 message.save()
+                compaign.save()
+
+            if (compaignStatusId == 4):
+                compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
+                setattr(compaign, 'status', compaignStatus)
+                setattr(compaign, 'actionFor', compaign.podcaster)
+                audio = Audio.objects.get(message__compaign=compaign, status='pending')
+                setattr(compaign, 'audio', audio.audioFile)
+                setattr(compaign, 'audioFile', audio.audioFileName)
+                setattr(audio, 'status', 'accepted')
+                message = Message.objects.create(compaign=compaign,text='Enregistrement validé',sender=request.user,type='Notification')
+                message.save()
+                audio.save()
                 compaign.save()
 
             if (compaignStatusId != 5):

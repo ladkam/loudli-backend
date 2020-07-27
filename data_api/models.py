@@ -301,6 +301,8 @@ class Compaign(models.Model):
     country = models.ManyToManyField(Country, blank=True,null=True)
     pitch= models.TextField(max_length=2000,blank=True,null=True)
     urlProduit = models.CharField(max_length=40,blank=True, null=True)
+    audioFile = models.FileField(blank=True, null=True, upload_to=scramble_uploaded_audiofilename)
+    audioFileName = models.CharField(blank=True, null=True, max_length=200)
     status = models.ForeignKey(CompaignStatus,on_delete=models.CASCADE,blank=True,null=True,default=1)
 
     """
