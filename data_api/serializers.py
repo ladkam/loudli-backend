@@ -280,10 +280,7 @@ class CompaignSerializerPost(serializers.ModelSerializer):
         exclude = ('status', )
 
 
-class DatePublicationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Date
-        fields = '__all__'
+
 
 class AudioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -295,13 +292,21 @@ class CompaignStatusSerializer(serializers.ModelSerializer):
         model=CompaignStatus
         fields='__all__'
 
+class DatePublicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Date
+        fields = '__all__'
+
 class MessageSerializerDatePublication(serializers.ModelSerializer):
     date = DatePublicationSerializer()
+    print('here')
     class Meta:
         model = Message
         fields = '__all__'
 
     def create(self, validated_data):
+        print('là')
+
         DatePublication_data = validated_data.pop('date')
         message = Message.objects.create(**validated_data)
         oldDates = Date.objects.filter(message__compaign=message.compaign, status='pending')
@@ -314,7 +319,9 @@ class MessageSerializerDatePublication(serializers.ModelSerializer):
         actionFor = compaign.announcer
         setattr(compaign, 'actionFor', actionFor)
         compaign.save()
-        return date
+        print('ici')
+        print(date)
+        return message
 
 class MessageSerializerAudio(serializers.ModelSerializer):
     class Meta:
