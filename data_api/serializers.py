@@ -316,7 +316,13 @@ class MessageSerializerAudio(serializers.ModelSerializer):
         sender = User.objects.get(id=int(initData['sender'][0]))
         compaign = Compaign.objects.get(id=int(initData['compaign'][0]))
         message = Message.objects.create(text=initData['text'][0],type='Enregistrement',sender=sender,compaign=compaign)
+        oldAudio = Audio.objects.filter(message__compaign=message.compaign, status='pending')
+        for audio in oldAudio:
+            setattr(audio, 'status', 'refused')
+            audio.save()
         audio = Audio.objects.create(**validated_data,message=message)
+        setattr(compaign, 'actionFor', compaign.announcer)
+        compaign.save()
         return audio
 
 class MessageSerializer(serializers.ModelSerializer):

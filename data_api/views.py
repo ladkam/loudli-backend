@@ -7,7 +7,7 @@ from .serializers import UserSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageSerializerPropositions,UserProfileInfoGetSerializer,AgeGroupSerializer\
     ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
 from rest_framework import generics
-from .models import CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
+from .models import Audio,CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
@@ -415,6 +415,24 @@ class NextCompaignStep(APIView):
                 return Response({
                     'Status': compaign.status.name
                 })
+        else:
+           return Response({'Unauthorized action'}, status=status.HTTP_400_BAD_REQUEST)
+
+class Decline(APIView):
+    def post(self,request):
+        id = request.data.__getitem__('id')
+        compaign = Compaign.objects.get(id=id)
+        compaignStatusId = compaign.status.id
+        if(compaign.actionFor==request.user):
+            if(compaignStatusId==4):
+                message = Message.objects.create(compaign=compaign,text='Notification',sender=request.user,type='Declined Notification')
+                message.save()
+                oldAudio = Audio.objects.filter(message__compaign=compaign, status='pending')
+                for audio in oldAudio:
+                    setattr(audio, 'status', 'refused')
+                    audio.save()
+                setattr(compaign, 'actionFor', compaign.podcast.author)
+                compaign.save()
         else:
            return Response({'Unauthorized action'}, status=status.HTTP_400_BAD_REQUEST)
 
