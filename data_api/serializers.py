@@ -304,20 +304,18 @@ class MessageSerializerDatePublication(serializers.ModelSerializer):
     def create(self, validated_data):
         DatePublication_data = validated_data.pop('date')
         message = Message.objects.create(**validated_data)
-        oldDate = Date.objects.filter(message__compaign=message.compaign, status='pending')
-        for Date in oldDate:
-            setattr(Date, 'status', 'refused')
-            Date.save()
-        Date = Proposition.objects.create(message=message, **DatePublication_data)
+        oldDates = Date.objects.filter(message__compaign=message.compaign, status='pending')
+
+        for oldDate in oldDates:
+            setattr(oldDate, 'status', 'refused')
+            oldDate.save()
+
+        date = Date.objects.create(message=message, **DatePublication_data)
         compaign = Compaign.objects.get(id=message.compaign.id)
         actionFor = compaign.announcer
         setattr(compaign, 'actionFor', actionFor)
         compaign.save()
-
-
-
         message = Message.objects.create(**validated_data)
-        proposition = Date.objects.create(message=message, **DatePublication_data)
         return message
 
 class MessageSerializerAudio(serializers.ModelSerializer):
