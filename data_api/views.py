@@ -457,10 +457,12 @@ class NextCompaignStep(APIView):
                 compaign.save()
 
             if (compaignStatusId == 5):
-                id = request.data.__getitem__('date')
+                date = request.data.__getitem__('date')
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
-                setattr(compaign, 'actionFor', compaign.podcast.author)
+                setattr(compaign, 'actionFor', date)
+                setattr(compaign, 'datePub', compaign.podcast.author)
+
                 date = Date.objects.get(message__compaign=compaign, status='pending')
                 setattr(date, 'status', 'accepted')
                 message = Message.objects.create(compaign=compaign,text='Date de publication choisie',sender=request.user,type='Notification')
