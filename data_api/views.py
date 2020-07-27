@@ -425,7 +425,8 @@ class Decline(APIView):
         compaignStatusId = compaign.status.id
         if(compaign.actionFor==request.user):
             if(compaignStatusId==4):
-                message = Message.objects.create(compaign=compaign,text='Notification',sender=request.user,type='Declined Notification')
+                comment = request.data.__getitem__('comment')
+                message = Message.objects.create(compaign=compaign,text=comment,sender=request.user,type='Declined Notification')
                 message.save()
                 oldAudio = Audio.objects.filter(message__compaign=compaign, status='pending')
                 for audio in oldAudio:
