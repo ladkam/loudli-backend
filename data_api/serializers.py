@@ -305,7 +305,6 @@ class MessageSerializerDatePublication(serializers.ModelSerializer):
         DatePublication_data = validated_data.pop('date')
         message = Message.objects.create(**validated_data)
         oldDates = Date.objects.filter(message__compaign=message.compaign, status='pending')
-
         for oldDate in oldDates:
             setattr(oldDate, 'status', 'refused')
             oldDate.save()
@@ -315,8 +314,7 @@ class MessageSerializerDatePublication(serializers.ModelSerializer):
         actionFor = compaign.announcer
         setattr(compaign, 'actionFor', actionFor)
         compaign.save()
-        message = Message.objects.create(**validated_data)
-        return message
+        return date
 
 class MessageSerializerAudio(serializers.ModelSerializer):
     class Meta:
