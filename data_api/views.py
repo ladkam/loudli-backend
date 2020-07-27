@@ -405,7 +405,6 @@ class NextCompaignStep(APIView):
                 setattr(compaign, 'status', compaignStatus)
                 setattr(compaign, 'actionFor', compaign.podcast.author)
                 message.save()
-                proposition.save()
                 compaign.save()
 
             if (compaignStatusId != 5):
