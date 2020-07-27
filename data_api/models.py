@@ -468,7 +468,9 @@ class Proposition(models.Model):
 class Audio(models.Model):
     audioFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_audiofilename)
     audioFileName = models.CharField(blank=True,null=True,max_length=200)
+    status= models.CharField(default='pending',max_length=25)
     message = models.OneToOneField(Message, on_delete=models.CASCADE,null=True)
+
 
     @staticmethod
     @authenticated_users
