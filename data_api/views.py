@@ -7,7 +7,7 @@ from .serializers import UserSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageSerializerPropositions,UserProfileInfoGetSerializer,AgeGroupSerializer\
     ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
 from rest_framework import generics
-from .models import Episodes,Date,Audio,CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
+from .models import Ep,Date,Audio,CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
@@ -473,12 +473,11 @@ class NextCompaignStep(APIView):
                 episodes = request.data.__getitem__('episodes')
                 podcast = compaign.podcast
                 for episode in episodes:
-                    ep = Episodes.objects.create(podcast=podcast,**episode)
-                    compaign.episodes.add(ep.id)
+                    ep = Ep.objects.create(podcast=podcast,**episode)
+                    compaign.ep.add(ep.id)
                 compaign.save()
                 message = Message.objects.create(compaign=compaign,text='Episode de publication choisi',sender=request.user,type='Notification')
                 message.save()
-
 
             if (compaignStatusId != 5):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Episodes,CompaignStatus,Tag,Podcast,Gender, Date,Audio,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
+from .models import Ep,CompaignStatus,Tag,Podcast,Gender, Date,Audio,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
 from django.db.models import Q
 import boto3
 from botocore.exceptions import ClientError
@@ -91,13 +91,6 @@ class InterestSerializer(serializers.ModelSerializer):
         model = Interest
         fields ='__all__'
 
-class episodeSerializer(serializers.ModelSerializer):
-    class Meta:
-        Model = Episodes
-        fields='__all__'
-
-
-
 class PodcastsSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
     targetGender = serializers.SlugRelatedField(
@@ -179,10 +172,16 @@ class PodcastsSerializerPost(serializers.ModelSerializer):
         podcast.save()
         return podcast
 
+class EpisodesSerializer(serializers.ModelSerializer):
+    class Meta:
+        Model = Ep
+        fields='__all__'
+
+
 class EpisodeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Episode
-        fields =  '__all__'
+        model = Ep
+        fields='__all__'
 
 class EpisodeImportedSerializer(serializers.ModelSerializer):
     podcast = PodcastsSerializerPost(read_only=True)
@@ -191,7 +190,7 @@ class EpisodeImportedSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class EpisodeStatSerializer(serializers.ModelSerializer):
-    episode = EpisodeSerializer(read_only=True)
+    episode = EpisodesSerializer(read_only=True)
     class Meta:
         model = EpisodeStat
         fields =  '__all__'
@@ -357,7 +356,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
 class CompaignSerializer(serializers.ModelSerializer):
     announcer = UserSerializer()
-    episodes=episodeSerializer()
+    ep = EpisodeSerializer(many=True)
     #audioFile_set =  serializers.SerializerMethodField()
     ##proposition_set = serializers.SerializerMethodField()
     podcast = PodcastsSerializer()
@@ -392,6 +391,9 @@ class CompaignSerializer(serializers.ModelSerializer):
     def get_message_set(self, instance):
         messages = instance.message_set.all().order_by('sendDate')
         return MessageSerializer(messages, many=True).data
+    def get_episodes_set(self, instance):
+        episodes = instance.episodes_set.all()
+        return EpisodeSerializer(episodes, many=True).data
     ##def get_proposition_set(self, instance):
       ##  propositions = instance.proposition_set.all().order_by('date')
        ## return PropositionSerializer(propositions, many=True).data

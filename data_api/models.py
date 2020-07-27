@@ -282,7 +282,7 @@ class CompaignStatus(models.Model):
         return self.name
 
 
-class Episodes(models.Model):
+class Ep(models.Model):
     podcast = models.ForeignKey(Podcast,on_delete=models.CASCADE)
     name = models.TextField(max_length=300,null=True,blank=True)
     audio = models.URLField()
@@ -290,8 +290,6 @@ class Episodes(models.Model):
     text = models.TextField(max_length=1000,null=True,blank=True)
     def __str__(self):
         return self.podcast.name +'-' + self.name
-
-
 
 class Compaign(models.Model):
     name = models.CharField(max_length=256)
@@ -310,7 +308,7 @@ class Compaign(models.Model):
     adText =  models.TextField(max_length=2000,blank=True,null=True)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
     city = models.ManyToManyField(City,blank=True,null=True)
-    episodes = models.ManyToManyField(Episodes,blank=True,null=True)
+    ep = models.ManyToManyField(Ep,blank=True,null=True)
     country = models.ManyToManyField(Country, blank=True,null=True)
     pitch= models.TextField(max_length=2000,blank=True,null=True)
     urlProduit = models.CharField(max_length=40,blank=True, null=True)
@@ -351,7 +349,7 @@ class Compaign(models.Model):
 
 
 class Episode(models.Model):
-    podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
+    #podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
     name = models.CharField(max_length=256)
     def __str__(self):
         return self.name
