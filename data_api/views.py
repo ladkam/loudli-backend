@@ -457,7 +457,7 @@ class NextCompaignStep(APIView):
                 compaign.save()
 
             if (compaignStatusId == 5):
-                id = request.data.__getitem__('Date')
+                id = request.data.__getitem__('date')
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
                 setattr(compaign, 'actionFor', compaign.podcast.author)
