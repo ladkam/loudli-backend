@@ -305,6 +305,7 @@ class Compaign(models.Model):
     startDateValidated = models.DateField(auto_now=True)
     messageFor = models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE,related_name='messageFor')
     actionFor = models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE,related_name='action')
+    advancement = models.IntegerField(default=0)
     adText =  models.TextField(max_length=2000,blank=True,null=True)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
     city = models.ManyToManyField(City,blank=True,null=True)
