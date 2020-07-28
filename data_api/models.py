@@ -318,6 +318,11 @@ class Compaign(models.Model):
     status = models.ForeignKey(CompaignStatus,on_delete=models.CASCADE,blank=True,null=True,default=1)
     pubDate = models.CharField(max_length=40, blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+        if self.actionFor is None:
+            self.actionFor = self.podcast.author
+        super(Compaign, self).save(*args, **kwargs)
+
     @staticmethod
     def has_read_permission(request):
         return True
