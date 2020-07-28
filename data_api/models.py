@@ -405,7 +405,7 @@ class Message(models.Model):
         message_type = request.data.__getitem__('type')
         compaign = Compaign.objects.get(id=compaign)
         if message_type=='text':
-            return (request.user == compaign.messageFor)
+            return True
         else:
                 return ((message_type==compaign.status.name) and (request.user == compaign.actionFor))
 
