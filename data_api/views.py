@@ -421,6 +421,8 @@ class NextCompaignStep(APIView):
                 setattr(compaign, 'status', compaignStatus)
                 setattr(compaign,'actionFor',request.user)
                 compaign.save()
+                message = Message.objects.create(compaign=compaign, text='Demande acceptée', sender=request.user,type='Notification')
+                message.save()
             if (compaignStatusId == 2):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
@@ -430,7 +432,7 @@ class NextCompaignStep(APIView):
                 setattr(compaign, 'plays', proposition.plays)
                 setattr(proposition, 'status', 'accepted')
                 setattr(compaign, 'actionFor', compaign.announcer)
-                message = Message.objects.create(compaign=compaign,text='Notification',sender=request.user,type='Notification')
+                message = Message.objects.create(compaign=compaign,text='Devis acceptée',sender=request.user,type='Notification')
                 message.save()
                 proposition.save()
                 compaign.save()
