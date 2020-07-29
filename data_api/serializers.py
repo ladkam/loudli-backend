@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Ep,CompaignStatus,Tag,Podcast,Gender, Date,Audio,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
+from .models import Plays,Ep,CompaignStatus,Tag,Podcast,Gender, Date,Audio,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
 from django.db.models import Q
 import boto3
 from botocore.exceptions import ClientError
@@ -237,6 +237,8 @@ class PropositionSerializer(serializers.ModelSerializer):
         model = Proposition
         fields = '__all__'
 
+
+
 class PropositionSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Proposition
@@ -256,6 +258,32 @@ class MessageSerializerOnly(serializers.ModelSerializer):
         compaign.save()
         return message
 
+class PlaysSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Plays
+        fields = '__all__'
+
+class MessageSerializerPlays(serializers.ModelSerializer):
+    proposition = PropositionSerializer()
+    class Meta:
+        model = Message
+        fields = '__all__'
+
+    def create(self, validated_data):
+        proposition_data = validated_data.pop('plays')
+        message = Message.objects.create(**validated_data)
+        oldPlays = Proposition.objects.filter(message__compaign=message.compaign,status='current')
+        for plays in oldPlays:
+            setattr(plays,'status','previous')
+            plays.save()
+        plays = Plays.objects.create(message=message, **proposition_data)
+        compaign = Compaign.objects.get(id=message.compaign.id)
+        #actionFor = compaign.podcast.author if compaign.podcast.author != self.context['request'].user else compaign.announcer
+        #setattr(compaign, 'actionFor', actionFor)
+        setattr(compaign, 'advancement', plays.number)
+        compaign.save()
+
+        return message
 
 
 class MessageSerializerPropositions(serializers.ModelSerializer):
@@ -278,6 +306,8 @@ class MessageSerializerPropositions(serializers.ModelSerializer):
         compaign.save()
 
         return message
+
+
 
 class CompaignSerializerPost(serializers.ModelSerializer):
     class Meta:
@@ -345,6 +375,7 @@ class MessageSerializerAudio(serializers.ModelSerializer):
 
 class MessageSerializer(serializers.ModelSerializer):
     sender = UserSerializer()
+    plays = PlaysSerializer()
     audio = AudioSerializer()
     proposition = PropositionSerializer()
     date = DatePublicationSerializer()

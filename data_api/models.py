@@ -437,7 +437,6 @@ class Message(models.Model):
     def has_create_permission(request):
         return False
 
-
 class Proposition(models.Model):
     price = models.IntegerField()
     plays = models.IntegerField()
@@ -445,13 +444,16 @@ class Proposition(models.Model):
     status= models.CharField(default='pending',max_length=25)
     message = models.OneToOneField(Message, on_delete=models.CASCADE,null=True)
 
+class Plays(models.Model):
+    number = models.IntegerField()
+    DateTime = models.DateTimeField(auto_now=True)
+    message = models.OneToOneField(Message, on_delete=models.CASCADE,null=True)
 
 class Audio(models.Model):
     audioFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_audiofilename)
     audioFileName = models.CharField(blank=True,null=True,max_length=200)
     status= models.CharField(default='pending',max_length=25)
     message = models.OneToOneField(Message, on_delete=models.CASCADE,null=True)
-
 
     @staticmethod
     @authenticated_users

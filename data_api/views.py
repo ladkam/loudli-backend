@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from django.db.models import Sum
 from .serializers import UserSerializer,\
-    GroupSerializer,PodcastPlaysSerializer,PodcastsSerializer,PodcastsSerializerPost,\
+    GroupSerializer,PodcastPlaysSerializer,MessageSerializerPlays,PodcastsSerializer,PodcastsSerializerPost,\
     UserProfileInfoSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageSerializerPropositions,UserProfileInfoGetSerializer,AgeGroupSerializer\
     ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
@@ -308,6 +308,8 @@ class MessagesList(generics.ListCreateAPIView):
                 return MessageSerializerAudio
             elif type=='Choix de date':
                 return MessageSerializerDatePublication
+            elif type=='En cours':
+                return MessageSerializerPlays
             else:
                 return MessageSerializerOnly
         if self.request.method == 'GET':
@@ -443,7 +445,7 @@ class NextCompaignStep(APIView):
                 message = Message.objects.create(compaign=compaign,text='Pitch envoyé',sender=request.user,type='Notification')
                 setattr(compaign, 'status', compaignStatus)
                 setattr(compaign, 'actionFor', compaign.podcast.author)
-                setattr(compaign, 'pitch', compaign.pitch)
+                setattr(compaign, 'pitch', pitch)
                 message.save()
                 compaign.save()
 
