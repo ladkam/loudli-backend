@@ -448,6 +448,9 @@ class Plays(models.Model):
     number = models.IntegerField()
     DateTime = models.DateTimeField(auto_now=True)
     message = models.OneToOneField(Message, on_delete=models.CASCADE,null=True)
+    status= models.CharField(default='current',max_length=25)
+
+
 
 class Audio(models.Model):
     audioFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_audiofilename)
