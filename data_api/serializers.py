@@ -264,19 +264,19 @@ class PlaysSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class MessageSerializerPlays(serializers.ModelSerializer):
-    proposition = PropositionSerializer()
+    plays = PlaysSerializer()
     class Meta:
         model = Message
         fields = '__all__'
 
     def create(self, validated_data):
-        proposition_data = validated_data.pop('plays')
+        Plays_data = validated_data.pop('plays')
         message = Message.objects.create(**validated_data)
-        oldPlays = Proposition.objects.filter(message__compaign=message.compaign,status='current')
+        oldPlays = Plays.objects.filter(message__compaign=message.compaign,status='current')
         for plays in oldPlays:
             setattr(plays,'status','previous')
             plays.save()
-        plays = Plays.objects.create(message=message, **proposition_data)
+        plays = Plays.objects.create(message=message, **Plays_data)
         compaign = Compaign.objects.get(id=message.compaign.id)
         #actionFor = compaign.podcast.author if compaign.podcast.author != self.context['request'].user else compaign.announcer
         #setattr(compaign, 'actionFor', actionFor)
