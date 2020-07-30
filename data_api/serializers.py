@@ -351,6 +351,8 @@ class MessageSerializerDatePublication(serializers.ModelSerializer):
         compaign = Compaign.objects.get(id=message.compaign.id)
         actionFor = compaign.announcer
         setattr(compaign, 'actionFor', actionFor)
+        setattr(compaign,'startedExchange',True)
+
         compaign.save()
         print('ici')
         print(date)
