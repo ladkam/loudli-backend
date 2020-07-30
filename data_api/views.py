@@ -434,6 +434,8 @@ class NextCompaignStep(APIView):
                 setattr(compaign, 'plays', proposition.plays)
                 setattr(proposition, 'status', 'accepted')
                 setattr(compaign, 'actionFor', compaign.announcer)
+                setattr(compaign, 'subStatus', 0)
+
                 message = Message.objects.create(compaign=compaign,text='Devis acceptée',sender=request.user,type='Notification')
                 message.save()
                 proposition.save()

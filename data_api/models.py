@@ -309,6 +309,7 @@ class Compaign(models.Model):
     adText =  models.TextField(max_length=2000,blank=True,null=True)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
     city = models.ManyToManyField(City,blank=True,null=True)
+    subStatus = models.IntegerField(default=0)
     ep = models.ManyToManyField(Ep,blank=True,null=True)
     country = models.ManyToManyField(Country, blank=True,null=True)
     pitch= models.TextField(max_length=2000,blank=True,null=True)
@@ -401,6 +402,9 @@ class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
     attachedFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_filename)
     attachedFileName = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return 'Comp'+'-'+str(self.compaign.id) +'-'+self.type
 
     @staticmethod
     @authenticated_users
