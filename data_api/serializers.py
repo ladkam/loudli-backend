@@ -303,7 +303,7 @@ class MessageSerializerPropositions(serializers.ModelSerializer):
         compaign = Compaign.objects.get(id=message.compaign.id)
         actionFor = compaign.podcast.author if compaign.podcast.author != self.context['request'].user else compaign.announcer
         setattr(compaign, 'actionFor', actionFor)
-        setattr(compaign,'subStatus',compaign.subStatus+1)
+        setattr(compaign,'startedExchange',True)
         compaign.save()
 
         return message

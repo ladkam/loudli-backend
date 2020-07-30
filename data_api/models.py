@@ -309,7 +309,7 @@ class Compaign(models.Model):
     adText =  models.TextField(max_length=2000,blank=True,null=True)
     ageGroup = models.ManyToManyField(AgeGroup,blank=True)
     city = models.ManyToManyField(City,blank=True,null=True)
-    subStatus = models.IntegerField(default=0)
+    startedExchange = models.BooleanField(default=False)
     ep = models.ManyToManyField(Ep,blank=True,null=True)
     country = models.ManyToManyField(Country, blank=True,null=True)
     pitch= models.TextField(max_length=2000,blank=True,null=True)
