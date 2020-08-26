@@ -486,6 +486,17 @@ class NextCompaignStep(APIView):
                 compaign.save()
                 message = Message.objects.create(compaign=compaign,text='Episode de publication choisi',sender=request.user,type='Notification')
                 message.save()
+            if (compaignStatusId == 7):
+                compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
+                setattr(compaign, 'status', compaignStatus)
+                setattr(compaign,'actionFor',compaign.announcer)
+                compaign.save()
+                compaign = Compaign.objects.get(id=id)
+
+                compaign.save()
+                message = Message.objects.create(compaign=compaign, text='Demande de cloture',
+                                                 sender=request.user, type='Notification')
+                message.save()
 
             if (compaignStatusId != 5):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
