@@ -498,6 +498,17 @@ class NextCompaignStep(APIView):
                                                  sender=request.user, type='Notification')
                 message.save()
 
+            if (compaignStatusId == 8):
+                compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
+                setattr(compaign, 'status', compaignStatus)
+                compaign.save()
+                compaign = Compaign.objects.get(id=id)
+
+                compaign.save()
+                message = Message.objects.create(compaign=compaign, text='Campagne cloturée',
+                                                 sender=request.user, type='Notification')
+                message.save()
+
             if (compaignStatusId != 5):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
