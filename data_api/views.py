@@ -472,7 +472,7 @@ class NextCompaignStep(APIView):
                 setattr(compaign,'actionFor', compaign.podcast.author)
                 date = Date.objects.get(message__compaign=compaign, status='pending')
                 setattr(date, 'status', 'accepted')
-                message = Message.objects.create(compaign=compaign,text='Date de publication choisie',sender=request.user,type='Notification')
+                message = Message.objects.create(compaign=compaign,text='Date choisie',sender=request.user,type='Notification')
                 message.save()
                 date.save()
                 compaign.save()
@@ -484,7 +484,7 @@ class NextCompaignStep(APIView):
                     ep = Ep.objects.create(podcast=podcast,**episode)
                     compaign.ep.add(ep.id)
                 compaign.save()
-                message = Message.objects.create(compaign=compaign,text='Episode de publication choisi',sender=request.user,type='Notification')
+                message = Message.objects.create(compaign=compaign,text='Episodes choisis',sender=request.user,type='Notification')
                 message.save()
             if (compaignStatusId == 7):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)

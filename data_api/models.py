@@ -284,10 +284,10 @@ class CompaignStatus(models.Model):
 
 class Ep(models.Model):
     podcast = models.ForeignKey(Podcast,on_delete=models.CASCADE)
-    name = models.TextField(max_length=300,null=True,blank=True)
+    name = models.TextField(max_length=5000,null=True,blank=True)
     audio = models.URLField()
     image = models.URLField()
-    text = models.TextField(max_length=1000,null=True,blank=True)
+    text = models.TextField(max_length=5000,null=True,blank=True)
     def __str__(self):
         return self.podcast.name +'-' + self.name
 

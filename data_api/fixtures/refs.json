@@ -191,5 +191,12 @@
     {
       "name": "Terminée"
     }
-   }
+   },
+  {
+    "model": "data_api.CompaignStatus",
+    "pk": 9,
+    "fields": {
+      "name": "Payée"
+    }
+  }
 ]
