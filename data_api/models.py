@@ -398,6 +398,8 @@ class Message(models.Model):
     sendDate = models.DateTimeField(auto_now=True)
     text =  models.TextField(blank=True,null=True)
     readFlag = models.BooleanField(default=False)
+    notificationsAnnouncer =  models.IntegerField(default=0)
+    notificationsPodcaster = models.IntegerField(default=0)
     compaign = models.ForeignKey(Compaign, on_delete=models.CASCADE)
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
     attachedFile = models.FileField(blank=True,null=True,upload_to=scramble_uploaded_filename)
