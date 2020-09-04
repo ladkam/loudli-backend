@@ -49,7 +49,7 @@ class UserSerializer(serializers.ModelSerializer):
     UserProfileInfo = UserProfileInfoSerializer(partial=True, required=True,source='profile')
     class Meta:
         model = User
-        fields = ['username','first_name','last_name','email','id','UserProfileInfo']
+        fields = ['first_name','last_name','id','UserProfileInfo']
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -237,8 +237,6 @@ class PropositionSerializer(serializers.ModelSerializer):
         model = Proposition
         fields = '__all__'
 
-
-
 class PropositionSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Proposition
@@ -377,7 +375,7 @@ class MessageSerializerAudio(serializers.ModelSerializer):
         return audio
 
 class MessageSerializer(serializers.ModelSerializer):
-    sender = UserSerializer()
+    #sender = UserSerializer()
     plays = PlaysSerializer()
     audio = AudioSerializer()
     proposition = PropositionSerializer()
