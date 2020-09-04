@@ -520,6 +520,21 @@ class NextCompaignStep(APIView):
         else:
            return Response({'Unauthorized action'}, status=status.HTTP_400_BAD_REQUEST)
 
+class read(APIView):
+    def post(self,request):
+        id = request.data.__getitem__('id')
+        print(id)
+        compaign = Compaign.objects.get(id=id)
+        print(compaign)
+        messages = Message.objects.filter(compaign=compaign, readFlag=False).exclude(sender=request.user)
+        for message in messages:
+            setattr(message, 'readFlag', True)
+            message.save()
+        return Response({
+            'messages': 'updated'
+        })
+
+
 class Decline(APIView):
     def post(self,request):
         id = request.data.__getitem__('id')
