@@ -387,6 +387,8 @@ class MessageSerializer(serializers.ModelSerializer):
 
 
 class CompaignSerializer(serializers.ModelSerializer):
+
+    unreadNotifications = serializers.SerializerMethodField()
     announcer = UserSerializer()
     ep = EpisodeSerializer(many=True)
     #audioFile_set =  serializers.SerializerMethodField()
@@ -438,6 +440,9 @@ class CompaignSerializer(serializers.ModelSerializer):
     def get_attached_set(self,instance):
         files = instance.attached_set.all()
         return attachedSerializer(files, many=True).data
+    def get_unreadNotifications(self,instance):
+        return len(instance.message_set.filter(readFlag=False))
+
 
 
 
