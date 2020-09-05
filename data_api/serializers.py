@@ -43,7 +43,7 @@ class UserProfileInfoGetSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(source='user.last_name', read_only=True)
     class Meta:
         model = UserProfileInfo
-        fields = '__all__'
+        fields = ['type','profilePicture']
 
 class UserSerializer(serializers.ModelSerializer):
     UserProfileInfo = UserProfileInfoSerializer(partial=True, required=True,source='profile')
@@ -441,8 +441,7 @@ class CompaignSerializer(serializers.ModelSerializer):
         files = instance.attached_set.all()
         return attachedSerializer(files, many=True).data
     def get_unreadNotifications(self,instance):
-        return len(instance.message_set.filter(readFlag=False))
-
+        return len(instance.message_set.filter(readFlag=False).exclude(sender=self.context['request'].user))
 
 
 
