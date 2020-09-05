@@ -43,7 +43,7 @@ class UserProfileInfoGetSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(source='user.last_name', read_only=True)
     class Meta:
         model = UserProfileInfo
-        fields = ['type','profilePicture']
+        fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
     UserProfileInfo = UserProfileInfoSerializer(partial=True, required=True,source='profile')
