@@ -7,6 +7,7 @@ from botocore.exceptions import ClientError
 import logging
 import boto3
 from botocore.exceptions import ClientError
+from collections import OrderedDict
 
 
 def create_presigned_url(bucket_name, object_name, expiration=3600):
@@ -383,6 +384,13 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = '__all__'
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        # Here we filter the null values and creates a new dictionary
+        # We use OrderedDict like in original method
+        ret = OrderedDict(filter(lambda x: x[1] is not None, ret.items()))
+        return ret
 
 
 
