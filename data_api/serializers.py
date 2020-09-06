@@ -313,6 +313,12 @@ class CompaignSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Compaign
         exclude = ('status', )
+        def create(self,validated_data):
+            compaign = Compaign.objects.create( **validated_data)
+            message = Message.objects.create(compaign=compaign, text=compaign.description, sender=self.context['request'].user,
+                                             type='Creation')
+            return compaign
+
 
 class AudioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -391,7 +397,6 @@ class MessageSerializer(serializers.ModelSerializer):
         # We use OrderedDict like in original method
         ret = OrderedDict(filter(lambda x: x[1] is not None, ret.items()))
         return ret
-
 
 
 class CompaignSerializer(serializers.ModelSerializer):

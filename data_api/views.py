@@ -141,6 +141,7 @@ class CompaignList(generics.ListCreateAPIView):
             return Compaign.objects.filter(announcer=user.id)
 
 
+
 """
     def post(self, request, *args, **kwargs):
         if not self.request.POST._mutable:

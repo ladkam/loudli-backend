@@ -14,8 +14,6 @@ from django.contrib.auth.models import AbstractUser
 import logging
 
 
-
-
 def scramble_uploaded_filename(instance, filename):
     extension = filename.split(".")[-1]
     return "{}.{}".format(uuid.uuid4(), extension)
@@ -39,12 +37,11 @@ class UserProfileInfo(models.Model):
     profilePicture.short_description = 'Thumb'
     profilePicture.allow_tags = True
 
+
     @receiver(post_save, sender=user)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             UserProfileInfo.objects.create(user=instance)
-
-
 
 
 class AgeGroup(models.Model):
