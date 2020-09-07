@@ -313,11 +313,6 @@ class CompaignSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Compaign
         exclude = ('status', )
-        def create(self,validated_data):
-            compaign = Compaign.objects.create( **validated_data)
-            message = Message.objects.create(compaign=compaign, text=compaign.description, sender=self.context['request'].user,
-                                             type='Creation')
-            return compaign
 
 
 class AudioSerializer(serializers.ModelSerializer):
@@ -343,7 +338,6 @@ class MessageSerializerDatePublication(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        print('là')
 
         DatePublication_data = validated_data.pop('date')
         message = Message.objects.create(**validated_data)
@@ -450,6 +444,50 @@ class CompaignSerializer(serializers.ModelSerializer):
         else:
             return 'coco'
             """
+    def get_attached_set(self,instance):
+        files = instance.attached_set.all()
+        return attachedSerializer(files, many=True).data
+    def get_unreadNotifications(self,instance):
+        return len(instance.message_set.filter(readFlag=False).exclude(sender=self.context['request'].user))
+
+class CompaignSerializerSummary(serializers.ModelSerializer):
+
+    unreadNotifications = serializers.SerializerMethodField()
+    announcer = UserSerializer()
+    ep = EpisodeSerializer(many=True)
+    #audioFile_set =  serializers.SerializerMethodField()
+    ##proposition_set = serializers.SerializerMethodField()
+    podcast = PodcastsSerializer()
+    status = serializers.SlugRelatedField(read_only=True,slug_field='name')
+
+    targetGender = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='name'
+    )
+    country = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name'
+    )
+    city = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name'
+    )
+    ageGroup = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name'
+    )
+    attached_set = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Compaign
+        fields = '__all__'
+
+    def get_episodes_set(self, instance):
+        episodes = instance.episodes_set.all()
+        return EpisodeSerializer(episodes, many=True).data
     def get_attached_set(self,instance):
         files = instance.attached_set.all()
         return attachedSerializer(files, many=True).data

@@ -62,8 +62,9 @@ urlpatterns = [
     path('checkRss/',views.CheckRssPodcast.as_view()),
     path('read/',views.read.as_view()),
     path('episodesRss/',views.EpisodesPodcast.as_view()),
+    path('campaignsummary/', views.campaignsummary.as_view()),
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 # Wire up our API using automatic URL routing.

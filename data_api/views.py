@@ -2,10 +2,10 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from django.db.models import Sum
 from .serializers import UserSerializer,\
-    GroupSerializer,PodcastPlaysSerializer,MessageSerializerPlays,PodcastsSerializer,PodcastsSerializerPost,\
+GroupSerializer,PodcastPlaysSerializer,MessageSerializerPlays,PodcastsSerializer,CompaignSerializerSummary,\
     UserProfileInfoSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageSerializerPropositions,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer
+    ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer,CompaignSerializerSummary
 from rest_framework import generics
 from .models import Ep,Date,Audio,CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
 from rest_framework.views import APIView
@@ -128,6 +128,7 @@ class CompaignList(generics.ListCreateAPIView):
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
+            print('here')
             return CompaignSerializerPost
         if self.request.method == 'GET':
             return CompaignSerializer
@@ -140,6 +141,13 @@ class CompaignList(generics.ListCreateAPIView):
         else:
             return Compaign.objects.filter(announcer=user.id)
 
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        message = Message.objects.create(compaign=instance, text=instance.description,
+                                         sender=self.request.user,
+                                         type='Creation')
+        print('creation')
+        print(message)
 
 
 """
@@ -319,8 +327,11 @@ class MessagesList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        if len(Message.objects.filter(sender=user.id)) != 0:
-            return Message.objects.filter(sender=user.id)
+        userType = UserProfileInfo.objects.get(user = user.id).type
+        if userType == 'podcaster':
+            return Message.objects.filter(compaign__podcast__author=user.id)
+        else:
+            return Message.objects.filter(compaign__announcer=user.id)
 
 
 class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -398,8 +409,6 @@ class EpisodesPodcast(APIView):
 
         if podcast.description == None:
             return Response('Not a podcast feed)',status=status.HTTP_400_BAD_REQUEST)
-
-
         entries = []
 
         items = PodcastParser(response.content).items
@@ -412,6 +421,17 @@ class EpisodesPodcast(APIView):
             entry['text'] = item.description
             entries.append(entry)
         return Response(entries)
+
+class campaignsummary(generics.ListCreateAPIView):
+    permission_classes = (DRYPermissions,)
+    serializer_class = CompaignSerializerSummary
+    def get_queryset(self):
+        user = self.request.user
+        userType = UserProfileInfo.objects.get(user = user.id).type
+        if userType == 'podcaster':
+            return Compaign.objects.filter(podcast__author=user.id)
+        else:
+            return Compaign.objects.filter(announcer=user.id)
 
 class NextCompaignStep(APIView):
     def post(self,request):
