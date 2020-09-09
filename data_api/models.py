@@ -394,7 +394,7 @@ class attached(models.Model):
 
 class Message(models.Model):
     type=models.CharField(max_length = 28)
-    sendDate = models.DateTimeField(auto_now=True)
+    sendDate = models.DateTimeField(auto_now_add =True)
     text =  models.TextField(blank=True,null=True)
     readFlag = models.BooleanField(default=False)
     compaign = models.ForeignKey(Compaign, on_delete=models.CASCADE)
