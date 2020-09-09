@@ -598,7 +598,7 @@ class playsDetails(APIView):
     def post(self,request):
         campaignID = request.data.__getitem__('id')
         print(campaignID)
-        queryset = Plays.objects.filter(message__compaign=campaignID).values()
+        queryset = Plays.objects.filter(message__compaign=campaignID).order_by(id).values()
         playsData=[]
         temp = {}
         for entry in queryset:
