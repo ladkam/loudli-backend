@@ -453,6 +453,7 @@ class CompaignSerializer(serializers.ModelSerializer):
 class CompaignSerializerSummary(serializers.ModelSerializer):
 
     unreadNotifications = serializers.SerializerMethodField()
+
     announcer = UserSerializer()
     ep = EpisodeSerializer(many=True)
     #audioFile_set =  serializers.SerializerMethodField()
@@ -493,7 +494,6 @@ class CompaignSerializerSummary(serializers.ModelSerializer):
         return attachedSerializer(files, many=True).data
     def get_unreadNotifications(self,instance):
         return len(instance.message_set.filter(readFlag=False).exclude(sender=self.context['request'].user))
-
 
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer

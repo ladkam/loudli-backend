@@ -5,9 +5,9 @@ from .serializers import UserSerializer,\
 GroupSerializer,PodcastPlaysSerializer,MessageSerializerPlays,PodcastsSerializer,CompaignSerializerSummary,\
     UserProfileInfoSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageSerializerPropositions,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer,CompaignSerializerSummary
+    ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer,CompaignSerializerSummary,PlaysSerializer
 from rest_framework import generics
-from .models import Ep,Date,Audio,CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest
+from .models import Ep,Date,Audio,CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest,Plays
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
@@ -593,3 +593,24 @@ class Decline(APIView):
                 return Response({'Unauthorized action'}, status=status.HTTP_400_BAD_REQUEST)
         else:
            return Response({'Unauthorized action'}, status=status.HTTP_400_BAD_REQUEST)
+
+class playsDetails(APIView):
+    def get(self):
+        print(self.request.url)
+        #campaignID = self.kwargs['campaignID']
+        queryset = Plays.objects.filter(message__compaign=81).values()
+        playsData=[]
+        temp = {}
+        print(self.kwargs.get('pk', None))
+        for entry in queryset:
+            temp['x'] = str(entry['DateTime'])
+            temp['y'] = entry['number']
+            print(temp)
+            playsData.append(temp)
+            temp={}
+
+        return Response(
+            playsData
+        )
+
+
