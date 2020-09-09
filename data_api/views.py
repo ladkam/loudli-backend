@@ -595,13 +595,12 @@ class Decline(APIView):
            return Response({'Unauthorized action'}, status=status.HTTP_400_BAD_REQUEST)
 
 class playsDetails(APIView):
-    def get(self):
-        print(self.request.url)
-        #campaignID = self.kwargs['campaignID']
-        queryset = Plays.objects.filter(message__compaign=81).values()
+    def post(self,request):
+        campaignID = request.data.__getitem__('id')
+        print(campaignID)
+        queryset = Plays.objects.filter(message__compaign=campaignID).values()
         playsData=[]
         temp = {}
-        print(self.kwargs.get('pk', None))
         for entry in queryset:
             temp['x'] = str(entry['DateTime'])
             temp['y'] = entry['number']
