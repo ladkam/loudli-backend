@@ -456,6 +456,15 @@ class Adtext(models.Model):
     @staticmethod
     @authenticated_users
     @allow_staff_or_superuser
+    def has_write_permission(request):
+        compaign = request.data.__getitem__('compaign')
+        message_type = request.data.__getitem__('type')
+        compaign = Compaign.objects.get(id=compaign)
+        return ((message_type == compaign.status.name) and (request.user == compaign.actionFor))
+
+    @staticmethod
+    @authenticated_users
+    @allow_staff_or_superuser
     def has_object_update_permission(self, request):
         return False
 
