@@ -5,9 +5,10 @@ from .serializers import UserSerializer,\
 GroupSerializer,PodcastPlaysSerializer,MessageSerializerPlays,PodcastsSerializer,CompaignSerializerSummary,\
     UserProfileInfoSerializer,CompaignSerializer,EpisodeStatSerializer,\
     PodcastStatsGeneralSerializer,CompaignSerializerPost,EpisodeImportedSerializer,EpisodeStat,EpisodeSerializer,MessageSerializer,MessageSerializerPropositions,UserProfileInfoGetSerializer,AgeGroupSerializer\
-    ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer,CompaignSerializerSummary,PlaysSerializer
+    ,EducationSerializer,MessageSerializerDatePublication,MessageSerializerAudio,\
+    MessageSerializerOnly,CountrySerializer,PropositionSerializer,CitySerializer,InterestSerializer,PropositionSerializer,GenderSerializer,attachedSerializer,TagSerializer,MyTokenObtainPairSerializer,CompaignSerializerSummary,PlaysSerializer,MessageSerializerAdtext
 from rest_framework import generics
-from .models import Ep,Date,Audio,CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest,Plays
+from .models import Ep,Date,Audio,CompaignStatus,Proposition,Podcast,Tag,UserProfileInfo,attached,Gender,Compaign,PodcastStatGeneral,EpisodeImported,Episode,EpisodeStat,Message,AgeGroup,Education,Country,City,Interest,Plays,Adtext
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from scrape_podcast_data import AnchorScraper,listennotesData
@@ -319,6 +320,8 @@ class MessagesList(generics.ListCreateAPIView):
                 return MessageSerializerDatePublication
             elif type=='En cours':
                 return MessageSerializerPlays
+            elif type=='Proposition de texte':
+                return MessageSerializerAdtext
             else:
                 return MessageSerializerOnly
         if self.request.method == 'GET':
@@ -476,6 +479,18 @@ class NextCompaignStep(APIView):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
                 setattr(compaign, 'actionFor', compaign.podcast.author)
+                AdText = Adtext.objects.get(message__compaign=compaign, status='pending')
+                setattr(compaign, 'audio', AdText.text)
+                setattr(AdText, 'status', 'accepted')
+                message = Message.objects.create(compaign=compaign,text="texte de l'annonce validé",sender=request.user,type='Notification')
+                message.save()
+                AdText.save()
+                compaign.save()
+
+            if (compaignStatusId == 5):
+                compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
+                setattr(compaign, 'status', compaignStatus)
+                setattr(compaign, 'actionFor', compaign.podcast.author)
                 audio = Audio.objects.get(message__compaign=compaign, status='pending')
                 setattr(compaign, 'audio', audio.audioFile)
                 setattr(compaign, 'audioFile', audio.audioFileName)
@@ -485,7 +500,7 @@ class NextCompaignStep(APIView):
                 audio.save()
                 compaign.save()
 
-            if (compaignStatusId == 5):
+            if (compaignStatusId == 6):
                 date = request.data.__getitem__('date')
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
@@ -498,7 +513,7 @@ class NextCompaignStep(APIView):
                 date.save()
                 compaign.save()
 
-            if(compaignStatusId == 6):
+            if(compaignStatusId == 7):
                 episodes = request.data.__getitem__('episodes')
                 podcast = compaign.podcast
                 for episode in episodes:
@@ -507,7 +522,7 @@ class NextCompaignStep(APIView):
                 compaign.save()
                 message = Message.objects.create(compaign=compaign,text='Episodes choisis',sender=request.user,type='Notification')
                 message.save()
-            if (compaignStatusId == 7):
+            if (compaignStatusId == 8):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
                 setattr(compaign,'actionFor',compaign.announcer)
@@ -519,7 +534,7 @@ class NextCompaignStep(APIView):
                                                  sender=request.user, type='Notification')
                 message.save()
 
-            if (compaignStatusId == 8):
+            if (compaignStatusId == 9):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 setattr(compaign, 'status', compaignStatus)
                 compaign.save()
@@ -562,7 +577,7 @@ class Decline(APIView):
         compaign = Compaign.objects.get(id=id)
         compaignStatusId = compaign.status.id
         if(compaign.actionFor==request.user):
-            if(compaignStatusId==4):
+            if(compaignStatusId==5):
                 comment = request.data.__getitem__('comment')
                 message = Message.objects.create(compaign=compaign,text=comment,sender=request.user,type='Declined Notification')
                 message.save()
@@ -575,7 +590,7 @@ class Decline(APIView):
                 return Response({
                     'Status': compaign.status.name
                 })
-            if (compaignStatusId == 5):
+            if (compaignStatusId == 6):
                 comment = request.data.__getitem__('comment')
                 message = Message.objects.create(compaign=compaign, text=comment, sender=request.user,
                                                  type='Declined Notification')

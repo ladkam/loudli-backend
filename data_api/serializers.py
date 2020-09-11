@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Plays,Ep,CompaignStatus,Tag,Podcast,Gender, Date,Audio,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
+from .models import Plays,Ep,CompaignStatus,Adtext,Tag,Podcast,Gender, Date,Audio,attached,Proposition,UserProfileInfo,Compaign,EpisodeStat,PodcastStatGeneral,Episode,Message,AgeGroup,Education,Country,City,Interest
 from django.db.models import Q
 import boto3
 from botocore.exceptions import ClientError
@@ -320,6 +320,11 @@ class AudioSerializer(serializers.ModelSerializer):
         model = Audio
         fields = '__all__'
 
+class AdtextSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Adtext
+        fields = '__all__'
+
 class CompaignStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model=CompaignStatus
@@ -351,11 +356,26 @@ class MessageSerializerDatePublication(serializers.ModelSerializer):
         actionFor = compaign.announcer
         setattr(compaign, 'actionFor', actionFor)
         setattr(compaign,'startedExchange',True)
-
         compaign.save()
-        print('ici')
-        print(date)
         return message
+
+class MessageSerializerAdtext(serializers.ModelSerializer):
+    class Meta:
+        model = Adtext
+        fields = '__all__'
+    def create(self, validated_data):
+        initData = dict(self.initial_data)
+        sender = User.objects.get(id=int(initData['sender'][0]))
+        compaign = Compaign.objects.get(id=int(initData['compaign'][0]))
+        message = Message.objects.create(text=initData['text'][0],type='Proposition de texte',sender=sender,compaign=compaign)
+        oldAdtext = Adtext.objects.filter(message__compaign=message.compaign, status='pending')
+        for adtext in oldAdtext:
+            setattr(adtext, 'status', 'refused')
+            adtext.save()
+        adtext = Adtext.objects.create(**validated_data,message=message)
+        setattr(compaign, 'actionFor', compaign.announcer)
+        compaign.save()
+        return adtext
 
 class MessageSerializerAudio(serializers.ModelSerializer):
     class Meta:

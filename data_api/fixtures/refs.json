@@ -152,12 +152,12 @@
       "name": "Pitch"
     }
    },
-  {
+   {
      "model": "data_api.CompaignStatus",
     "pk": 4,
     "fields":
     {
-      "name": "Enregistrement"
+      "name": "Choix de texte"
     }
    },
   {
@@ -165,12 +165,20 @@
     "pk": 5,
     "fields":
     {
+      "name": "Enregistrement"
+    }
+   },
+  {
+     "model": "data_api.CompaignStatus",
+    "pk": 6,
+    "fields":
+    {
       "name": "Choix de date"
     }
    },
     {
      "model": "data_api.CompaignStatus",
-    "pk": 6,
+    "pk": 7,
     "fields":
     {
       "name": "Selection episodes"
@@ -178,7 +186,7 @@
    },
   {
      "model": "data_api.CompaignStatus",
-    "pk": 7,
+    "pk": 8,
     "fields":
     {
       "name": "En cours"
@@ -186,7 +194,7 @@
    },
   {
      "model": "data_api.CompaignStatus",
-    "pk": 8,
+    "pk": 9,
     "fields":
     {
       "name": "Terminée"
@@ -194,7 +202,7 @@
    },
   {
     "model": "data_api.CompaignStatus",
-    "pk": 9,
+    "pk": 10,
     "fields": {
       "name": "Payée"
     }
