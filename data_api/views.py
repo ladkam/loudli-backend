@@ -590,6 +590,21 @@ class Decline(APIView):
                 return Response({
                     'Status': compaign.status.name
                 })
+            if (compaignStatusId == 4):
+                comment = request.data.__getitem__('comment')
+                message = Message.objects.create(compaign=compaign, text=comment, sender=request.user,
+                                                 type='Declined Notification')
+                message.save()
+                oldAdtext = Adtext.objects.filter(message__compaign=message.compaign, status='pending')
+                print('here 3')
+                for adtext in oldAdtext:
+                    setattr(adtext, 'status', 'refused')
+                    adtext.save()
+                setattr(compaign, 'actionFor', compaign.podcast.author)
+                compaign.save()
+                return Response({
+                    'Status': compaign.status.name
+                })
             if (compaignStatusId == 6):
                 comment = request.data.__getitem__('comment')
                 message = Message.objects.create(compaign=compaign, text=comment, sender=request.user,
