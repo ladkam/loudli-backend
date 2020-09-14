@@ -373,8 +373,10 @@ class MessageSerializerAdtext(serializers.ModelSerializer):
         for adtext in oldAdtext:
             setattr(adtext, 'status', 'refused')
             adtext.save()
+
         adtext = Adtext.objects.create(**validated_data,message=message)
         setattr(compaign, 'actionFor', compaign.announcer)
+        setattr(compaign, 'startedExchange', True)
         compaign.save()
         return adtext
 
