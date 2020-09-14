@@ -398,7 +398,7 @@ class MessageSerializerAudio(serializers.ModelSerializer):
 
 class MessageSerializer(serializers.ModelSerializer):
     #sender = UserSerializer()
-    adText = MessageSerializerAdtext
+    adtext = MessageSerializerAdtext()
     plays = PlaysSerializer()
     audio = AudioSerializer()
     proposition = PropositionSerializer()
