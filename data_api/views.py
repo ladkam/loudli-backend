@@ -593,7 +593,7 @@ class Decline(APIView):
             if (compaignStatusId == 4):
                 comment = request.data.__getitem__('comment')
                 message = Message.objects.create(compaign=compaign, text=comment, sender=request.user,
-                                                 type='Declined Notification')
+                               type='Declined Notification')
                 message.save()
                 oldAdtext = Adtext.objects.filter(message__compaign=message.compaign, status='pending')
                 print('here 3')

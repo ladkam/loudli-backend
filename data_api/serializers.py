@@ -364,17 +364,12 @@ class MessageSerializerAdtext(serializers.ModelSerializer):
         model = Adtext
         fields = '__all__'
     def create(self, validated_data):
-        print('here 1')
         print(self.initial_data)
         initData = dict(self.initial_data)
         sender = User.objects.get(id=int(initData['sender'][0]))
-        print('here 2')
-        print(initData['compaign'])
         compaign = Compaign.objects.get(id=initData['compaign'])
         message = Message.objects.create(text=initData['text'][0],type='Proposition de texte',sender=sender,compaign=compaign)
-        print('here 3')
         oldAdtext = Adtext.objects.filter(message__compaign=message.compaign, status='pending')
-        print('here 3')
         for adtext in oldAdtext:
             setattr(adtext, 'status', 'refused')
             adtext.save()
@@ -403,6 +398,7 @@ class MessageSerializerAudio(serializers.ModelSerializer):
 
 class MessageSerializer(serializers.ModelSerializer):
     #sender = UserSerializer()
+    adText = MessageSerializerAdtext
     plays = PlaysSerializer()
     audio = AudioSerializer()
     proposition = PropositionSerializer()
