@@ -19,6 +19,8 @@ from django.shortcuts import redirect
 from dry_rest_permissions.generics import DRYPermissions
 from pyPodcastParser.Podcast import Podcast as PodcastParser
 import requests
+from django.core.files.base import ContentFile
+import os
 import boto3
 from botocore.exceptions import ClientError
 
@@ -493,8 +495,16 @@ class NextCompaignStep(APIView):
                 setattr(compaign, 'status', compaignStatus)
                 setattr(compaign, 'actionFor', compaign.podcast.author)
                 audio = Audio.objects.get(message__compaign=compaign, status='pending')
-                setattr(compaign, 'audio', audio.audioFile)
-                setattr(compaign, 'audioFile', audio.audioFileName)
+                #filecontent = ContentFile(audio.audioFile.file.read())
+                #filename = os.path.split(audio.audioFile.file.name)[-1]
+                #compaign.audioFile.save(filename, filecontent)
+                #compaign.save()
+
+                # VERY IMPORTANT !
+                #compaign.file.close()
+
+                setattr(compaign, 'audioFile', audio.audioFile)
+                setattr(compaign, 'audioFileName', audio.audioFileName)
                 setattr(audio, 'status', 'accepted')
                 message = Message.objects.create(compaign=compaign,text='Enregistrement validé',sender=request.user,type='Notification')
                 message.save()
