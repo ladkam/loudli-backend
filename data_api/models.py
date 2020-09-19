@@ -301,7 +301,7 @@ class Compaign(models.Model):
     notificationsPodcaster = models.IntegerField(default=0)
     targetGender = models.ForeignKey(Gender,blank=True,null=True,on_delete=models.CASCADE)
     compaignPicture = models.ImageField(blank=True,null=True,upload_to=scramble_uploaded_filename)
-    startDateValidated = models.DateField(auto_now=True)
+    startDateValidated = models.DateField(blank=True,null=True)
     messageFor = models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE,related_name='messageFor')
     actionFor = models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE,related_name='action')
     advancement = models.IntegerField(default=0)
