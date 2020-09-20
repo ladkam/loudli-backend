@@ -29,8 +29,7 @@ class UserProfileInfo(models.Model):
     city = models.CharField(max_length=30,blank=True,null=True)
     country = models.CharField(max_length=30,blank=True,null=True)
     phone = models.CharField(max_length=15,blank=True,null=True)
-
-    company = models.CharField(max_length=30)
+    company = models.CharField(max_length=30,blank=True,null=True)
     type = models.CharField(max_length=30)
     profilePicture = models.ImageField(blank=True,upload_to=scramble_uploaded_filename)
 
