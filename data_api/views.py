@@ -96,7 +96,7 @@ class UserDetails(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     def get_queryset(self):
         user = self.request.user
-        return UserProfileInfo.objects.filter(id=user.id)
+        return User.objects.filter(id=user.id)
 
 class AgeGroupList(generics.ListAPIView):
     queryset = AgeGroup.objects.all()

@@ -46,7 +46,7 @@ urlpatterns = [
     path('Tag/', views.TagList.as_view()),
     path('Interest/', views.InterestList.as_view()),
     path('City/', views.CityList.as_view()),
-    path('/Users/<int:pk>/', views.UserDetails.as_view()),
+    path('users/<int:pk>/', views.UserDetails.as_view()),
     path('Country/', views.CountryList.as_view()),
     path('UpdatePodcastEpisodes/', views.UpdatePodcastEpisodes.as_view()),
     path('Messages/',views.MessagesList.as_view()),
