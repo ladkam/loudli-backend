@@ -25,6 +25,11 @@ class UserProfileInfo(models.Model):
     user = models.OneToOneField(User,related_name='profile',on_delete=models.CASCADE)
     first_name =models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
+    street = models.TextField(max_length=200,blank=True,null=True)
+    city = models.CharField(max_length=30,blank=True,null=True)
+    country = models.CharField(max_length=30,blank=True,null=True)
+    phone = models.CharField(max_length=15,blank=True,null=True)
+
     company = models.CharField(max_length=30)
     type = models.CharField(max_length=30)
     profilePicture = models.ImageField(blank=True,upload_to=scramble_uploaded_filename)
