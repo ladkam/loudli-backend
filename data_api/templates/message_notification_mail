@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<a lang="en">
+
+<body>
+
+Bonjour {{name}},
+<br>
+<br>
+Vous avez reçu un nouveau message de la part de {{sender}} sur la campagne {{campaign}}. Clicker <a href="http://localhost:8080/"> ici </a>  pour le consulter.
+<br>
+<br>
+Bonne journée,
+l'équipe de Loudli
+
+
+</body>
+</html>
