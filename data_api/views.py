@@ -456,7 +456,7 @@ class NextCompaignStep(APIView):
                 setattr(compaign, 'status', compaignStatus)
                 setattr(compaign,'actionFor',request.user)
                 compaign.save()
-                message = Message.objects.create(compaign=compaign, text='a accepté votre demande', sender=request.user,type='Notification')
+                message = Message.objects.create(compaign=compaign, text='accepté la demande', sender=request.user,type='Notification')
                 message.save()
             if (compaignStatusId == 2):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
@@ -469,7 +469,7 @@ class NextCompaignStep(APIView):
                 setattr(compaign, 'actionFor', compaign.announcer)
                 setattr(compaign, 'startedExchange', False)
 
-                message = Message.objects.create(compaign=compaign,text='a accepté votre devis',sender=request.user,type='Notification')
+                message = Message.objects.create(compaign=compaign,text='accepté le devis',sender=request.user,type='Notification')
                 message.save()
                 proposition.save()
                 compaign.save()
@@ -477,7 +477,7 @@ class NextCompaignStep(APIView):
             if (compaignStatusId == 3):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
                 pitch = request.data.__getitem__('pitch')
-                message = Message.objects.create(compaign=compaign,text='vous envoyé un pitch pour la campagne',sender=request.user,type='Notification')
+                message = Message.objects.create(compaign=compaign,text='envoyé un pitch pour la campagne',sender=request.user,type='Notification')
                 setattr(compaign, 'status', compaignStatus)
                 setattr(compaign, 'actionFor', compaign.podcast.author)
                 setattr(compaign, 'pitch', pitch)
@@ -492,7 +492,7 @@ class NextCompaignStep(APIView):
                 setattr(compaign, 'adText', AdText.text)
                 setattr(AdText, 'status', 'accepted')
                 setattr(compaign, 'actionFor', compaign.podcast.author)
-                message = Message.objects.create(compaign=compaign,text="a validé le texte de l'annonce",sender=request.user,type='Notification')
+                message = Message.objects.create(compaign=compaign,text="validé le texte de l'annonce",sender=request.user,type='Notification')
                 message.save()
                 AdText.save()
                 compaign.save()
@@ -513,7 +513,7 @@ class NextCompaignStep(APIView):
                 setattr(compaign, 'audioFile', audio.audioFile)
                 setattr(compaign, 'audioFileName', audio.audioFileName)
                 setattr(audio, 'status', 'accepted')
-                message = Message.objects.create(compaign=compaign,text="a validé l'enregistrement",sender=request.user,type='Notification')
+                message = Message.objects.create(compaign=compaign,text="validé l'enregistrement",sender=request.user,type='Notification')
                 message.save()
                 audio.save()
                 compaign.save()
@@ -526,7 +526,7 @@ class NextCompaignStep(APIView):
                 setattr(compaign,'actionFor', compaign.podcast.author)
                 date = Date.objects.get(message__compaign=compaign, status='pending')
                 setattr(date, 'status', 'accepted')
-                message = Message.objects.create(compaign=compaign,text='a choisi la date du début de la campagne',sender=request.user,type='Notification')
+                message = Message.objects.create(compaign=compaign,text='choisi la date du début de la campagne',sender=request.user,type='Notification')
                 message.save()
                 date.save()
                 compaign.save()
@@ -538,7 +538,7 @@ class NextCompaignStep(APIView):
                     ep = Ep.objects.create(podcast=podcast,**episode)
                     compaign.ep.add(ep.id)
                 compaign.save()
-                message = Message.objects.create(compaign=compaign,text='a choisi les épisodes',sender=request.user,type='Notification')
+                message = Message.objects.create(compaign=compaign,text='choisi les épisodes',sender=request.user,type='Notification')
                 message.save()
             if (compaignStatusId == 8):
                 compaignStatus = CompaignStatus.objects.get(id=compaignStatusId + 1)
@@ -548,7 +548,7 @@ class NextCompaignStep(APIView):
                 compaign = Compaign.objects.get(id=id)
 
                 compaign.save()
-                message = Message.objects.create(compaign=compaign, text="a atteint l'objectif des écoutes",
+                message = Message.objects.create(compaign=compaign, text="atteint l'objectif des écoutes",
                                                  sender=request.user, type='Notification')
                 message.save()
 
@@ -559,7 +559,7 @@ class NextCompaignStep(APIView):
                 compaign = Compaign.objects.get(id=id)
 
                 compaign.save()
-                message = Message.objects.create(compaign=compaign, text='a cloturé la campagne',
+                message = Message.objects.create(compaign=compaign, text='cloturé la campagne',
                                                  sender=request.user, type='Notification')
                 message.save()
 
