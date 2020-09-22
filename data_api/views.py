@@ -388,6 +388,8 @@ class MessagesList(generics.ListCreateAPIView):
         campaign = Compaign.objects.get(id=compaign)
         if userType == 'podcaster':
             destination = campaign.announcer.email
+        else:
+            destination = campaign.podcast.author.email
 
         d = {'name': campaign.announcer.first_name, 'campaign': campaign.name, 'sender': self.request.user.first_name}
         htmly = get_template('message_notification_mail')
