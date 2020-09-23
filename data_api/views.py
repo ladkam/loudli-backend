@@ -12,7 +12,7 @@ from .serializers import UserSerializer, \
     , EducationSerializer, MessageSerializerDatePublication, MessageSerializerAudio, \
     MessageSerializerOnly, CountrySerializer, PropositionSerializer, CitySerializer, InterestSerializer, \
     PropositionSerializer, GenderSerializer, attachedSerializer, TagSerializer, MyTokenObtainPairSerializer, \
-    CompaignSerializerSummary, PlaysSerializer, MessageSerializerAdtext
+    CompaignSerializerSummary, PlaysSerializer, MessageSerializerAdtext,PodcastsSerializerPost
 from rest_framework import generics
 from .models import Ep, Date, Audio, CompaignStatus, Proposition, Podcast, Tag, UserProfileInfo, attached, Gender, \
     Compaign, PodcastStatGeneral, EpisodeImported, Episode, EpisodeStat, Message, AgeGroup, Education, Country, City, \
@@ -392,7 +392,7 @@ class MessagesList(generics.ListCreateAPIView):
             destination = campaign.podcast.author.email
 
         d = {'name': campaign.announcer.first_name, 'campaign': campaign.name, 'sender': self.request.user.first_name}
-        htmly = get_template('message_notification_mail')
+        htmly = get_template('mail.html')
         html_content = htmly.render(d)
 
         send_mail(
