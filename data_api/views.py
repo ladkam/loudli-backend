@@ -486,6 +486,8 @@ class EpisodesPodcast(APIView):
 
         for item in items:
             entry = {}
+            entry['Date']=item.published_date
+            entry['Durée']=item.itunes_duration
             entry['name'] = item.title
             entry['audio'] = item.enclosure_url
             entry['image'] = item.itune_image
