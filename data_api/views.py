@@ -379,7 +379,7 @@ class MessagesList(generics.ListCreateAPIView):
             return Message.objects.filter(compaign__podcast__author=user.id)
         else:
             return Message.objects.filter(compaign__announcer=user.id)
-
+    '''   
     def perform_create(self, serializer):
         instance = serializer.save()
 
@@ -405,6 +405,7 @@ class MessagesList(generics.ListCreateAPIView):
         )
 
         serializer.save()
+        '''
 
 
 class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
