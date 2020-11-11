@@ -286,6 +286,7 @@ class CompaignStatus(models.Model):
 class Ep(models.Model):
     podcast = models.ForeignKey(Podcast,on_delete=models.CASCADE)
     name = models.TextField(max_length=1000,null=True,blank=True)
+    Date = models.TextField(max_length=1000,null=True,blank=True)
     audio = models.URLField(max_length=500)
     image = models.URLField(max_length=500)
     text = models.TextField(max_length=2000,null=True,blank=True)
