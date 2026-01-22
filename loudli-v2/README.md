@@ -45,12 +45,56 @@ loudli-v2/
 
 ## Getting Started
 
-### Prerequisites
+### Option 1: Docker (Recommended)
+
+The easiest way to run Loudli - no need to install Python, Node.js, or PostgreSQL.
+
+**Prerequisites:** Docker and Docker Compose
+
+```bash
+cd loudli-v2
+
+# Start all services (builds on first run)
+docker-compose up
+
+# Or run in background
+docker-compose up -d
+```
+
+That's it! Open:
+- **Frontend:** http://localhost:3000
+- **Backend API:** http://localhost:8000
+- **API Docs:** http://localhost:8000/api/v1/docs
+
+**Other Docker commands:**
+```bash
+# Stop all services
+docker-compose down
+
+# Rebuild after code changes
+docker-compose up --build
+
+# View logs
+docker-compose logs -f
+
+# Reset database (delete volume)
+docker-compose down -v
+```
+
+**Development with hot reload:**
+```bash
+# Uses mounted volumes for live code updates
+docker-compose -f docker-compose.dev.yml up
+```
+
+### Option 2: Manual Setup
+
+#### Prerequisites
 - Python 3.11+
 - Node.js 18+
 - PostgreSQL 14+
 
-### Backend Setup
+#### Backend Setup
 
 1. Create a virtual environment:
 ```bash
