@@ -259,4 +259,152 @@ export const campaignsApi = {
   },
 }
 
+// Admin API
+export interface AdminStats {
+  total_users: number
+  total_podcasters: number
+  total_advertisers: number
+  total_podcasts: number
+  total_campaigns: number
+  active_campaigns: number
+  total_matches: number
+  pending_matches: number
+}
+
+export interface SystemSetting {
+  id: number
+  key: string
+  value: string | null
+  is_secret: boolean
+  description: string | null
+  updated_at: string
+}
+
+export interface AdminUser {
+  id: number
+  email: string
+  is_active: boolean
+  is_superuser: boolean
+  created_at: string
+  user_type: string | null
+  first_name: string | null
+  last_name: string | null
+  company_name: string | null
+}
+
+export interface Match {
+  id: number
+  podcast_id: number
+  advertiser_id: number
+  match_score: number | null
+  match_reason: string | null
+  status: string
+  created_at: string
+  updated_at: string
+  podcast_title?: string | null
+  podcast_author?: string | null
+  advertiser_email?: string | null
+  advertiser_company?: string | null
+}
+
+export const adminApi = {
+  // Stats
+  getStats: async (): Promise<AdminStats> => {
+    const response = await api.get<AdminStats>('/admin/stats')
+    return response.data
+  },
+
+  // Settings
+  getSettings: async (): Promise<SystemSetting[]> => {
+    const response = await api.get<SystemSetting[]>('/admin/settings')
+    return response.data
+  },
+
+  createSetting: async (data: {
+    key: string
+    value?: string
+    is_secret?: boolean
+    description?: string
+  }): Promise<SystemSetting> => {
+    const response = await api.post<SystemSetting>('/admin/settings', data)
+    return response.data
+  },
+
+  updateSetting: async (key: string, data: { value?: string; description?: string }): Promise<SystemSetting> => {
+    const response = await api.patch<SystemSetting>(`/admin/settings/${key}`, data)
+    return response.data
+  },
+
+  deleteSetting: async (key: string): Promise<void> => {
+    await api.delete(`/admin/settings/${key}`)
+  },
+
+  // Users
+  getUsers: async (params?: {
+    skip?: number
+    limit?: number
+    user_type?: string
+    search?: string
+  }): Promise<AdminUser[]> => {
+    const response = await api.get<AdminUser[]>('/admin/users', { params })
+    return response.data
+  },
+
+  toggleUserActive: async (userId: number): Promise<{ id: number; is_active: boolean }> => {
+    const response = await api.patch<{ id: number; is_active: boolean }>(
+      `/admin/users/${userId}/toggle-active`
+    )
+    return response.data
+  },
+
+  toggleUserAdmin: async (userId: number): Promise<{ id: number; is_superuser: boolean }> => {
+    const response = await api.patch<{ id: number; is_superuser: boolean }>(
+      `/admin/users/${userId}/make-admin`
+    )
+    return response.data
+  },
+
+  // Matches
+  getMatches: async (params?: {
+    skip?: number
+    limit?: number
+    status_filter?: string
+  }): Promise<Match[]> => {
+    const response = await api.get<Match[]>('/admin/matches', { params })
+    return response.data
+  },
+
+  createMatch: async (data: {
+    podcast_id: number
+    advertiser_id: number
+    match_score?: number
+    match_reason?: string
+  }): Promise<Match> => {
+    const response = await api.post<Match>('/admin/matches', data)
+    return response.data
+  },
+
+  updateMatch: async (matchId: number, data: { status?: string; match_score?: number; match_reason?: string }): Promise<Match> => {
+    const response = await api.patch<Match>(`/admin/matches/${matchId}`, data)
+    return response.data
+  },
+
+  deleteMatch: async (matchId: number): Promise<void> => {
+    await api.delete(`/admin/matches/${matchId}`)
+  },
+
+  // Podcasts (admin view)
+  getAllPodcasts: async (params?: { skip?: number; limit?: number }): Promise<any[]> => {
+    const response = await api.get<any[]>('/admin/podcasts', { params })
+    return response.data
+  },
+
+  togglePodcastActive: async (podcastId: number): Promise<{ id: number; is_active: boolean }> => {
+    const response = await api.patch<{ id: number; is_active: boolean }>(
+      `/admin/podcasts/${podcastId}/toggle-active`
+    )
+    return response.data
+  },
+}
+
 export default api

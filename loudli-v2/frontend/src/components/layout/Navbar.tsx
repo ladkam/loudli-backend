@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Mic2, Menu, X, User, LogOut, LayoutDashboard } from 'lucide-react'
+import { Mic2, Menu, X, User, LogOut, LayoutDashboard, Shield } from 'lucide-react'
 import { useState } from 'react'
 import { useAuthStore } from '@/lib/store'
 import { Button } from '@/components/ui/Button'
@@ -54,6 +54,15 @@ export function Navbar() {
                     <span className="font-medium">{user?.profile?.first_name || user?.email}</span>
                   </button>
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                    {user?.is_superuser && (
+                      <Link
+                        href="/admin"
+                        className="block px-4 py-2 text-gray-700 hover:bg-gray-50 flex items-center"
+                      >
+                        <Shield className="h-4 w-4 mr-2 text-yellow-500" />
+                        Admin Panel
+                      </Link>
+                    )}
                     <Link
                       href="/profile"
                       className="block px-4 py-2 text-gray-700 hover:bg-gray-50"
@@ -118,6 +127,14 @@ export function Navbar() {
                 >
                   Dashboard
                 </Link>
+                {user?.is_superuser && (
+                  <Link
+                    href="/admin"
+                    className="block text-yellow-600 hover:text-yellow-700 font-medium"
+                  >
+                    Admin Panel
+                  </Link>
+                )}
                 <button
                   onClick={handleLogout}
                   className="block text-red-600 hover:text-red-700 font-medium"
