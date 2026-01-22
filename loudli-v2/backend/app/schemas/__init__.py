@@ -1,0 +1,68 @@
+from app.schemas.user import (
+    User,
+    UserCreate,
+    UserUpdate,
+    UserProfile,
+    UserProfileCreate,
+    UserProfileUpdate,
+    Token,
+    LoginRequest,
+    RefreshTokenRequest,
+)
+from app.schemas.podcast import (
+    Podcast,
+    PodcastCreate,
+    PodcastUpdate,
+    PodcastWithEpisodes,
+    PodcastSearchResult,
+    PodcastImportRequest,
+    Episode,
+    EpisodeCreate,
+    EpisodeUpdate,
+    Category,
+    CategoryCreate,
+)
+from app.schemas.campaign import (
+    Campaign,
+    CampaignCreate,
+    CampaignUpdate,
+    CampaignWithDetails,
+    CampaignStats,
+    Message,
+    MessageCreate,
+    Attachment,
+)
+
+__all__ = [
+    # User
+    "User",
+    "UserCreate",
+    "UserUpdate",
+    "UserProfile",
+    "UserProfileCreate",
+    "UserProfileUpdate",
+    "Token",
+    "LoginRequest",
+    "RefreshTokenRequest",
+    # Podcast
+    "Podcast",
+    "PodcastCreate",
+    "PodcastUpdate",
+    "PodcastWithEpisodes",
+    "PodcastSearchResult",
+    "PodcastImportRequest",
+    "Episode",
+    "EpisodeCreate",
+    "EpisodeUpdate",
+    "Category",
+    "CategoryCreate",
+    # Campaign
+    "Campaign",
+    "CampaignCreate",
+    "CampaignUpdate",
+    "CampaignWithDetails",
+    "CampaignStats",
+    "Message",
+    "MessageCreate",
+    "Attachment",
+]

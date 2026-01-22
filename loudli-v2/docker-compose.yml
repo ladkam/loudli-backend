@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: loudli-db
+    environment:
+      POSTGRES_USER: loudli
+      POSTGRES_PASSWORD: loudli_password
+      POSTGRES_DB: loudli
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U loudli"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: loudli-backend
+    environment:
+      - SECRET_KEY=docker-dev-secret-key-change-in-production
+      - DATABASE_URL=postgresql+asyncpg://loudli:loudli_password@db:5432/loudli
+      - CORS_ORIGINS=["http://localhost:3000","http://localhost"]
+      - DEBUG=true
+      # Optional: Add your Podcast Index API keys
+      # - PODCAST_INDEX_API_KEY=your-key
+      # - PODCAST_INDEX_API_SECRET=your-secret
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Next.js Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+    container_name: loudli-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
